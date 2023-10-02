@@ -3,6 +3,8 @@ import '@/App.css'
 import RouteView from '@/pages/route-view';
 import { useEffect, useState } from "react";
 import { BlockedDrawer } from '@/components/BlockedNavbar';
+import { toast } from 'react-toastify';
+import { getDispatcher } from '@/services/ApiServices';
 
 function App() {
   const { isAuthenticated, user, isLoading, loginWithRedirect} = useAuth0();
@@ -34,16 +36,11 @@ function App() {
             return;
           }
 
-          setPlanSvcMainPort(res?.port);
-          setIsAdm(res?.role === "A");
+          // setPlanSvcMainPort(res?.port);
         })
         .catch(() => {
           setServerError(true);
-          setSnackbar({
-            openSnackbar: true,
-            message: "Hubo un error al intentar recuperar los datos del usuario",
-            severity:"error",
-          })
+          toast.error("Hubo un error al intentar recuperar los datos del usuario")
         })
         .finally(() => {
            setIsCheckingUser(false);
@@ -77,7 +74,6 @@ function App() {
        <h1>Ocurrió un error inesperado, reintente nuevamente.</h1> 
 
        <h2>Pruebe redirigiendo la web desde el siguiente boton y recargando la pagina:</h2>
-       <button onClick={() => handleVerify()}>Verificar certificado</button>
     </BlockedDrawer>
   }
 

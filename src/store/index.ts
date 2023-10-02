@@ -1,4 +1,4 @@
-import { AppStore, RouteStore } from '@/types/storeTypes'
+import { AppStore } from '@/types/storeTypes'
 import { StoreApi, UseBoundStore, create } from 'zustand'
 
 export const useAppStore: UseBoundStore<StoreApi<AppStore>> = create((set) => ({

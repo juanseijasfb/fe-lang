@@ -1,4 +1,3 @@
-import { NodeModel } from "@minoru/react-dnd-treeview"
 import { DriverRestrictionsConfiguration, AppSnackbar, ModalContent } from "./types"
 
 export type RouteStore = {
@@ -27,19 +26,6 @@ export type AppStore = {
     setPlanSvcMainPort: (usrPort: number) => void,
     setIsAdm: (isAdm: boolean) => void,
     setSnackbar: (newSnackbarData: object) => void,
-}
-
-export type TreeStore = {
-    treeData: Array<NodeModel<object>>,
-    selectedTreeNode: any,
-    outdatedTables: object,
-    loadingTreeView: boolean,
-    anchorElNav: Element | null,
-    setTreeData: (selectedNode: any) => void,
-    setSelectedTreeNode: (selectedNode: any) => void,
-    setOutdatedTables: (possibilities: any) => void,
-    setLoadingTreeView: (isLoadingTree: boolean) => void,
-    setAnchorElNav: (element: Element | null) => void,
 }
 
 export type FormStore = {

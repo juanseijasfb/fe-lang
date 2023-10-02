@@ -1,5 +1,4 @@
 import { AlertColor } from "@mui/material"
-import { DataGridProProps, GridCellParams, GridColumnVisibilityModel } from "@mui/x-data-grid-pro";
 
 export type RestrictionPayload = {
     subject: string,
@@ -43,26 +42,6 @@ export type ContextMenu = {
     mouseX: number;
     mouseY: number;
 }
-
-export interface TableProps extends DataGridProProps {
-    pageSize?: number
-    contextItem?: JSX.Element | JSX.Element[] | undefined
-    contextMenu?: ContextMenu | null
-    open?: boolean | null
-    openMenu?: (bool: boolean) => void,
-    handleClose: () => void
-    handleContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-    orderKey: string
-    clickFields?: string[]
-    currentCell?: GridCellParams | null
-    setCurrentCell?: (props: GridCellParams) => void
-    fieldsData?: any,
-    setSortModel?: (prop: any) => void,
-    visibilityModel: GridColumnVisibilityModel
-    loading?: boolean
-    handleUpdateVisibilityModel: (visibilityObj: any) => void
-}
-
 
 export type TConfirmationModal = {
     open?: boolean;

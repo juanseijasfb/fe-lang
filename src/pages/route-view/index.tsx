@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 
-const RouteView = () => {
+const RouteView = ({children}) => {
 
     return <Box sx={{paddingTop:"50px"}}>
+        {children}
     </Box>
 };
 

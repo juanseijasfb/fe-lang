@@ -8,9 +8,6 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
-import { useRouteStore } from "@/store";
-import { RouteStore, TreeStore } from "@/types/storeTypes";
-
 let settings: Menu[] = [];
 
 type Menu = {
@@ -22,7 +19,6 @@ type Menu = {
 const AdminMenu = () => {
     const { isAuthenticated } = useAuth0();
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const { setRightClickRender }: RouteStore = useRouteStore();
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
 
@@ -32,28 +28,24 @@ const AdminMenu = () => {
                 id: 1,
                 value: "Create Dispatcher",
                 exec: () => {
-                  setRightClickRender("create-dispatcher");
                 },
               },
               {
                 id: 2,
                 value: "Create driver",
                 exec: () => {
-                  setRightClickRender("create-driver");
                 },
               },
               {
                 id: 3,
                 value: "Create carrier",
                 exec: () => {
-                  setRightClickRender("create-carrier");
                 },
               },
               {
                 id: 4,
                 value: "Add carrier restriction",
                 exec: () => {
-                  setRightClickRender("add-carrier-restriction");
                 },
               },
               
@@ -61,7 +53,6 @@ const AdminMenu = () => {
                 id: 5,
                 value: "Remove carrier restriction",
                 exec: () => {
-                  setRightClickRender("remove-carrier-restriction");
                 },
               },
             ]

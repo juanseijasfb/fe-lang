@@ -2,10 +2,10 @@ import { useMediaQuery } from 'react-responsive'
 
 import { Box, Typography } from "@mui/material";
 
-import fleetBoosterLogo from '@/assets/logo-fleetbooster.png';
+import fleetBoosterLogo from '@/assets/logo.png';
 import { useAppStore } from '@/store';
 
-const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
+const Layout: React.FC<{children: React.ReactNode}>  = () => {
 
     const {appLockedLoad, appLockedLoadMessage} = useAppStore();
 

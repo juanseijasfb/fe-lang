@@ -1,13 +1,9 @@
 
 import i18next from 'i18next';
-import { useAuth0 } from '@auth0/auth0-react';
-
-// import skylordWhite from '@/assets/logo-skylord-blanco.png';
-import fleetBoosterWhite from '@/assets/FB3.png';
+import fleetBoosterWhite from '@/assets/logo.png';
 
 import { 
-  Button, Select, Typography, 
-  Box, MenuItem
+  Select, Box, MenuItem
 } from '@mui/material';
 
 import "./navbar.css";
@@ -18,7 +14,6 @@ import { useAppStore } from '@/store';
 import { AppStore } from '@/types/storeTypes';
 
 function Navbar() {
-  const {isAuthenticated} = useAuth0();
   const {selectedLang, setSelectedLang, isAdm} : AppStore = useAppStore();
 
   return (
