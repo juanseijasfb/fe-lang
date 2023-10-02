@@ -2,10 +2,11 @@ import { useMediaQuery } from 'react-responsive'
 
 import { Box, Typography } from "@mui/material";
 
-import fleetBoosterLogo from '@/assets/logo.png';
+import fleetBoosterLogo from '@/assets/logo-bg.png';
 import { useAppStore } from '@/store';
+import NavBarContainer from '@/components/BlockedNavbar';
 
-const Layout: React.FC<{children: React.ReactNode}>  = () => {
+const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
 
     const {appLockedLoad, appLockedLoadMessage} = useAppStore();
 
@@ -34,16 +35,16 @@ const Layout: React.FC<{children: React.ReactNode}>  = () => {
             }}>
                 <Box sx={{display:'flex', flexDirection:'column', gap:'20px', alignItems:'center'}}>
                     {/* <CircularProgress sx={{zoom: 3}} /> */}
-                    <img className="animate__animated animate__pulse animate__infinite" src={fleetBoosterLogo} alt="FleetBooster logo" height="300" />
+                    <img src={fleetBoosterLogo} alt="FleetBooster logo" height="300" />
                     <Typography sx={{fontWeight:'bold'}}> {appLockedLoadMessage} </Typography>
                 </Box>
             </Box>
         )}
-        <Box className="image-container">
-            <Box className="fleet-booster-container">
-                {!appLockedLoad && <img className="animate__animated animate__zoomIn fleet-booster-logo" 
-                src={fleetBoosterLogo} alt="FleetBooster logo" height="100" />}
-            </Box>
+                   
+        <Box sx={{height:"100vh", width:"100vw"}}>
+            <NavBarContainer navbarBlocked={false}>
+                {children}
+            </NavBarContainer>
         </Box>
     </>
 

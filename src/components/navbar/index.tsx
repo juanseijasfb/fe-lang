@@ -8,13 +8,12 @@ import {
 
 import "./navbar.css";
 import UserMenu from './user-menu';
-import AdminMenu from './admin-menu';
 
 import { useAppStore } from '@/store';
 import { AppStore } from '@/types/storeTypes';
 
-function Navbar() {
-  const {selectedLang, setSelectedLang, isAdm} : AppStore = useAppStore();
+function Navbar({navbarBlocked = true}) {
+  const {selectedLang, setSelectedLang} : AppStore = useAppStore();
 
   return (
       <Box sx={{padding: "0px 20px 0px 20px", display:'flex', width: "100%"}}>
@@ -30,18 +29,20 @@ function Navbar() {
               
             </Box>
 
-          {/* right side */}
-          <Box sx={{ display: "flex", flex:"auto", justifyContent:'end', alignItems:"center", gap:"20px"}}>
-              {isAdm && <AdminMenu />}
-              <UserMenu />
-              <Select onChange={(e) => {
-                i18next.changeLanguage(e.target.value);
-                setSelectedLang(e.target.value);
-              }} value={selectedLang}>
-                <MenuItem value="es">ES</MenuItem>
-                <MenuItem value="en">EN</MenuItem>
-              </Select>
-          </Box>
+            {!navbarBlocked && <>
+              {/* right side */}
+              <Box sx={{ display: "flex", flex:"auto", justifyContent:'end', alignItems:"center", gap:"20px"}}>
+                  <UserMenu />
+                  <Select onChange={(e) => {
+                    i18next.changeLanguage(e.target.value);
+                    setSelectedLang(e.target.value);
+                  }} value={selectedLang}>
+                    <MenuItem value="es">ES</MenuItem>
+                    <MenuItem value="en">EN</MenuItem>
+                  </Select>
+              </Box>
+            </>}
+          
       </Box>
   );
 }
