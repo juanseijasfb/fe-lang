@@ -7,8 +7,6 @@ import {
 } from '@mui/material';
 
 import "./navbar.css";
-import UserMenu from './user-menu';
-
 import { useAppStore } from '@/store';
 import { AppStore } from '@/types/storeTypes';
 
@@ -16,7 +14,7 @@ function Navbar({navbarBlocked = true}) {
   const {selectedLang, setSelectedLang} : AppStore = useAppStore();
 
   return (
-      <Box sx={{padding: "0px 20px 0px 20px", display:'flex', width: "100%"}}>
+      <Box sx={{padding: "0px 20px 0px 20px", display:'flex', width: "100%", background:'rgb(25 117 210)', color:'white'}}>
 
           {/* left side */}
             <Box sx={{marginRight:"20px", display: "flex", justifyContent:"center", alignItems:"center"}}>
@@ -32,7 +30,6 @@ function Navbar({navbarBlocked = true}) {
             {!navbarBlocked && <>
               {/* right side */}
               <Box sx={{ display: "flex", flex:"auto", justifyContent:'end', alignItems:"center", gap:"20px"}}>
-                  <UserMenu />
                   <Select onChange={(e) => {
                     i18next.changeLanguage(e.target.value);
                     setSelectedLang(e.target.value);

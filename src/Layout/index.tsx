@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 
 import fleetBoosterLogo from '@/assets/logo-bg.png';
 import { useAppStore } from '@/store';
-import NavBarContainer from '@/components/BlockedNavbar';
 
 const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
 
@@ -41,10 +40,8 @@ const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
             </Box>
         )}
                    
-        <Box sx={{height:"100vh", width:"100vw"}}>
-            <NavBarContainer navbarBlocked={false}>
-                {children}
-            </NavBarContainer>
+        <Box sx={{height:"100vh", width:"97vw"}}>
+            {children}
         </Box>
     </>
 

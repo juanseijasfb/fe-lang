@@ -1,10 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import '@/App.css'
-import RouteView from '@/pages/route-view';
 import { useEffect, useState } from "react";
-import { BlockedDrawer } from '@/components/BlockedNavbar';
-import { toast } from 'react-toastify';
 import { getDispatcher } from '@/services/ApiServices';
+import Home from './pages/home';
+import NavBarContainer from './components/BlockedNavbar';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { isAuthenticated, user, isLoading, loginWithRedirect} = useAuth0();
@@ -57,33 +59,33 @@ function App() {
   }
    
   if(isLoading) {
-    return <BlockedDrawer> <h1> Cargando estado de sesión...</h1> </BlockedDrawer> 
+    return <NavBarContainer> <h1> Cargando estado de sesión...</h1> </NavBarContainer> 
  }
 
  if(!isAuthenticated){
     loginWithRedirect();
-    return <BlockedDrawer> <h1> Loggeandose a la plataforma... </h1> </BlockedDrawer> 
+    return <NavBarContainer> <h1> Loggeandose a la plataforma... </h1> </NavBarContainer> 
  }
 
   if(isCheckingUser) {
-    return <BlockedDrawer> <h1> Cargando usuario desde el sistema...</h1> </BlockedDrawer>
+    return <NavBarContainer> <h1> Cargando usuario desde el sistema...</h1> </NavBarContainer>
   }
 
   if(serverError) {
-    return <BlockedDrawer>
+    return <NavBarContainer>
        <h1>Ocurrió un error inesperado, reintente nuevamente.</h1> 
 
        <h2>Pruebe redirigiendo la web desde el siguiente boton y recargando la pagina:</h2>
-    </BlockedDrawer>
+    </NavBarContainer>
   }
 
   if(!isAuthorized) {
-    return <BlockedDrawer> <h1>Usted no posee permisos para operar en la plataforma.</h1> </BlockedDrawer>
+    return <NavBarContainer> <h1>Usted no posee permisos para operar en la plataforma.</h1> </NavBarContainer>
   }
 
-  return <>
-    <RouteView />
-  </>
+  return <NavBarContainer navbarBlocked={false}>
+    <Home />
+  </NavBarContainer>
 }
 
 export default App
