@@ -8,6 +8,7 @@ import '@/index.css'
 import App from '@/App.tsx'
 import Layout from '@/Layout';
 import NavBarContainer from "@/components/BlockedNavbar";
+import CreateDriverForm from "@/components/forms/drivers/create";
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         path: "/create-driver",
         element: <Layout> 
             <NavBarContainer navbarBlocked={false}>
-                create driver
+                <CreateDriverForm />
             </NavBarContainer>
         </Layout>,
         errorElement: <Layout>
