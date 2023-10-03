@@ -40,7 +40,7 @@ const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
             </Box>
         )}
                    
-        <Box sx={{height:"100vh", width:"97vw"}}>
+        <Box sx={{height:"100vh", width:"100vw"}}>
             {children}
         </Box>
     </>
