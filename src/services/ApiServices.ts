@@ -30,7 +30,20 @@ export const createDriver = async (payload) => {
     })
         .then((x) => x.json())
         .then((res) => res)
-        .catch((err) => {
+        .catch(() => {
             throw new Error("Hubo un error al intentar crear el driver.");
         })
+};
+
+export const getDispatcher = async (userEmail) => {
+    return fetch(`${BASE_URL}/getDispatcher?dispatcher=${userEmail}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
 };
