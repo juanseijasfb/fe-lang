@@ -33,7 +33,6 @@ const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
                 zIndex: 1300,
             }}>
                 <Box sx={{display:'flex', flexDirection:'column', gap:'20px', alignItems:'center'}}>
-                    {/* <CircularProgress sx={{zoom: 3}} /> */}
                     <img src={fleetBoosterLogo} alt="FleetBooster logo" height="300" />
                     <Typography sx={{fontWeight:'bold'}}> {appLockedLoadMessage} </Typography>
                 </Box>

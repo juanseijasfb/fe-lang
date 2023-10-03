@@ -26,151 +26,62 @@ import {
 } from '@mui/material';
 import i18next from 'i18next';
 import fleetBoosterWhite from '@/assets/logo.png';
-
-const pages = {
-  drivers: [
-    {
-      key: "driver-1",
-      displayName: "Create Driver",
-      page: "/create-driver",
-    },
-    {
-      key: "driver-2",
-      displayName: "Delete Driver",
-      page: "/delete-driver",
-    }
-  ],
-  carriers: [
-    {
-      key: "carrier-1",
-      displayName: "Create carrier",
-      page: "/create-carrier",
-    },
-    {
-      key: "carrier-2",
-      displayName: "Delete carrier",
-      page: "/delete-carrier",
-    }
-  ],
-  dispatchers: [
-    {
-      key: "dispatcher-1",
-      displayName: "Create dispatcher",
-      page: "/create-dispatcher",
-    },
-    {
-      key: "dispatcher-2",
-      displayName: "Delete dispatcher",
-      page: "/delete-dispatcher",
-    }
-  ]
-  
-}
-
-const settings = ["Logout"];
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar({navbarBlocked = true}) {
   const {selectedLang, setSelectedLang} : AppStore = useAppStore();
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const {logout, user} = useAuth0();
+  
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+
   return (
     <AppBar position="static">
         <Toolbar>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left"
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" }
-              }}
-            >
-              {Object.keys(pages).map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
-          
           <img src={fleetBoosterWhite} alt="FleetBooster logo" width="175" height="50" />
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent:"center" }}>
-            {Object.keys(pages).map((page) => (
-              <Button
-                key={page}
-                onClick={handleOpenUserMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {/* {page}  */}
-                <Typography textAlign="center">{page}</Typography>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {pages[page]?.map((item) => (
-                    <MenuItem key={item.key} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{item.displayName}</Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent:"center"}}>
+              
+            {!navbarBlocked && <> 
+              <Button 
+                sx={{color:"white"}}
+                variant="outlined"
+                onClick={() => navigate("/create-driver")}>
+                Drivers
+              </Button>
+              <Button 
+                sx={{color:"white"}}
+                variant="outlined"
+                onClick={() => navigate("/create-carrier")}>
+                Carriers
+              </Button>
+              <Button 
+                sx={{color:"white"}}
+                variant="outlined"
+                onClick={() => navigate("/create-restriction")}>
+                Restrictions
+              </Button>
+            </>}
 
-              </Button> 
-            ))}
           </Box>
 
           {!navbarBlocked && <>
+
+
+            <Typography>Welcome "{user?.name}"</Typography> 
             {/* right side */}
-            <Box sx={{paddingRight:"20px"}}>
+            <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
               <Select onChange={(e) => {
                 i18next.changeLanguage(e.target.value);
                 setSelectedLang(e.target.value);
@@ -204,11 +115,15 @@ function Navbar({navbarBlocked = true}) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={() => {
+                  logout(
+                    {
+                      openUrl: false,
+                    }
+                  );
+                }}>
+                <Typography textAlign="center">Log out</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
