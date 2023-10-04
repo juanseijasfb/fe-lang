@@ -9,6 +9,7 @@ import App from '@/App.tsx'
 import Layout from '@/Layout';
 import NavBarContainer from "@/components/BlockedNavbar";
 import CreateDriverForm from "@/components/forms/drivers/create";
+import CreateCarrierForm from "@/components/forms/carriers/create";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
         path: "/create-carrier",
         element: <Layout> 
             <NavBarContainer navbarBlocked={false}>
-                create carrier 
+                <CreateCarrierForm />
             </NavBarContainer>
         </Layout>,
         errorElement: <Layout>

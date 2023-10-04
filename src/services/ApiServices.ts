@@ -47,3 +47,21 @@ export const getDispatcher = async (userEmail) => {
             throw new Error()
         });
 };
+
+export const addCarrier = async (payload) => {
+    return fetch(`${BASE_URL}/addCarrier`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "mcNumber": payload.mcNumber,
+            "carrierName": payload.carrierName,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch((err) => {
+            throw new Error("Hubo un error al intentar crear el carrier.");
+        })
+};
