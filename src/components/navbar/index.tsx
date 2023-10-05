@@ -69,6 +69,12 @@ function Navbar({navbarBlocked = true}) {
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
+                onClick={() => navigate("/create-dispatcher")}>
+                Dispatcher
+              </Button>
+              <Button 
+                sx={{color:"white"}}
+                variant="outlined"
                 onClick={() => navigate("/create-restriction")}>
                 Restrictions
               </Button>
@@ -79,7 +85,7 @@ function Navbar({navbarBlocked = true}) {
           {!navbarBlocked && <>
 
 
-            <Typography>Welcome "{user?.name}"</Typography> 
+            <Typography>{user?.name ? `Welcome ${user.name}`: ""}</Typography> 
             {/* right side */}
             <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
               <Select onChange={(e) => {

@@ -61,7 +61,27 @@ export const addCarrier = async (payload) => {
     })
         .then((x) => x.json())
         .then((res) => res)
-        .catch((err) => {
+        .catch(() => {
+            throw new Error("Hubo un error al intentar crear el carrier.");
+        })
+};
+
+export const addDispatcher = async (payload) => {
+    return fetch(`${BASE_URL}/addDispatcher`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "dispatcherEmail": payload.dispatcherEmail,
+            "role": payload.role,
+            "enabled": payload.enabled === "true" ? "1" : "0",
+            "port": payload.port,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
             throw new Error("Hubo un error al intentar crear el carrier.");
         })
 };

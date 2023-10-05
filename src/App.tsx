@@ -17,7 +17,6 @@ function App() {
   const [customError, setCustomError] = useState("");
    
   useEffect(() => {
-      
 
      const getDisp = async (email) => {
         await getDispatcher(email)
@@ -38,7 +37,6 @@ function App() {
             return;
           }
 
-          // setPlanSvcMainPort(res?.port);
         })
         .catch(() => {
           setServerError(true);
