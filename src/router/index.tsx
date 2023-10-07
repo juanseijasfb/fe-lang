@@ -25,9 +25,7 @@ const router = createBrowserRouter([
     {
         path: "/create-driver",
         element: <Layout> 
-            <NavBarContainer navbarBlocked={false}>
-                <CreateDriverForm />
-            </NavBarContainer>
+            <CreateDriverForm />
         </Layout>,
         errorElement: <Layout>
             <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
@@ -38,9 +36,7 @@ const router = createBrowserRouter([
     {
         path: "/create-carrier",
         element: <Layout> 
-            <NavBarContainer navbarBlocked={false}>
-                    <CreateCarrierForm />
-            </NavBarContainer>
+            <CreateCarrierForm />
         </Layout>,
         errorElement: <Layout>
             <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
@@ -51,9 +47,7 @@ const router = createBrowserRouter([
     {
         path: "/create-restriction",
         element: <Layout> 
-            <NavBarContainer navbarBlocked={false}>
                 create restriction 
-            </NavBarContainer>
         </Layout>,
         errorElement: <Layout>
             <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
@@ -64,9 +58,7 @@ const router = createBrowserRouter([
     {
         path: "/create-dispatcher",
         element: <Layout> 
-            <NavBarContainer navbarBlocked={false}>
-                <AddDispatcherForm /> 
-            </NavBarContainer>
+            <AddDispatcherForm /> 
         </Layout>,
         errorElement: <Layout>
             <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>

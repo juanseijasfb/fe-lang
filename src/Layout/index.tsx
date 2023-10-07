@@ -4,13 +4,15 @@ import { Box, Typography } from "@mui/material";
 
 import fleetBoosterLogo from '@/assets/logo-bg.png';
 import { useAppStore } from '@/store';
+import AuthWrapper from '@/Layout/authWrapper';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
 
     const {appLockedLoad, appLockedLoadMessage} = useAppStore();
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' })
-      
+
     return <>
     
         {isTabletOrMobile && (
@@ -40,7 +42,9 @@ const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
         )}
                    
         <Box sx={{height:"100vh", width:"100vw"}}>
-            {children}
+           <AuthWrapper>
+                {children}
+           </AuthWrapper>
         </Box>
     </>
 

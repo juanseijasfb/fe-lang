@@ -2,21 +2,6 @@ import "./navbar.css";
 import { useAppStore } from '@/store';
 import { AppStore } from '@/types/storeTypes';
 
-// function Navbar() {
-//   return (
-//       <Box sx={{padding: "0px 20px 0px 20px", display:'flex', width: "100%", background:'rgb(25 117 210)', color:'white'}}>
-
-//           {/* left side */}
-//             <Box sx={{marginRight:"20px", display: "flex", justifyContent:"center", alignItems:"center"}}>
-//               <Box sx={{display:'flex', marginRight:"20px"}}>
-//                 <img src={fleetBoosterWhite} alt="FleetBooster logo" width="175" height="50" />
-//               </Box>
-//             </Box>
-//       </Box>
-//   );
-// }
-
-
 import * as React from "react";
 import {
   AppBar, Box, Select, Toolbar, 
@@ -83,11 +68,14 @@ function Navbar({navbarBlocked = true}) {
           </Box>
 
           {!navbarBlocked && <>
+            
+            <Box sx={{paddingRight:"20px"}}>
+              <Typography>{user?.name ? `Welcome ${user.name}`: ""}</Typography> 
+            </Box>
 
 
-            <Typography>{user?.name ? `Welcome ${user.name}`: ""}</Typography> 
-            {/* right side */}
-            <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
+            {/* right side lang */}
+            {/* <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
               <Select onChange={(e) => {
                 i18next.changeLanguage(e.target.value);
                 setSelectedLang(e.target.value);
@@ -95,43 +83,43 @@ function Navbar({navbarBlocked = true}) {
                 <MenuItem value="es">ES</MenuItem>
                 <MenuItem value="en">EN</MenuItem>
               </Select>
+            </Box> */}
+         
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="User" src={user?.picture} />
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={() => {
+                    logout(
+                      {
+                        openUrl: false,
+                      }
+                    );
+                  }}>
+                  <Typography textAlign="center">Log out</Typography>
+                </MenuItem>
+              </Menu>
             </Box>
           </>}
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={() => {
-                  logout(
-                    {
-                      openUrl: false,
-                    }
-                  );
-                }}>
-                <Typography textAlign="center">Log out</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
         </Toolbar>
     </AppBar>
   );
