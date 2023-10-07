@@ -225,8 +225,8 @@ const CreateDriverForm = () => {
         </>
     }
 
-    return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px'}}>
-        <h1>Create new driver form</h1>
+    return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
+        <h1  style={{fontSize:"30px"}}>Create new driver form</h1>
         {fields.map((x, i) => {
             return <Box 
             key={i}
@@ -235,11 +235,9 @@ const CreateDriverForm = () => {
             </Box> 
         })}
        
-       <Box sx={{paddingBottom: "10px"}}>
-            {loading ? (<CircularProgress/>) : (
-                <Button variant='outlined' onClick={tryCreateDriver}>Create driver</Button>
-            )}
-       </Box>
+        {loading ? (<CircularProgress/>) : (
+            <Button variant='outlined' onClick={tryCreateDriver}>Create driver</Button>
+        )}
     </Box>
 
 }

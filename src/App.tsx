@@ -72,8 +72,6 @@ function App() {
   if(serverError) {
     return <NavBarContainer>
        <h1>Ocurrió un error inesperado, reintente nuevamente.</h1> 
-
-       <h2>Pruebe redirigiendo la web desde el siguiente boton y recargando la pagina:</h2>
     </NavBarContainer>
   }
 

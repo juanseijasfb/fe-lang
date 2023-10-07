@@ -112,7 +112,7 @@ const AddCarrierForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1>Create new carrier form</h1>
+        <h1 style={{fontSize:"30px"}}>Create new carrier form</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}

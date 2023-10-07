@@ -14,7 +14,7 @@ const AddDispatcherForm = () => {
         dispatcherEmail: "",
         role: "D",
         enabled: true,
-        port: "4999",
+        port: "5001",
     });
 
     const { setSnackbar }: AppStore = useAppStore();
@@ -98,16 +98,19 @@ const AddDispatcherForm = () => {
                 },
             ]
         },
-        {
-            displayName: "Port",
-            linkedTo: 'port',
-            fieldType: "textField",
-        },
+        // {
+        //     displayName: "Port",
+        //     linkedTo: 'port',
+        //     fieldType: "textField",
+        // },
         {
             displayName: "Enabled",
             linkedTo: 'enabled',
             fieldType: "checkbox",
-            value: fieldsData.enabled
+            value: fieldsData.enabled,
+            sx:{
+                display:'flex'
+            }
         },
     ];
 
@@ -118,7 +121,7 @@ const AddDispatcherForm = () => {
         }
 
         if(field.fieldType === "checkbox") {
-            return <>
+            return <Box sx={{ display:'flex', alignItems: 'center', justifyContent:'center'}}>
             <Typography> {field.displayName} </Typography>
             <Checkbox defaultChecked={field.value} 
                 onChange={(e) => setFieldsData({
@@ -126,7 +129,7 @@ const AddDispatcherForm = () => {
                     [field.linkedTo]: e.target.value
                 })}
             />
-        </>
+        </Box>
         }
 
         if(field.fieldType === "plainText") {
@@ -178,7 +181,7 @@ const AddDispatcherForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1>Create new dispatcher form</h1>
+        <h1 style={{fontSize:"30px"}}>Create new dispatcher form</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}
