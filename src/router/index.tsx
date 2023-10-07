@@ -11,6 +11,7 @@ import NavBarContainer from "@/components/BlockedNavbar";
 import CreateDriverForm from "@/components/forms/drivers/create";
 import CreateCarrierForm from "@/components/forms/carriers/create";
 import AddDispatcherForm from "@/components/forms/dispatchers/create";
+import AddCarrierRestrictionForm from "@/components/forms/carriers/restrictions";
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         </Layout>,
     },
     {
-        path: "/create-driver",
+        path: "/create/driver",
         element: <Layout> 
             <CreateDriverForm />
         </Layout>,
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
         </Layout>,
     },
     {
-        path: "/create-carrier",
+        path: "/create/carrier",
         element: <Layout> 
             <CreateCarrierForm />
         </Layout>,
@@ -45,7 +46,18 @@ const router = createBrowserRouter([
         </Layout>,
     },
     {
-        path: "/create-restriction",
+        path: "/create/carrier/restriction",
+        element: <Layout> 
+            <AddCarrierRestrictionForm />
+        </Layout>,
+        errorElement: <Layout>
+            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
+                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
+            </div>
+        </Layout>,
+    },
+    {
+        path: "/create/restriction",
         element: <Layout> 
                 create restriction 
         </Layout>,
@@ -56,7 +68,7 @@ const router = createBrowserRouter([
         </Layout>,
     },
     {
-        path: "/create-dispatcher",
+        path: "/create/dispatcher",
         element: <Layout> 
             <AddDispatcherForm /> 
         </Layout>,

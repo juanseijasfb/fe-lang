@@ -1,26 +1,29 @@
 import "./navbar.css";
-import { useAppStore } from '@/store';
-import { AppStore } from '@/types/storeTypes';
+
 
 import * as React from "react";
 import {
-  AppBar, Box, Select, Toolbar, 
+  AppBar, Box, Toolbar, 
   Typography, Menu,
   Avatar, Button, Tooltip,
   MenuItem, IconButton,
 } from '@mui/material';
-import i18next from 'i18next';
 import fleetBoosterWhite from '@/assets/logo.png';
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
+// import { useAppStore } from '@/store';
+// import { AppStore } from '@/types/storeTypes';
+// import i18next from 'i18next';
+
 function Navbar({navbarBlocked = true}) {
-  const {selectedLang, setSelectedLang} : AppStore = useAppStore();
+  // const {selectedLang, setSelectedLang} : AppStore = useAppStore();
 
   const {logout, user} = useAuth0();
   
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElCarrier, setAnchorElCarrier] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -42,26 +45,50 @@ function Navbar({navbarBlocked = true}) {
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
-                onClick={() => navigate("/create-driver")}>
+                onClick={() => navigate("/create/driver")}>
                 Drivers
               </Button>
+              
+              <Menu
+                sx={{ mt: '45px' }}
+                anchorEl={anchorElCarrier}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                open={Boolean(anchorElCarrier)}
+                onClose={() => setAnchorElCarrier(null)}
+              >
+                  <MenuItem onClick={() => {
+                    navigate("/create/carrier");
+                    setAnchorElCarrier(null);
+                  }}>
+                    <Typography textAlign="center">Create carrier</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/create/carrier/restriction");
+                    setAnchorElCarrier(null);
+                  }}>
+                    <Typography textAlign="center">Create carrier restriction</Typography>
+                  </MenuItem>
+              </Menu>
+
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
-                onClick={() => navigate("/create-carrier")}>
+                onClick={(e) => setAnchorElCarrier(e.currentTarget)}>
                 Carriers
               </Button>
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
-                onClick={() => navigate("/create-dispatcher")}>
+                onClick={() => navigate("/create/dispatcher")}>
                 Dispatcher
-              </Button>
-              <Button 
-                sx={{color:"white"}}
-                variant="outlined"
-                onClick={() => navigate("/create-restriction")}>
-                Restrictions
               </Button>
             </>}
 
