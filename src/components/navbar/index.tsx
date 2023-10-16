@@ -66,6 +66,12 @@ function Navbar({navbarBlocked = true}) {
                   }}>
                     <Typography textAlign="center">Create driver</Typography>
                   </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/delete/driver");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">Delete driver</Typography>
+                  </MenuItem>
               </Menu>
 
               <Button 
@@ -101,6 +107,12 @@ function Navbar({navbarBlocked = true}) {
                     setAnchorElCarrier(null);
                   }}>
                     <Typography textAlign="center">Create carrier restriction</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/delete/carrier");
+                    setAnchorElCarrier(null);
+                  }}>
+                    <Typography textAlign="center">Delete carrier</Typography>
                   </MenuItem>
               </Menu>
 

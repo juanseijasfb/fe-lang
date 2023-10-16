@@ -139,3 +139,23 @@ export const addBroker = async ({ MCNumber, brokerName }) => {
             throw new Error("Hubo un error al intentar crear el broker.");
         })
 };
+
+
+export const deleteDispatcher = async (payload) => {
+    return "ok";
+    // return fetch(`${ROOT_URL_5000}/addBroker`, {
+    //     method: "PUT",
+    //     headers: {
+    //         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    //     },
+    //     body: new URLSearchParams({
+    //         "mcNumber": MCNumber,
+    //         "brokerName": brokerName,
+    //     })
+    // })
+    //     .then((x) => x.json())
+    //     .then((res) => res)
+    //     .catch((err) => {
+    //         throw new Error("Hubo un error al intentar crear el broker.");
+    //     })
+};

@@ -7,11 +7,14 @@ import '@/index.css'
 
 import App from '@/App.tsx'
 import Layout from '@/Layout';
-import NavBarContainer from "@/components/BlockedNavbar";
+
 import CreateDriverForm from "@/components/forms/drivers/create";
 import CreateCarrierForm from "@/components/forms/carriers/create";
 import AddDispatcherForm from "@/components/forms/dispatchers/create";
 import AddCarrierRestrictionForm from "@/components/forms/carriers/restrictions";
+import DeleteDispatcherForm from "@/components/forms/dispatchers/delete";
+import DeleteDriverForm from "@/components/forms/drivers/delete";
+import DeleteCarrierForm from "@/components/forms/carriers/delete";
 
 const router = createBrowserRouter([
     {
@@ -71,6 +74,39 @@ const router = createBrowserRouter([
         path: "/create/dispatcher",
         element: <Layout> 
             <AddDispatcherForm /> 
+        </Layout>,
+        errorElement: <Layout>
+            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
+                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
+            </div>
+        </Layout>,
+    },
+    {
+        path: "/delete/dispatcher",
+        element: <Layout> 
+            <DeleteDispatcherForm /> 
+        </Layout>,
+        errorElement: <Layout>
+            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
+                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
+            </div>
+        </Layout>,
+    },
+    {
+        path: "/delete/driver",
+        element: <Layout> 
+            <DeleteDriverForm /> 
+        </Layout>,
+        errorElement: <Layout>
+            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
+                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
+            </div>
+        </Layout>,
+    },
+    {
+        path: "/delete/carrier",
+        element: <Layout> 
+            <DeleteCarrierForm /> 
         </Layout>,
         errorElement: <Layout>
             <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
