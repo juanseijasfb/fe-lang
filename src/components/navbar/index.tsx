@@ -23,7 +23,10 @@ function Navbar({navbarBlocked = true}) {
   
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
   const [anchorElCarrier, setAnchorElCarrier] = React.useState<null | HTMLElement>(null);
+  const [anchorElDriver, setAnchorElDriver] = React.useState<null | HTMLElement>(null);
+  const [anchorElDispatcher, setAnchorElDispatcher] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -42,10 +45,33 @@ function Navbar({navbarBlocked = true}) {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent:"center"}}>
               
             {!navbarBlocked && <> 
+              <Menu
+                sx={{ mt: '45px' }}
+                anchorEl={anchorElDriver}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                open={Boolean(anchorElDriver)}
+                onClose={() => setAnchorElDriver(null)}
+              >
+                  <MenuItem onClick={() => {
+                    navigate("/create/driver");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">Create driver</Typography>
+                  </MenuItem>
+              </Menu>
+
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
-                onClick={() => navigate("/create/driver")}>
+                onClick={(e) => setAnchorElDriver(e.currentTarget)}>
                 Drivers
               </Button>
               
@@ -84,10 +110,40 @@ function Navbar({navbarBlocked = true}) {
                 onClick={(e) => setAnchorElCarrier(e.currentTarget)}>
                 Carriers
               </Button>
+
+              <Menu
+                sx={{ mt: '45px' }}
+                anchorEl={anchorElDispatcher}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                open={Boolean(anchorElDispatcher)}
+                onClose={() => setAnchorElDispatcher(null)}
+              >
+                  <MenuItem onClick={() => {
+                    navigate("/create/dispatcher");
+                    setAnchorElDispatcher(null);
+                  }}>
+                    <Typography textAlign="center">Create dispatcher</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/delete/dispatcher");
+                    setAnchorElDispatcher(null);
+                  }}>
+                    <Typography textAlign="center">Delete dispatcher</Typography>
+                  </MenuItem>
+              </Menu>
+
               <Button 
                 sx={{color:"white"}}
                 variant="outlined"
-                onClick={() => navigate("/create/dispatcher")}>
+                onClick={(e) => setAnchorElDispatcher(e.currentTarget)}>
                 Dispatcher
               </Button>
             </>}

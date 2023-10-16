@@ -209,6 +209,12 @@ const AddCarrierRestrictionForm = () => {
             typeValue: restrictionPayLoad.typeValue, // brokerMC
         };
 
+        if(!payload.subjectValue || !payload.typeValue) {
+            toast.error("Existen campos incompletos.");
+            setLoading(false);
+            return;
+        }
+
         await addRestriction(payload)
         .then((res) => {
 
@@ -378,7 +384,7 @@ const AddCarrierRestrictionForm = () => {
   
 
     return <Box sx={centerStyleProps}>
-      <h1>Agregar nueva restricción de carrier</h1>
+      <h1 style={{fontSize:"30px"}}>Agregar nueva restricción de carrier</h1>
 
 
         {renderFormSelected()}
