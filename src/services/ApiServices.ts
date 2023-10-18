@@ -117,7 +117,7 @@ export const addRestriction = async (
         })
         .then((x) => x.json())
         .then((res) => res)
-        .catch((err) => {
+        .catch(() => {
             throw new Error();
         });
 };
@@ -135,13 +135,13 @@ export const addBroker = async ({ MCNumber, brokerName }) => {
     })
         .then((x) => x.json())
         .then((res) => res)
-        .catch((err) => {
+        .catch(() => {
             throw new Error("Hubo un error al intentar crear el broker.");
         })
 };
 
 
-export const deleteDispatcher = async (payload) => {
+export const deleteDispatcher = async () => {
     return "ok";
     // return fetch(`${ROOT_URL_5000}/addBroker`, {
     //     method: "PUT",

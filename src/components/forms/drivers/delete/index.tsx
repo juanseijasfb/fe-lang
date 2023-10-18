@@ -43,7 +43,7 @@ const DeleteDriverForm = () => {
             return;
         }
 
-        await deleteDispatcher(payload)
+        await deleteDispatcher()
         .then(() => {
             if(!user?.email) {
                 setSnackbar({
