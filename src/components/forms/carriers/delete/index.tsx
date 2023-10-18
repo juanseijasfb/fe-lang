@@ -8,7 +8,6 @@ import { useAppStore } from "@/store";
 import { AppStore } from "@/types/storeTypes";
 
 import { deleteDispatcher } from '@/services/ApiServices';
-import { toast } from "react-toastify";
 
 const DeleteCarrierForm = () => {
     const [fieldsData, setFieldsData] = useState({
@@ -23,8 +22,6 @@ const DeleteCarrierForm = () => {
 
     const handleDeleteCarrier = async () => {
 
-        toast.info("Delete carrier no existe en postman")
-        return;
         setLoading(true);
         const payload = {
             ...fieldsData

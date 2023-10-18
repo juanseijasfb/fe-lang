@@ -103,16 +103,22 @@ function Navbar({navbarBlocked = true}) {
                     <Typography textAlign="center">Create carrier</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
+                    navigate("/delete/carrier");
+                    setAnchorElCarrier(null);
+                  }}>
+                    <Typography textAlign="center">Delete carrier</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
                     navigate("/create/carrier/restriction");
                     setAnchorElCarrier(null);
                   }}>
                     <Typography textAlign="center">Create carrier restriction</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
-                    navigate("/delete/carrier");
+                    navigate("/delete/carrier/restriction");
                     setAnchorElCarrier(null);
                   }}>
-                    <Typography textAlign="center">Delete carrier</Typography>
+                    <Typography textAlign="center">Delete carrier restriction</Typography>
                   </MenuItem>
               </Menu>
 

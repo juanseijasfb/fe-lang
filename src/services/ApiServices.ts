@@ -159,3 +159,53 @@ export const deleteDispatcher = async () => {
     //         throw new Error("Hubo un error al intentar crear el broker.");
     //     })
 };
+
+
+export const removeRestriction = async (
+    {
+        subject, // D, C
+        type, // CI, ST, B
+        subjectValue, // driver name
+        typeValue,
+    }
+) => {
+
+    return fetch(`${ROOT_URL_5000}/removeRestriction?subject=${subject}&type=${type}&subjectValue=${subjectValue}&typeValue=${typeValue}`,
+        {
+            headers: {
+                Accept: "text/html; charset=utf-8",
+                "Content-Type": "text/html; charset=utf-8",
+            },
+        })
+        .then((x) => x.text())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error("Hubo un error al intentar remover la restriccion.");
+        });
+};
+
+export const getRestrictions = async ({ carrier, driverName }) => {
+    return fetch(`${ROOT_URL_5000}/getRestrictions?carrier=${carrier}&driver=${driverName}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};
+
+export const getBrokerRestrictionDetails = async (brokerMcList = "") => {
+    return fetch(`${ROOT_URL_5000}/getBrokerList?MCNumbers=${brokerMcList}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};

@@ -18,6 +18,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }}
     >
         <CustomRouter />
-        <ToastContainer />
+        <ToastContainer 
+            position='bottom-right'
+            pauseOnHover 
+            autoClose={7000} />
     </Auth0Provider>
 )
