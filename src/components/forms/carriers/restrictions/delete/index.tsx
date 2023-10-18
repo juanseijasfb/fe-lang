@@ -374,7 +374,7 @@ const RemoveCarrierRestrictionForm = () => {
   }
 
   return <Box sx={{...centerStyleProps}}>
-    <h1>Quitar restricciones de carrier</h1>
+    <h1 style={{fontSize:"30px"}}>Quitar restricciones de carrier</h1>
 
       {renderFormSelected()}
       
