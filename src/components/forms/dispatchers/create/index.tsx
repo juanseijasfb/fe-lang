@@ -4,10 +4,8 @@ import { Box, Button, Checkbox, CircularProgress, MenuItem, Select, TextField, T
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { useAppStore } from "@/store";
-import { AppStore } from "@/types/storeTypes";
-
 import { addDispatcher } from '@/services/ApiServices';
+import { toast } from "react-toastify";
 
 const AddDispatcherForm = () => {
     const [fieldsData, setFieldsData] = useState({
@@ -16,8 +14,6 @@ const AddDispatcherForm = () => {
         enabled: true,
         port: "5001",
     });
-
-    const { setSnackbar }: AppStore = useAppStore();
 
     const {user} = useAuth0();
 
@@ -36,41 +32,23 @@ const AddDispatcherForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedtoCreate(true);
-            setSnackbar({
-                openSnackbar: true,
-                message: "Debe llenar todos los campos antes de continuar",
-                severity:"error",
-            })
+            toast.error("Debe llenar todos los campos antes de continuar");
             return;
         }
 
         await addDispatcher(payload)
         .then(() => {
             if(!user?.email) {
-                setSnackbar({
-                    openSnackbar: true,
-                    message: "Error al intentar crear el dispatcher",
-                    severity:"error",
-                })
+                toast.error("Error al intentar crear el dispatcher");
                 return;
             }
 
-            setSnackbar({
-                openSnackbar: true,
-                message: "Dispatcher creado correctamente",
-                severity:"success",
-                autoHide: 0,
-            })
+            toast.success("Dispatcher creado correctamente");
 
             setLoading(false);
         })
         .catch(() => {
-            setSnackbar({
-                openSnackbar: true,
-                message: "Hubo un error al intentar crear el dispatcher",
-                severity:"error",
-                autoHide: 0,
-            })
+            toast.error("Hubo un error al intentar crear el dispatcher");
             setLoading(false);
         })
     }

@@ -8,15 +8,6 @@ export const useAppStore: UseBoundStore<StoreApi<AppStore>> = create((set) => ({
   planSvcMainPort: 5001,
   isAdm: false,
   openSideBar: false,
-  snackbar: {
-    type: "",
-    message: "",
-    openSnackbar: false,
-    severity: 'success',
-    vertical: 'bottom',
-    horizontal: 'right',
-    autoHide: 6000,
-  },
   setAppLockedLoadMessage: (message) => set(() => ({ 
     appLockedLoadMessage: message,
   })), 
@@ -31,9 +22,6 @@ export const useAppStore: UseBoundStore<StoreApi<AppStore>> = create((set) => ({
   })),
   setAppLockedLoad: (locked) => set(() => ({ 
     appLockedLoad: locked
-  })),
-  setSnackbar: (newSnackbar) => set((state) => ({ 
-    snackbar:  {...state.snackbar, ...newSnackbar} 
   })),
   setSelectedLang: (newLang) => set(() => ({ 
     selectedLang: newLang

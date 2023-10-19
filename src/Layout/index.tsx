@@ -11,15 +11,10 @@ const Layout: React.FC<{children: React.ReactNode}>  = ({children}) => {
 
     const {appLockedLoad, appLockedLoadMessage} = useAppStore();
 
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' })
+    // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' })
 
     return <>
     
-        {isTabletOrMobile && (
-            <Box sx={{height:"97vh"}}>
-                <h1>App not available for this view...</h1>
-            </Box>
-        )}
 
         {appLockedLoad && (
             <Box sx={{

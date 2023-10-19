@@ -11,6 +11,7 @@ import { useAppStore } from "@/store";
 import { AppStore } from "@/types/storeTypes";
 
 import { createDriver, getCarriersList } from '@/services/ApiServices';
+import { toast } from "react-toastify";
 
 const CreateDriverForm = () => {
     const [fieldsData, setFieldsData] = useState({
@@ -21,8 +22,6 @@ const CreateDriverForm = () => {
         carrierName: "",
         trailerType: "",
     });
-  
-    const { setSnackbar }: AppStore = useAppStore();
 
     const {user} = useAuth0();
 
@@ -45,43 +44,25 @@ const CreateDriverForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedtoCreate(true);
-            setSnackbar({
-                openSnackbar: true,
-                message: "Debe llenar todos los campos antes de continuar",
-                severity:"error",
-            })
+            toast.error("Debe llenar todos los campos antes de continuar");
             return;
         }
 
         await createDriver(payload)
         .then(() => {
             if(!user?.email) {
-                setSnackbar({
-                    openSnackbar: true,
-                    message: "Error al intentar obtener el mail del dispatcher a vincular",
-                    severity:"error",
-                })
+                toast.error("Error al intentar obtener el mail del dispatcher a vincular");
                 return;
             }
 
-            setSnackbar({
-                openSnackbar: true,
-                message: "Driver creado correctamente",
-                severity:"success",
-                autoHide: 0,
-            })
+            toast.success("Driver creado correctamente");
 
             setLoading(false);
             // el add driver no linkea mas a dispatcher.
             // linkDriverToDispatcher(res.driverId);
         })
         .catch(() => {
-            setSnackbar({
-                openSnackbar: true,
-                message: "Hubo un error al intentar crear el driver",
-                severity:"error",
-                autoHide: 0,
-            })
+            toast.error("Hubo un error al intentar crear el driver");
             setLoading(false);
         })
     }
@@ -89,11 +70,7 @@ const CreateDriverForm = () => {
     useEffect(() => {
         const getCarriers = async () => {
             const data = await getCarriersList().catch(() => {
-                setSnackbar({
-                    openSnackbar: true,
-                    message: "Hubo un error al intentar obtener la lista de carriers.",
-                    severity:"error",
-                })
+                toast.error("Hubo un error al intentar obtener la lista de carriers");
             });
 
             if(!data) {

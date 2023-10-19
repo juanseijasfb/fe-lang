@@ -17,16 +17,6 @@ export type DriverRestrictions = {
     state: string[],
 }
 
-export type AppSnackbar = {
-    type: string,
-    message: string,
-    openSnackbar: boolean,
-    severity: AlertColor | undefined,
-    vertical: 'top' | 'bottom',
-    horizontal: 'left' | 'center' | 'right',
-    autoHide: number | null | undefined,
-}
-
 export type ModalContent = {
     title: string,
     content: any,

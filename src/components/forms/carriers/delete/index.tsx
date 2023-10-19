@@ -8,13 +8,13 @@ import { useAppStore } from "@/store";
 import { AppStore } from "@/types/storeTypes";
 
 import { deleteDispatcher } from '@/services/ApiServices';
+import { toast } from "react-toastify";
 
 const DeleteCarrierForm = () => {
     const [fieldsData, setFieldsData] = useState({
         mc: "",
     });
 
-    const { setSnackbar }: AppStore = useAppStore();
     const {user} = useAuth0();
 
     const [triedToDelete, setTriedToDelete] = useState(false);
@@ -32,41 +32,22 @@ const DeleteCarrierForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedToDelete(true);
-            setSnackbar({
-                openSnackbar: true,
-                message: "Debe llenar todos los campos antes de continuar",
-                severity:"error",
-            })
+            toast.error("Debe llenar todos los campos antes de continuar")
             return;
         }
 
         await deleteDispatcher()
         .then(() => {
             if(!user?.email) {
-                setSnackbar({
-                    openSnackbar: true,
-                    message: "Error al intentar borrar el dispatcher",
-                    severity:"error",
-                })
+                toast.error("Error al intentar borrar el dispatcher")
                 return;
             }
 
-            setSnackbar({
-                openSnackbar: true,
-                message: "Dispatcher creado correctamente",
-                severity:"success",
-                autoHide: 0,
-            })
-
+            toast.success("Dispatcher creado correctamente")
             setLoading(false);
         })
         .catch(() => {
-            setSnackbar({
-                openSnackbar: true,
-                message: "Hubo un error al intentar crear el dispatcher",
-                severity:"error",
-                autoHide: 0,
-            })
+            toast.error("Hubo un error al intentar crear el dispatcher")
             setLoading(false);
         })
     }

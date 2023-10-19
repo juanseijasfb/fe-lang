@@ -4,10 +4,8 @@ import { Box, Button, CircularProgress, TextField, Typography } from "@mui/mater
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { useAppStore } from "@/store";
-import { AppStore } from "@/types/storeTypes";
-
 import { addCarrier } from '@/services/ApiServices';
+import { toast } from "react-toastify";
 
 const AddCarrierForm = () => {
     const [fieldsData, setFieldsData] = useState({
@@ -15,14 +13,13 @@ const AddCarrierForm = () => {
         carrierName: "",
     });
 
-    const { setSnackbar }: AppStore = useAppStore();
 
     const {user} = useAuth0();
 
     const [triedToCreate, setTriedtoCreate] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const createDriver = async () => {
+    const createCarrier = async () => {
 
         setLoading(true);
         const payload = {
@@ -34,41 +31,22 @@ const AddCarrierForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedtoCreate(true);
-            setSnackbar({
-                openSnackbar: true,
-                message: "Debe llenar todos los campos antes de continuar",
-                severity:"error",
-            })
+            toast.error("Debe llenar todos los campos antes de continuar")
             return;
         }
 
         await addCarrier(payload)
         .then(() => {
             if(!user?.email) {
-                setSnackbar({
-                    openSnackbar: true,
-                    message: "Error al intentar crear el carrier",
-                    severity:"error",
-                })
+                toast.error("Error al intentar crear el carrier")
                 return;
             }
 
-            setSnackbar({
-                openSnackbar: true,
-                message: "Carrier creado correctamente",
-                severity:"success",
-                autoHide: 0,
-            })
-
+            toast.success("Carrier creado correctamente")
             setLoading(false);
         })
         .catch(() => {
-            setSnackbar({
-                openSnackbar: true,
-                message: "Hubo un error al intentar crear el carrier",
-                severity:"error",
-                autoHide: 0,
-            })
+            toast.error("Hubo un error al intentar crear el carrier")
             setLoading(false);
         })
     }
@@ -122,7 +100,7 @@ const AddCarrierForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={createDriver}>Create carrier</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={createCarrier}>Create carrier</Button>
        )}
     </Box>
 

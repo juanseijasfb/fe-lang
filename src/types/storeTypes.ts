@@ -1,4 +1,4 @@
-import { DriverRestrictionsConfiguration, AppSnackbar, ModalContent } from "./types"
+import { DriverRestrictionsConfiguration, ModalContent } from "./types"
 
 export type RouteStore = {
     selectedRoute: any,
@@ -16,7 +16,6 @@ export type AppStore = {
     appLockedLoad: boolean,
     planSvcMainPort: number,
     isAdm: boolean,
-    snackbar: AppSnackbar,
     openSideBar: boolean,
     appLockedLoadMessage: string,
     setAppLockedLoadMessage: (lockedLoadMessage: string) => void,
@@ -25,7 +24,6 @@ export type AppStore = {
     setAppLockedLoad: (lockedLoad: boolean) => void,
     setPlanSvcMainPort: (usrPort: number) => void,
     setIsAdm: (isAdm: boolean) => void,
-    setSnackbar: (newSnackbarData: object) => void,
 }
 
 export type FormStore = {
