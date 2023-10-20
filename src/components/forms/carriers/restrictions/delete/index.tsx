@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 
 const RemoveCarrierRestrictionForm = () => {
   
+  const { t } = useTranslation();
   
   const [loading, setLoading] = useState(false);
   const [isLoadingCarriers, setIsLoadingCarriers] = useState(false);

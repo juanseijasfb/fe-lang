@@ -13,6 +13,7 @@ import {STATES_LIST} from '@/utils/constants.js';
 
 const AddCarrierRestrictionForm = () => {
 
+    const { t } = useTranslation();
     const [formSelected, setFormSelected] = useState("B");
     const [loading, setLoading] = useState(false);
     

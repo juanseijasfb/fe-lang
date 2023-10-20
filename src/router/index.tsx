@@ -16,15 +16,14 @@ import DeleteDispatcherForm from "@/components/forms/dispatchers/delete";
 import DeleteDriverForm from "@/components/forms/drivers/delete";
 import DeleteCarrierForm from "@/components/forms/carriers/delete";
 import RemoveCarrierRestrictionForm from "@/components/forms/carriers/restrictions/delete";
+import ErrorComponent from "@/components/errorComponent";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout> <App /> </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -33,9 +32,7 @@ const router = createBrowserRouter([
             <CreateDriverForm />
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -44,9 +41,7 @@ const router = createBrowserRouter([
             <CreateCarrierForm />
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+           <ErrorComponent />
         </Layout>,
     },
     {
@@ -55,9 +50,6 @@ const router = createBrowserRouter([
             <AddCarrierRestrictionForm />
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
         </Layout>,
     },
     {
@@ -66,9 +58,7 @@ const router = createBrowserRouter([
                 create restriction 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -77,9 +67,7 @@ const router = createBrowserRouter([
             <AddDispatcherForm /> 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -88,9 +76,7 @@ const router = createBrowserRouter([
             <DeleteDispatcherForm /> 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -99,9 +85,7 @@ const router = createBrowserRouter([
             <DeleteDriverForm /> 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
+            <ErrorComponent />
         </Layout>,
     },
     {
@@ -110,10 +94,8 @@ const router = createBrowserRouter([
             <DeleteCarrierForm /> 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
-        </Layout>,
+            <ErrorComponent />
+        </Layout>, 
     },
     {
         path: "/delete/carrier/restriction",
@@ -121,10 +103,8 @@ const router = createBrowserRouter([
             <RemoveCarrierRestrictionForm /> 
         </Layout>,
         errorElement: <Layout>
-            <div style={{display:'flex', flexDirection: "column", justifyContent:'center', alignItems:'center'}}>
-                <h1>Hubo un error inesperado, intente recargar la pagina.</h1>
-            </div>
-        </Layout>,
+            <ErrorComponent />
+        </Layout>, 
     },
 ]);
 

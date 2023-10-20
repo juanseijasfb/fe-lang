@@ -6,8 +6,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { addCarrier } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const AddCarrierForm = () => {
+    const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         mcNumber: "",
         carrierName: "",
@@ -30,7 +32,7 @@ const AddCarrierForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedtoCreate(true);
-            toast.error("Debe llenar todos los campos antes de continuar")
+            toast.error(t('mustFillFields'))
             return;
         }
 

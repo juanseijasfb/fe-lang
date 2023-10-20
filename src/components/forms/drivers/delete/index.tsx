@@ -8,6 +8,7 @@ import { deleteDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 
 const DeleteDriverForm = () => {
+    const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         driverEmail: "",
     });

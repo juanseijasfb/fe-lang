@@ -11,6 +11,7 @@ import { createDriver, getCarriersList } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 
 const CreateDriverForm = () => {
+    const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         firstName: "",
         lastName: "",

@@ -4,8 +4,9 @@
     "loggingToPlatform": "Loggeandose a la plataforma...",
     "loadingUserFromSystem": "Cargando usuario desde el sistema...",
     "loadingSessionState": "Cargando estado de sesión...",
-    "unexpectedErrorTryAgain": "Ocurrió un error inesperado. Intente reiniciar la pagina.",
+    "unexpectedErrorTryAgain": "Ocurrió un error inesperado. Intente recargar la pagina.",
     "noPermissions": "Usted no posee permisos para operar en la plataforma",
     "errorRetrievingUserData": "Hubo un error al intentar recuperar los datos del usuario",
-    "doesntExistInSystem": "no existe en el sistema. Pongase en contacto con un administrador."
+    "doesntExistInSystem": "no existe en el sistema. Pongase en contacto con un administrador.",
+    "mustFillFields": "Debes completar todos los campos para continuar."
 }

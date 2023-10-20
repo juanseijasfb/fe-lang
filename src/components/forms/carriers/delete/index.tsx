@@ -8,6 +8,7 @@ import { deleteDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 
 const DeleteCarrierForm = () => {
+    const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         mc: "",
     });

@@ -8,6 +8,7 @@ import { addDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 
 const AddDispatcherForm = () => {
+    const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         dispatcherEmail: "",
         role: "D",

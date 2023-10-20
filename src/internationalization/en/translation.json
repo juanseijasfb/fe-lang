@@ -7,5 +7,6 @@
     "unexpectedErrorTryAgain": "Unexpected error. Please reload the page.",
     "noPermissions": "You don't have permissios to operate in the platform.",
     "errorRetrievingUserData": "There was an error when trying to retrieve user data.",
-    "doesntExistInSystem": "doesn't exist in our system. Contact an administrator."
+    "doesntExistInSystem": "doesn't exist in our system. Contact an administrator.",
+    "mustFillFields": "You must complete all the fields to continue."
 }
