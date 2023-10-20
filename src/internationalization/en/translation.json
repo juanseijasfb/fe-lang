@@ -8,5 +8,15 @@
     "noPermissions": "You don't have permissios to operate in the platform.",
     "errorRetrievingUserData": "There was an error when trying to retrieve user data.",
     "doesntExistInSystem": "doesn't exist in our system. Contact an administrator.",
-    "mustFillFields": "You must complete all the fields to continue."
+    "mustFillFields": "You must complete all the fields to continue.",
+    "errorWhenTryingToCreate": "There was an error when trying to create the",
+    "errorWhenTryingToDelete": "There was an error when trying to delete the",
+    "errorWhenTryingToEdit": "There was an error when trying to edit the",
+    "createdSuccessfully": "created successfully",
+    "editedSuccessfully": "edited successfully",
+    "deletedSuccessfully": "deleted successfully",
+    "createNew": "Create new",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete"
 }

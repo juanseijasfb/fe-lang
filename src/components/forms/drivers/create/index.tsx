@@ -201,7 +201,7 @@ const CreateDriverForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
-        <h1  style={{fontSize:"30px"}}>Create new driver form</h1>
+        <h1  style={{fontSize:"30px"}}> {t('createNew')} driver</h1>
         {fields.map((x, i) => {
             return <Box 
             key={i}

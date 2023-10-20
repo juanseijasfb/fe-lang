@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { addDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const AddDispatcherForm = () => {
     const { t } = useTranslation();
@@ -160,7 +161,7 @@ const AddDispatcherForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1 style={{fontSize:"30px"}}>Create new dispatcher form</h1>
+        <h1 style={{fontSize:"30px"}}> {t('createNew')} dispatcher</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}

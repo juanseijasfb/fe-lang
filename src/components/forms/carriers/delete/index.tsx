@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { deleteDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const DeleteCarrierForm = () => {
     const { t } = useTranslation();

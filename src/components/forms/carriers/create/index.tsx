@@ -39,15 +39,15 @@ const AddCarrierForm = () => {
         await addCarrier(payload)
         .then(() => {
             if(!user?.email) {
-                toast.error("Error al intentar crear el carrier")
+                toast.error(`${t('errorWhenTryingToCreate')} carrier`)
                 return;
             }
 
-            toast.success("Carrier creado correctamente")
+            toast.success(`Carrier ${t('createdSuccessfully')}`)
             setLoading(false);
         })
         .catch(() => {
-            toast.error("Hubo un error al intentar crear el carrier")
+            toast.error(`${t('errorWhenTryingToCreate')} carrier`)
             setLoading(false);
         })
     }
@@ -91,7 +91,7 @@ const AddCarrierForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1 style={{fontSize:"30px"}}>Create new carrier form</h1>
+        <h1 style={{fontSize:"30px"}}> {t('createNew')} carrier</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}
