@@ -34,7 +34,7 @@ const AddDispatcherForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedtoCreate(true);
-            toast.error("Debe llenar todos los campos antes de continuar");
+            toast.error(t('mustFillFields'));
             return;
         }
 

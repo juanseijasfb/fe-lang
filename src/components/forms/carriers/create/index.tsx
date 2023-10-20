@@ -101,7 +101,7 @@ const AddCarrierForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={createCarrier}>Create carrier</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={createCarrier}>{t('create')} carrier</Button>
        )}
     </Box>
 

@@ -31,22 +31,22 @@ const DeleteCarrierForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedToDelete(true);
-            toast.error("Debe llenar todos los campos antes de continuar")
+            toast.error(t('mustFillFields'))
             return;
         }
 
         await deleteDispatcher()
         .then(() => {
             if(!user?.email) {
-                toast.error("Error al intentar borrar el dispatcher")
+                toast.error(`${t('errorWhenTryingToDelete')} carrier`)
                 return;
             }
 
-            toast.success("Dispatcher creado correctamente")
+            toast.success("Carrier borrado correctamente")
             setLoading(false);
         })
         .catch(() => {
-            toast.error("Hubo un error al intentar crear el dispatcher")
+            toast.error(`${t('errorWhenTryingToDelete')} carrier`)
             setLoading(false);
         })
     }
@@ -126,7 +126,7 @@ const DeleteCarrierForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1 style={{fontSize:"30px"}}>Delete carrier</h1>
+        <h1 style={{fontSize:"30px"}}>{t('delete')} carrier</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}
@@ -136,7 +136,7 @@ const DeleteCarrierForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteCarrier}>Delete carrier</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteCarrier}>{t('delete')} carrier</Button>
        )}
     </Box>
 

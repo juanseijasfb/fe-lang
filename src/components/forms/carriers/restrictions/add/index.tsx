@@ -385,15 +385,13 @@ const AddCarrierRestrictionForm = () => {
   
 
     return <Box sx={centerStyleProps}>
-      <h1 style={{fontSize:"30px"}}>Agregar nueva restricción de carrier</h1>
-
+      <h1 style={{fontSize:"30px"}}>{t('createCarrierRestriction')}</h1>
 
         {renderFormSelected()}
         
-        
         {loading ? (<CircularProgress/>) : (
             <Button variant='outlined' sx={{width:"30%"}} onClick={addCarrierRestriction} disabled={isLoadingBroker || isLoadingCarriers}>
-                Add carrier restriction
+                {t('createCarrierRestriction')}
             </Button>
         )}
     </Box>

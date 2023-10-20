@@ -18,5 +18,8 @@
     "createNew": "Create new",
     "create": "Create",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "createCarrierRestriction": "Create carrier restriction",
+    "createDriverRestriction": "Create driver restriction",
+    "createDispatcherRestriction": "Create dispatcher restriction"
 }

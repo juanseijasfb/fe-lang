@@ -32,7 +32,7 @@ const DeleteDispatcherForm = () => {
         if(invalid) {
             setLoading(false);
             setTriedToDelete(true);
-            toast.error("Debe llenar todos los campos antes de continuar")
+            toast.error(t('mustFillFields'))
             return;
         }
 
