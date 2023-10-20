@@ -6,18 +6,18 @@ import {
   AppBar, Box, Toolbar, 
   Typography, Menu,
   Avatar, Button, Tooltip,
-  MenuItem, IconButton,
+  MenuItem, IconButton, Select,
 } from '@mui/material';
 import fleetBoosterWhite from '@/assets/logo.png';
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-// import { useAppStore } from '@/store';
-// import { AppStore } from '@/types/storeTypes';
-// import i18next from 'i18next';
+import { useAppStore } from '@/store';
+import { AppStore } from '@/types/storeTypes';
+import i18next from 'i18next';
 
 function Navbar({navbarBlocked = true}) {
-  // const {selectedLang, setSelectedLang} : AppStore = useAppStore();
+const {selectedLang, setSelectedLang} : AppStore = useAppStore();
 
   const {logout, user} = useAuth0();
   
@@ -176,7 +176,7 @@ function Navbar({navbarBlocked = true}) {
 
 
             {/* right side lang */}
-            {/* <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
+            <Box sx={{paddingRight:"20px", paddingLeft:"10px"}}>
               <Select onChange={(e) => {
                 i18next.changeLanguage(e.target.value);
                 setSelectedLang(e.target.value);
@@ -184,7 +184,7 @@ function Navbar({navbarBlocked = true}) {
                 <MenuItem value="es">ES</MenuItem>
                 <MenuItem value="en">EN</MenuItem>
               </Select>
-            </Box> */}
+            </Box>
          
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

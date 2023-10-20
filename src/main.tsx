@@ -4,6 +4,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import getConfig from '@/config.js'
 import 'animate.css';
 import { ToastContainer } from 'react-toastify';
+import './i18n';
 
 const config = {
     ...getConfig()

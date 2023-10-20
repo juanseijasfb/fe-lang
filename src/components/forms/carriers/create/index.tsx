@@ -13,7 +13,6 @@ const AddCarrierForm = () => {
         carrierName: "",
     });
 
-
     const {user} = useAuth0();
 
     const [triedToCreate, setTriedtoCreate] = useState(false);
