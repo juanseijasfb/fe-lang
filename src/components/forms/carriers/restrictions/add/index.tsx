@@ -9,7 +9,8 @@ import { toast } from 'react-toastify';
 
 import { getBrokerDetails, getCarriersList, addRestriction, addBroker } from '@/services/ApiServices';
 
-import {STATES_LIST} from '@/utils/constants.js';
+import { STATES_LIST } from '@/utils/constants.js';
+import { useTranslation } from "react-i18next";
 
 const AddCarrierRestrictionForm = () => {
 
@@ -36,7 +37,7 @@ const AddCarrierRestrictionForm = () => {
     useEffect(() => {
         const getCarriers = async () => {
             const data = await getCarriersList().catch(() => {
-                toast.error("Hubo un error al intentar obtener la lista de carriers.");
+                toast.error(`${t('errorWhenTryingToFetchList')} carriers`);
             });
 
             if(!data) {
@@ -86,16 +87,16 @@ const AddCarrierRestrictionForm = () => {
                         if(res?.CompanyName) {
                             setDebouncedBrokerMC(res?.CompanyName);
 
-                            toast.success("Broker obtenido correctamente.");
+                            toast.success(`Broker ${t('obtainedSuccessfully')}`);
                         } else {
                             setDebouncedBrokerMC("");
                             setCreateNewBroker(true);
 
-                            toast.error(`No se encontraron brokers para el MC '${brokerMC}' `);
+                            toast.error(`${t('noBrokerFoundForMc')} '${brokerMC}' `);
                         }
                     })
                     .catch(() => {
-                        toast.error("Hubo un error al intentar obtener el broker.");
+                        toast.error(`${t('errorWhenTryingToFetch')} broker`);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -121,7 +122,7 @@ const AddCarrierRestrictionForm = () => {
 
       if(field.fieldType === "selectFormType") {
         return <Box sx={centerStyleProps}>
-            <Typography sx={{fontWeight:"bold"}}>Seleccione el tipo de formulario de restricción</Typography>
+            <Typography sx={{fontWeight:"bold"}}>{t('selectTypeOfRestrictionForm')}</Typography>
             <Select defaultValue={formSelected} onChange={(e) => {
                 setFormSelected(e.target.value)
                 // we clear the previous info...
@@ -211,9 +212,19 @@ const AddCarrierRestrictionForm = () => {
         };
 
         if(!payload.subjectValue || !payload.typeValue) {
-            toast.error("Existen campos incompletos.");
+            toast.error(t('mustFillFields'));
             setLoading(false);
             return;
+        }
+
+        let type = "broker";
+        
+        if(formSelected === "B") {
+            type = "broker";
+        } else if(formSelected === "ST") { 
+            type = "state";
+        } else if(formSelected === "CI") { 
+            type = "city";
         }
 
         await addRestriction(payload)
@@ -221,15 +232,15 @@ const AddCarrierRestrictionForm = () => {
 
             // si hubo un error, no lo agrego al tree.
             if(res?.msg?.indexOf("ok") === -1){
-                toast.error(`Hubo un error al intentar restringir "${payload.typeValue}"`);
+                toast.error(`${t('errorWhenTryingToRestrict')} ${type} "${payload.typeValue}"`);
                 setLoading(false);
                 return;
             }
 
-            toast.success(`"${restrictionPayLoad.typeValue}" ha sido restringido.`);
+            toast.success(`"${restrictionPayLoad.typeValue}" ${t('restrictedSuccessfully')}.`);
             setLoading(false);
         }).catch(() => {
-            toast.error(`Hubo un error al intentar restringir "${payload.typeValue}"`);
+            toast.error(`${t('errorWhenTryingToRestrict')} ${type} "${payload.typeValue}"`);
             setLoading(false);
         })
     }
@@ -243,23 +254,23 @@ const AddCarrierRestrictionForm = () => {
         setLoading(true);
 
         if(createNewbroker && restrictionPayLoad.newBrokerName.length > 0) {
-            toast.error(`Creando broker...`)
+            toast.info(`${t('creating')} broker...`)
            
             await addBroker({ MCNumber: restrictionPayLoad.typeValue , brokerName: restrictionPayLoad.newBrokerName })
                 .then((res) => {
 
                     // si hubo un error, no lo agrego al tree.
                     if(res?.msg?.indexOf("ok") === -1){
-                        toast.error( `Hubo un error al intentar crear el broker "${restrictionPayLoad.typeValue}"`)
+                        toast.error(`${t('errorWhenTryingToCreate')} broker "${restrictionPayLoad.typeValue}"`);
                         setLoading(false);
                         return;
                     } 
 
-                    toast.success(`Broker creado con exito.`)
+                    toast.success(`Broker ${t('createdSuccessfully')}.`)
                     handleAddRestriction()
 
                 }).catch(() => {
-                    toast.error( `Hubo un error al intentar crear el broker "${restrictionPayLoad.typeValue}"`)
+                    toast.error(`${t('errorWhenTryingToCreate')} broker "${restrictionPayLoad.typeValue}"`);
                     setLoading(false)
                 })
 
@@ -277,7 +288,7 @@ const AddCarrierRestrictionForm = () => {
             case "ST":
                 fields = [
                     {
-                        displayName: "Carrier a asignar la restricción",
+                        displayName: t('carrierToAssignRestriction'),
                         linkedTo: 'carrierToAddRestriction',
                         fieldType: "select",
                         // error: !fieldsData.trailerType && triedToCreate,
@@ -289,7 +300,7 @@ const AddCarrierRestrictionForm = () => {
                     },
                     {fieldType: "selectFormType"},
                     {
-                        displayName: "State",
+                        displayName: t('state'),
                         linkedTo: 'selectedState',
                         fieldType: "autoComplete",
                         options: STATES_LIST
@@ -300,7 +311,7 @@ const AddCarrierRestrictionForm = () => {
             case "CI":
                 fields = [
                     {
-                        displayName: "Carrier a asignar la restricción",
+                        displayName: t('carrierToAssignRestriction'),
                         linkedTo: 'carrierToAddRestriction',
                         fieldType: "select",
                         // error: !fieldsData.trailerType && triedToCreate,
@@ -312,13 +323,13 @@ const AddCarrierRestrictionForm = () => {
                     },
                     {fieldType: "selectFormType"},
                     {
-                        displayName: "State",
+                        displayName: t('state'),
                         linkedTo: 'selectedState',
                         fieldType: "autoComplete",
                         options: STATES_LIST
                     },
                     {
-                        displayName: "City",
+                        displayName: t('city'),
                         linkedTo: 'selectedCity',
                         fieldType: "autoComplete",
                         options: []
@@ -329,7 +340,7 @@ const AddCarrierRestrictionForm = () => {
 
                 fields = [
                     {
-                        displayName: "Carrier a asignar la restricción",
+                        displayName: t('carrierToAssignRestriction'),
                         linkedTo: 'carrierToAddRestriction',
                         fieldType: "select",
                         // error: !fieldsData.trailerType && triedToCreate,
@@ -350,7 +361,7 @@ const AddCarrierRestrictionForm = () => {
                         }
                     },
                     {
-                        displayName: "Broker Name",
+                        displayName: t('brokerName'),
                         linkedTo: 'brokerName',
                         fieldType: "plainText",
                         value: debouncedBrokerMC,
@@ -358,7 +369,7 @@ const AddCarrierRestrictionForm = () => {
                         isHidden: debouncedBrokerMC === "",
                     },
                     {
-                        displayName: "New broker name",
+                        displayName: t('newBrokerName'),
                         linkedTo: 'newBrokerName',
                         fieldType: "text",
                         value: restrictionPayLoad.newBrokerName,
