@@ -5,8 +5,6 @@ import {
     Select, TextField, Typography 
 } from "@mui/material";
 
-import { useAuth0 } from "@auth0/auth0-react";
-
 import { createDriver, getCarriersList } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
