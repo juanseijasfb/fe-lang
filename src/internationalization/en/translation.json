@@ -58,5 +58,6 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "maxLoadWeight": "Max Load Weight",
-    "trailerType": "Trailer type"
+    "trailerType": "Trailer type",
+    "deleteCarrierRestriction": "Delete Carrier Restriction"
 }

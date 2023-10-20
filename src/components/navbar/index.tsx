@@ -65,13 +65,13 @@ function Navbar({navbarBlocked = true}) {
                     navigate("/create/driver");
                     setAnchorElDriver(null);
                   }}>
-                    <Typography textAlign="center">Create driver</Typography>
+                    <Typography textAlign="center">{t('create')} driver</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/delete/driver");
                     setAnchorElDriver(null);
                   }}>
-                    <Typography textAlign="center">Delete driver</Typography>
+                    <Typography textAlign="center">{t('delete')} driver</Typography>
                   </MenuItem>
               </Menu>
 
@@ -101,25 +101,25 @@ function Navbar({navbarBlocked = true}) {
                     navigate("/create/carrier");
                     setAnchorElCarrier(null);
                   }}>
-                    <Typography textAlign="center">Create carrier</Typography>
+                    <Typography textAlign="center">{t('create')} carrier</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/delete/carrier");
                     setAnchorElCarrier(null);
                   }}>
-                    <Typography textAlign="center">Delete carrier</Typography>
+                    <Typography textAlign="center">{t('delete')} carrier</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/create/carrier/restriction");
                     setAnchorElCarrier(null);
                   }}>
-                    <Typography textAlign="center">Create carrier restriction</Typography>
+                    <Typography textAlign="center">{t('createCarrierRestriction')} </Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/delete/carrier/restriction");
                     setAnchorElCarrier(null);
                   }}>
-                    <Typography textAlign="center">Delete carrier restriction</Typography>
+                    <Typography textAlign="center">{t('deleteCarrierRestriction')} </Typography>
                   </MenuItem>
               </Menu>
 
@@ -149,13 +149,13 @@ function Navbar({navbarBlocked = true}) {
                     navigate("/create/dispatcher");
                     setAnchorElDispatcher(null);
                   }}>
-                    <Typography textAlign="center">Create dispatcher</Typography>
+                    <Typography textAlign="center">{t('create')} dispatcher</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/delete/dispatcher");
                     setAnchorElDispatcher(null);
                   }}>
-                    <Typography textAlign="center">Delete dispatcher</Typography>
+                    <Typography textAlign="center">{t('delete')} dispatcher</Typography>
                   </MenuItem>
               </Menu>
 

@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { deleteDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const DeleteDriverForm = () => {
     const { t } = useTranslation();
@@ -128,7 +129,7 @@ const DeleteDriverForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1 style={{fontSize:"30px"}}>Delete driver</h1>
+        <h1 style={{fontSize:"30px"}}>{t('delete')} driver</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}
@@ -138,7 +139,7 @@ const DeleteDriverForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteDriver}>Delete driver</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteDriver}>{t('delete')} driver</Button>
        )}
     </Box>
 

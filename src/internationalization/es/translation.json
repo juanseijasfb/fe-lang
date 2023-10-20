@@ -58,5 +58,6 @@
     "firstName": "Nombre",
     "lastName": "Apellido",
     "maxLoadWeight": "Peso maximo de carga",
-    "trailerType": "Tipo de trailer"
+    "trailerType": "Tipo de trailer",
+    "deleteCarrierRestriction": "Borrar restricción de carrier"
 }
