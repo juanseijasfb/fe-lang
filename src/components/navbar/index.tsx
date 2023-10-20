@@ -15,10 +15,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useAppStore } from '@/store';
 import { AppStore } from '@/types/storeTypes';
 import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 
 function Navbar({navbarBlocked = true}) {
-const {selectedLang, setSelectedLang} : AppStore = useAppStore();
-
+  const {selectedLang, setSelectedLang} : AppStore = useAppStore();
+  const { t } = useTranslation();
   const {logout, user} = useAuth0();
   
   const navigate = useNavigate();
@@ -162,7 +163,7 @@ const {selectedLang, setSelectedLang} : AppStore = useAppStore();
                 sx={{color:"white"}}
                 variant="outlined"
                 onClick={(e) => setAnchorElDispatcher(e.currentTarget)}>
-                Dispatcher
+                Dispatchers
               </Button>
             </>}
 
@@ -171,7 +172,7 @@ const {selectedLang, setSelectedLang} : AppStore = useAppStore();
           {!navbarBlocked && <>
             
             <Box sx={{paddingRight:"20px"}}>
-              <Typography>{user?.name ? `Welcome ${user.name}`: ""}</Typography> 
+              <Typography>{user?.name ? `${t('welcome')} ${user.name}`: ""}</Typography> 
             </Box>
 
 
@@ -181,13 +182,13 @@ const {selectedLang, setSelectedLang} : AppStore = useAppStore();
                 i18next.changeLanguage(e.target.value);
                 setSelectedLang(e.target.value);
               }} value={selectedLang}>
-                <MenuItem value="es">ES</MenuItem>
                 <MenuItem value="en">EN</MenuItem>
+                <MenuItem value="es">ES</MenuItem>
               </Select>
             </Box>
          
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title={t('openSettings')}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="User" src={user?.picture} />
                 </IconButton>
