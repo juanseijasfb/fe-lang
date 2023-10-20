@@ -8,10 +8,12 @@ import NavBarContainer from '@/components/BlockedNavbar';
 import '@/App.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AuthWrapper = ({ children }) => {
     const { isAuthenticated, user, isLoading, loginWithRedirect } = useAuth0();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [isCheckingUser, setIsCheckingUser] = useState(true);
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -27,7 +29,7 @@ const AuthWrapper = ({ children }) => {
             if(typeof res === "string") {
   
               if(res === "msg-err-dis001") {
-                setCustomError(`El dispatcher '${user?.email}' no existe en el sistema. Pongase en contacto con un administrador.`);
+                setCustomError(`'${user?.email}' ${t('doesntExistInSystem')}`);
                 return;
               }
             }
@@ -43,7 +45,7 @@ const AuthWrapper = ({ children }) => {
           })
           .catch(() => {
             setServerError(true);
-            toast.error("Hubo un error al intentar recuperar los datos del usuario")
+            toast.error(t('errorRetrievingUserData'))
           })
           .finally(() => {
              setIsCheckingUser(false);
@@ -60,26 +62,26 @@ const AuthWrapper = ({ children }) => {
     }
      
     if(isLoading) {
-      return <NavBarContainer> <h1> Cargando estado de sesión...</h1> </NavBarContainer> 
+      return <NavBarContainer> <h1>{t('loadingSessionState')}</h1> </NavBarContainer> 
    }
   
    if(!isAuthenticated){
       loginWithRedirect();
-      return <NavBarContainer> <h1> Loggeandose a la plataforma... </h1> </NavBarContainer> 
+      return <NavBarContainer> <h1>{t('loggingToPlatform')}</h1> </NavBarContainer> 
    }
   
     if(isCheckingUser) {
-      return <NavBarContainer> <h1> Cargando usuario desde el sistema...</h1> </NavBarContainer>
+      return <NavBarContainer> <h1> {t('loadingUserFromSystem')} </h1> </NavBarContainer>
     }
   
     if(serverError) {
       return <NavBarContainer>
-         <h1>Ocurrió un error inesperado, reintente nuevamente.</h1> 
+         <h1> {t('unexpectedErrorTryAgain')} </h1> 
       </NavBarContainer>
     }
   
     if(!isAuthorized) {
-      return <NavBarContainer> <h1>Usted no posee permisos para operar en la plataforma.</h1> </NavBarContainer>
+      return <NavBarContainer> <h1> {t('noPermissions')} </h1> </NavBarContainer>
     }
 
     return <NavBarContainer navbarBlocked={false}> {children} </NavBarContainer>

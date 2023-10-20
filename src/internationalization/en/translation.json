@@ -1,5 +1,11 @@
 {
     "welcome": "Welcome",
     "openSettings": "Open Settings",
-    "pleaseLogin": "Please, log in before continue."
+    "loggingToPlatform": "Logging to platform...",
+    "loadingUserFromSystem": "Loading user from our system...",
+    "loadingSessionState": "Loading session state...",
+    "unexpectedErrorTryAgain": "Unexpected error. Please reload the page.",
+    "noPermissions": "You don't have permissios to operate in the platform.",
+    "errorRetrievingUserData": "There was an error when trying to retrieve user data.",
+    "doesntExistInSystem": "doesn't exist in our system. Contact an administrator."
 }

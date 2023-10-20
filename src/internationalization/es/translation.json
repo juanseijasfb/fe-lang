@@ -1,5 +1,11 @@
 {
     "welcome": "Bienvenido",
     "openSettings": "Abrir opciones",
-    "pleaseLogin": "Por favor, inicie sesión antes de continuar."
+    "loggingToPlatform": "Loggeandose a la plataforma...",
+    "loadingUserFromSystem": "Cargando usuario desde el sistema...",
+    "loadingSessionState": "Cargando estado de sesión...",
+    "unexpectedErrorTryAgain": "Ocurrió un error inesperado. Intente reiniciar la pagina.",
+    "noPermissions": "Usted no posee permisos para operar en la plataforma",
+    "errorRetrievingUserData": "Hubo un error al intentar recuperar los datos del usuario",
+    "doesntExistInSystem": "no existe en el sistema. Pongase en contacto con un administrador."
 }
