@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { createDriver, getCarriersList } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const CreateDriverForm = () => {
     const { t } = useTranslation();
@@ -20,8 +21,6 @@ const CreateDriverForm = () => {
         carrierName: "",
         trailerType: "",
     });
-
-    const {user} = useAuth0();
 
     const [triedToCreate, setTriedtoCreate] = useState(false);
     const [isLoadingCarriers, setIsLoadingCarriers] = useState(false);
@@ -48,19 +47,13 @@ const CreateDriverForm = () => {
 
         await createDriver(payload)
         .then(() => {
-            if(!user?.email) {
-                toast.error("Error al intentar obtener el mail del dispatcher a vincular");
-                return;
-            }
-
-            toast.success("Driver creado correctamente");
-
+            toast.success(`Driver ${t('createdSuccessfully')}`)
             setLoading(false);
             // el add driver no linkea mas a dispatcher.
             // linkDriverToDispatcher(res.driverId);
         })
         .catch(() => {
-            toast.error("Hubo un error al intentar crear el driver");
+            toast.error(`${t('errorWhenTryingToCreate')} driver`)
             setLoading(false);
         })
     }
@@ -68,7 +61,7 @@ const CreateDriverForm = () => {
     useEffect(() => {
         const getCarriers = async () => {
             const data = await getCarriersList().catch(() => {
-                toast.error("Hubo un error al intentar obtener la lista de carriers");
+                toast.error(`${t('errorWhenTryingToFetchList')} carriers`)
             });
 
             if(!data) {
@@ -100,12 +93,12 @@ const CreateDriverForm = () => {
 
     const fields = [
         {
-            displayName: "First Name",
+            displayName: t('firstName'),
             linkedTo: 'firstName',
             fieldType: "textField",
         },
         {
-            displayName: "Last Name",
+            displayName: t('lastName'),
             linkedTo: 'lastName',
             fieldType: "textField",
         },
@@ -118,13 +111,13 @@ const CreateDriverForm = () => {
             error: !fieldsData.mcNumber && triedToCreate,
         },
         {
-            displayName: "Max Load Weight",
+            displayName: t('maxLoadWeight'),
             linkedTo: 'maxWeight',
             fieldType: "textField",
             valueType:"number",
         },
         {
-            displayName: "Trailer type",
+            displayName: t('trailerType'),
             linkedTo: 'trailerType',
             fieldType: "select", // select?
             error: !fieldsData.trailerType && triedToCreate,
@@ -211,7 +204,7 @@ const CreateDriverForm = () => {
         })}
        
         {loading ? (<CircularProgress/>) : (
-            <Button variant='outlined' onClick={tryCreateDriver}>Create driver</Button>
+            <Button variant='outlined' onClick={tryCreateDriver}>{t('create')} driver</Button>
         )}
     </Box>
 

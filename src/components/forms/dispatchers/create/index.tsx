@@ -41,16 +41,16 @@ const AddDispatcherForm = () => {
         await addDispatcher(payload)
         .then(() => {
             if(!user?.email) {
-                toast.error("Error al intentar crear el dispatcher");
+                toast.error(`${t('musterrorWhenTryingToCreate')} dispatcher`);
                 return;
             }
 
-            toast.success("Dispatcher creado correctamente");
+            toast.success(`Dispatcher ${t('createdSuccessfully')}`);
 
             setLoading(false);
         })
         .catch(() => {
-            toast.error("Hubo un error al intentar crear el dispatcher");
+            toast.error(`${t('musterrorWhenTryingToCreate')} dispatcher`);
             setLoading(false);
         })
     }
@@ -62,7 +62,7 @@ const AddDispatcherForm = () => {
             fieldType: "textField",
         },
         {
-            displayName: "Role",
+            displayName: t('role'),
             linkedTo: 'role',
             fieldType: "select", // select?
             error: !fieldsData.role && triedToCreate,
@@ -84,7 +84,7 @@ const AddDispatcherForm = () => {
         //     fieldType: "textField",
         // },
         {
-            displayName: "Enabled",
+            displayName: t('enabled'),
             linkedTo: 'enabled',
             fieldType: "checkbox",
             value: fieldsData.enabled,
@@ -171,7 +171,7 @@ const AddDispatcherForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={createDispatcher}>Create Dispatcher</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={createDispatcher}>{t('create')} Dispatcher</Button>
        )}
     </Box>
 

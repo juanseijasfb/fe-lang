@@ -42,7 +42,7 @@ const DeleteCarrierForm = () => {
                 return;
             }
 
-            toast.success("Carrier borrado correctamente")
+            toast.success(`Carrier ${t('deletedSuccessfully')}`)
             setLoading(false);
         })
         .catch(() => {

@@ -6,11 +6,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { deleteDispatcher } from '@/services/ApiServices';
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const DeleteDispatcherForm = () => {
     const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
-        dispatcherEmail: "",
+        mc: "",
     });
 
     const {user} = useAuth0();
@@ -20,8 +21,6 @@ const DeleteDispatcherForm = () => {
 
     const handleDeleteDispatcher = async () => {
 
-        toast.info("Delete dispatcher no existe en postman")
-        return;
         setLoading(true);
         const payload = {
             ...fieldsData
@@ -39,24 +38,23 @@ const DeleteDispatcherForm = () => {
         await deleteDispatcher()
         .then(() => {
             if(!user?.email) {
-                toast.error("Error al intentar borrar el dispatcher")
+                toast.error(`${t('errorWhenTryingToDelete')} dispatcher`)
                 return;
             }
 
-            toast.success("Dispatcher creado correctamente")
-
+            toast.success(`Dispatcher ${t('deletedSuccessfully')}`)
             setLoading(false);
         })
         .catch(() => {
-            toast.error("Hubo un error al intentar crear el dispatcher")
+            toast.error(`${t('errorWhenTryingToDelete')} dispatcher`)
             setLoading(false);
         })
     }
 
     const fields = [
         {
-            displayName: "Dispatcher Email",
-            linkedTo: 'dispatcherEmail',
+            displayName: "MC",
+            linkedTo: 'mc',
             fieldType: "textField",
         },
     ];
@@ -128,7 +126,7 @@ const DeleteDispatcherForm = () => {
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', height: "80vh"}}>
-        <h1 style={{fontSize:"30px"}}>Delete dispatcher</h1>
+        <h1 style={{fontSize:"30px"}}>{t('delete')} dispatcher</h1>
         {fields.map((x, i) => {
             return <Box 
                 key={i}
@@ -138,7 +136,7 @@ const DeleteDispatcherForm = () => {
         })}
        
        {loading ? (<CircularProgress/>) : (
-           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteDispatcher}>Delete Dispatcher</Button>
+           <Button variant='outlined' sx={{width:"30%"}} onClick={handleDeleteDispatcher}>{t('delete')} dispatcher</Button>
        )}
     </Box>
 

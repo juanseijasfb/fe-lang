@@ -17,6 +17,7 @@ import {
  import { RestrictionPayload } from '@/types/types';
 
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
 
 const RemoveCarrierRestrictionForm = () => {
   
@@ -52,7 +53,7 @@ const RemoveCarrierRestrictionForm = () => {
   useEffect(() => {
       const getCarriers = async () => {
           const data = await getCarriersList().catch(() => {
-            toast.error("Hubo un error al intentar obtener la lista de carriers")
+            toast.error(`${t('errorWhenTryingToFetchList')} carriers`)
           });
 
           if(!data) {
@@ -168,8 +169,7 @@ const RemoveCarrierRestrictionForm = () => {
   const handleRemoveRestrictions = () => {
 
     if(selectedRestrictionsToRemove.length <= 0) {
-      toast.error("Debe seleccionar un elemento antes de restringir")
-
+      toast.error(t('mustSelectAnElement'))
       return;
     }
 
@@ -225,12 +225,12 @@ const RemoveCarrierRestrictionForm = () => {
       .then((res) => {
 
           if(res?.indexOf("ok") === -1){
-            toast.error(`Hubo un error al intentar quitar la restricción: "${payload.typeValue}".`)
+            toast.error(`${t('errorWhenTryingToRemoveRestriction')}: "${payload.typeValue}".`)
             return;
           }
           toast.success(`Restricción de "${payload.typeValue}" fue removida correctamente.`)
       }).catch(() => {
-          toast.error(`Hubo un error al intentar quitar la restricción: "${payload.typeValue}".`)
+          toast.error(`${t('errorWhenTryingToRemoveRestriction')}: "${payload.typeValue}".`)
           reject();
       })
       .finally(() => {
@@ -244,33 +244,32 @@ const RemoveCarrierRestrictionForm = () => {
     .then((res) => {
 
         if(res?.message || res?.msg) {
-        toast.error("Hubo un error al intentar obtener los nombres de los brokers bloqueados.")
-        setIsLoadingRestrictionList(false);
-        setDisableForm(false);
-        return;
+          toast.error(t('errorRetrievingBrokerNames'))
+          setIsLoadingRestrictionList(false);
+          setDisableForm(false);
+          return;
         }
 
         const data = {};
 
         res.forEach((el) => {
-        data[el.CompanyName] = el.MCNumber;
-        data[el.MCNumber] = el.CompanyName;
+          data[el.CompanyName] = el.MCNumber;
+          data[el.MCNumber] = el.CompanyName;
         })
 
         setBrokerNames(data);
 
         const mappedInfo = details.map((x) => {
-        return {
-            ...x,
-            TypeValue: data[x.TypeValue]
-        } 
+          return {
+              ...x,
+              TypeValue: data[x.TypeValue]
+          } 
         })
         setRestrictionsList(mappedInfo);
-        toast.success("Restricciones cargadas con exito.")
-     
+        toast.success(t('restrictionsLoadedSuccessfully'))
     })
     .catch(() => {
-        toast.error("Hubo un error al intentar obtener los nombres de los brokers bloqueados")
+        toast.error(t('errorRetrievingBrokerNames'))
     })
     .finally(() => {
       setIsLoadingRestrictionList(false);
@@ -287,14 +286,14 @@ const RemoveCarrierRestrictionForm = () => {
     .then((x) => {
 
       if(x?.message || x?.msg) {
-        toast.error("Hubo un error al intentar cargar las restricciones de carrier")
+        toast.error(t('errorRetrievingCarrierRestrictions'))
         setIsLoadingRestrictionList(false);
         setDisableForm(false);
         return;
       }
 
       if(x?.length <= 0 ) {
-        toast.info(`No se encontraron restricciones para el carrier "${carrierMC}" `)
+        toast.info(`${t('restrictionsNotfoundForCarrier')} "${carrierMC}" `)
         setIsLoadingRestrictionList(false);
         setDisableForm(false);
         return;
@@ -309,7 +308,7 @@ const RemoveCarrierRestrictionForm = () => {
 
       setRestrictionsList(x);
 
-      toast.success( `Restricciones cargadas con exito!`)
+      toast.success(t('restrictionsLoadedSuccessfully'))
       
       setIsLoadingRestrictionList(false);
       setDisableForm(false);
@@ -320,7 +319,7 @@ const RemoveCarrierRestrictionForm = () => {
 
       const fields = [
         {
-            displayName: "Carrier a quitar restricciones",
+            displayName: t('carrierToRemoveRestrictions'),
             linkedTo: 'carrierToAddRestriction',
             fieldType: "select",
             // error: !fieldsData.trailerType && triedToCreate,
@@ -335,7 +334,7 @@ const RemoveCarrierRestrictionForm = () => {
             }
         },
         {
-          displayName: "Lista de restricciones",
+          displayName:  t('listOfRestrictions'),
           linkedTo: 'restrictionList',
           fieldType: "grid",
           isHidden: restrictionsList.length === 0,
@@ -344,14 +343,14 @@ const RemoveCarrierRestrictionForm = () => {
             {
               field: "restrictionName",
               hide: false,
-              headerName: "Restriction Name",
+              headerName: t('restrictionName'),
               width: 600,
               sortable: false,
             },
             {
               field: "restrictionType",
               hide: false,
-              headerName: "Type",
+              headerName: t('type'),
               width: 100,
               sortable: false,
             },
@@ -375,7 +374,7 @@ const RemoveCarrierRestrictionForm = () => {
   }
 
   return <Box sx={{...centerStyleProps}}>
-    <h1 style={{fontSize:"30px"}}>Quitar restricciones de carrier</h1>
+    <h1 style={{fontSize:"30px"}}></h1>
 
       {renderFormSelected()}
       
@@ -385,7 +384,7 @@ const RemoveCarrierRestrictionForm = () => {
             sx={{width:"30%"}} 
             onClick={handleRemoveRestrictions} 
             disabled={disableForm || isLoadingCarriers || selectedRestrictionsToRemove.length <= 0 || restrictionsList.length <= 0}>
-              Quitar restricciones
+              {t('removeRestrictions')}
           </Button>
       )}
   </Box>
