@@ -157,6 +157,12 @@ function Navbar({navbarBlocked = true}) {
                   }}>
                     <Typography textAlign="center">{t('delete')} dispatcher</Typography>
                   </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/link/driver-dispatcher");
+                    setAnchorElDispatcher(null);
+                  }}>
+                    <Typography textAlign="center">{t('linkDriverToDispatcher')}</Typography>
+                  </MenuItem>
               </Menu>
 
               <Button 

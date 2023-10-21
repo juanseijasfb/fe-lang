@@ -59,5 +59,10 @@
     "lastName": "Last Name",
     "maxLoadWeight": "Max Load Weight",
     "trailerType": "Trailer type",
-    "deleteCarrierRestriction": "Delete Carrier Restriction"
+    "deleteCarrierRestriction": "Delete Carrier Restriction",
+    "addAll": "Add all",
+    "removeAll": "Remove all",
+    "linkDriverToDispatcher": "Link and unlink drivers to dispatcher",
+    "linkUnlink": "Link and unlink",
+    "selectDriverToLink": "Select the drivers to link"
 }

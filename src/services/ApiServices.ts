@@ -209,3 +209,82 @@ export const getBrokerRestrictionDetails = async (brokerMcList = "") => {
             throw new Error()
         });
 };
+
+
+export const addDriverToDispatcher = async (payload) => {
+    return fetch(`${ROOT_URL_5000}/addDriverToDispatcher`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "dispatcher": payload.dispatcher,
+            "driversList": payload.driversList,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error("Hubo un error al intentar intentar vincular el driver con el dispatcher.");
+        })
+};
+
+export const getMyDriversList = async (userEmail) => {
+    // dispatcher debe venir como parametro, pero no esta definido como.
+    return fetch(`${ROOT_URL_5000}/getMyDriversList?dispacher=${userEmail}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};
+
+export const getUnassignedDriversList = async (dispatcher = "") => {
+    return fetch(`${ROOT_URL_5000}/getUnassignedDriversList?dispatcher=${dispatcher}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};
+
+export const removeDriverFromDispatcher = async (payload) => {
+
+    return fetch(`${ROOT_URL_5000}/removeDriverFromDispatcher`, {
+        method: "POST",
+        headers: {
+            Accept: "text/html; charset=utf-8",
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "dispatcher": payload.dispatcher,
+            "driversList": payload.driversList,
+        })
+    })
+        .then((x) => x.text())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error("Hubo un error al intentar borrar el driver.");
+        })
+};
+
+export const getDispatcherList = async (dispatcher = "") => {
+    return fetch(`${ROOT_URL_5000}/getDispatcherList?dispatcher=${dispatcher}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};
