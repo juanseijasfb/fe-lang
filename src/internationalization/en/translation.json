@@ -71,5 +71,10 @@
     "noDriversToAssignToDispatcher": "Couldn't find drivers to assign to dispatcher",
     "driversLinkedSuccessfully": "Drivers linked successfully",
     "errorTryingToLink": "There was an error when trying to link the drivers",
-    "errorTryingToUnlink": "There was an error when trying to unlink the drivers"
+    "errorTryingToUnlink": "There was an error when trying to unlink the drivers",
+    "available": "Available",
+    "toLink": "To link",
+    "search": "Search",
+    "add": "Add",
+    "remove": "Remove"
 }

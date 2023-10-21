@@ -193,6 +193,8 @@ const LinkToDispatcherForm = () => {
                     right={rightSide}
                     setRight={setRightSide}
                     loading={loadingTransferList}
+                    leftTitle={t('available')}
+                    rightTitle={t('toLink')}
                 />
             </>
         }
