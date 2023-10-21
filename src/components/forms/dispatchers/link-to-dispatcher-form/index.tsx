@@ -39,7 +39,7 @@ const LinkToDispatcherForm = () => {
         const getAvailableDispatchers = async () => {
 
             const dispatchers = await getDispatcherList().catch(() => {
-                toast.error("Hubo un error al intentar obtener la lista de dispatchers");
+                toast.error(`${t('errorRetrievingDispatcherList')}`);
                 setLoadingDispatchers(false);
             });
 
@@ -67,7 +67,7 @@ const LinkToDispatcherForm = () => {
         setLoadingTransferList(true);
         const fetchDrivers = async () => {
             const myDrivers = await getMyDriversList(fieldsData.dispatcher).catch(() => {
-                toast.error(`Hubo un error al intentar obtener la lista de drivers asignados al driver ${user?.email}.`)
+                toast.error(`${t('errorRetrievingDriversLinkedToDispatcher')}`);
                 setLoadingTransferList(false);
             });
 
@@ -86,12 +86,14 @@ const LinkToDispatcherForm = () => {
             setRightSide(myAssignedDrivers);
 
             let unassignedDriversData = await getUnassignedDriversList(fieldsData.dispatcher).catch(() => {
-                toast.error(`Hubo un error al intentar obtener la lista de drivers sin asignar al driver ${fieldsData.dispatcher}.`)
+               
+                toast.error(`${t('errorRetrievingDriversUnlinkedToDispatcher')}`);
                 setLoadingTransferList(false);
             });
 
             if(!unassignedDriversData || unassignedDriversData?.msg) {
-                toast.info(`El dispatcher ${fieldsData.dispatcher} no tiene drivers para asignar`)
+               
+                toast.info(`${t('noDriversToAssignToDispatcher')} ${fieldsData.dispatcher}`);
                 setLoadingTransferList(false);
                 return;
             }
@@ -118,9 +120,9 @@ const LinkToDispatcherForm = () => {
 
         await addDriverToDispatcher(payload)
         .then(() => {
-            toast.success(`Drivers vinculados correctamente`)
+            toast.success(`${t('driversLinkedSuccessfully')}`);
         }).catch(() => {
-            toast.error(`Hubo un error al intentar vincular los drivers`)
+            toast.error(`${t('errorTryingToLink')}`);
         })
         .finally(() => {
             setIsLinking(false);
@@ -139,7 +141,7 @@ const LinkToDispatcherForm = () => {
             linkDrivers();
         }).catch(() => {
             setIsLinking(false);
-            toast.error(`Hubo un error al intentar desvincular los drivers`);
+            toast.error(`${t('errorTryingToUnlink')}`);
         })
     }
 

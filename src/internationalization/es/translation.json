@@ -64,5 +64,12 @@
     "removeAll": "Remover todos",
     "linkDriverToDispatcher": "Vincular y desvincular drivers de dispatcher",
     "linkUnlink": "Vincular y desvincular",
-    "selectDriverToLink": "Seleccione los drivers para vincular"
+    "selectDriverToLink": "Seleccione los drivers para vincular",
+    "errorRetrievingDispatcherList": "Hubo un error al intentar obtener la lista de dispatchers",
+    "errorRetrievingDriversLinkedToDispatcher": "Hubo un error al intentar obtener la lista de drivers asignados al dispatcher",
+    "errorRetrievingDriversUnlinkedToDispatcher": "Hubo un error al intentar obtener la lista de drivers sin asignar al dispatcher",
+    "noDriversToAssignToDispatcher": "No hay drivers para asignar al dispatcher",
+    "driversLinkedSuccessfully": "Drivers vinculados correctamente",
+    "errorTryingToLink": "Hubo un error al intentar vincular los drivers",
+    "errorTryingToUnlink": "Hubo un error al intentar desvincular los drivers"
 }
