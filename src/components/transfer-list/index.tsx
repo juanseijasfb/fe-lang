@@ -3,23 +3,30 @@ import {
   Button, Grid, Paper,
   Typography, Box, CircularProgress, TextField, Autocomplete,
 } from '@mui/material';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Item {
   id: number;
   value: string;
 }
+interface ItemTlist {
+  id: number;
+  label: string;
+}
 
 const TransferList = ({
-    left = [] as Item[], 
-    right = [] as Item[],
-    setLeft,
-    setRight,
-    disabledForm = false,
-    loading = false,
-    leftTitle = "Disponible",
-    rightTitle = "A vincular",
-  }) => {
+  left = [] as Item[], 
+  right = [] as Item[],
+  setLeft,
+  setRight,
+  disabledForm = false,
+  loading = false,
+  leftTitle = "Disponible",
+  rightTitle = "A vincular",
+}) => {
+  
+  const [leftSearchValue, setLeftSearchValue] = useState<ItemTlist | null>(null);
 
   const { t } = useTranslation();
 
@@ -33,6 +40,10 @@ const TransferList = ({
     const newSourceList = left.filter((i) => i.id !== item.id);
     setLeft(newSourceList);
     setRight([...right, item]);
+
+    if(item.id === leftSearchValue?.id) {
+      setLeftSearchValue(null);
+    }
   };
 
   const handleRemoveItem = (item: Item) => {
@@ -51,14 +62,18 @@ const TransferList = ({
     setRight([]);
   };
 
-  // const handleFilterLeft = (text) => {
-  //   const newList = left.filter((x) => x.value.includes(text) )
-  //   setLeft(newList);
-  // }
+  const handleAddLeftSearch = () => {
+    if(!leftSearchValue){
+      return;
+    }
+    const item: Item = {
+      id: leftSearchValue.id,
+      value: leftSearchValue.label,
+    }
+    handleAddItem(item)
 
-  // const handleFilterRight = (text) => {
-    
-  // }
+
+  }
 
   return (
     <Box
@@ -85,12 +100,21 @@ const TransferList = ({
               justifyContent:'end',
               flex: 1,
             }} >
-              {/* <Autocomplete
+
+              {leftSearchValue && <Button onClick={() => handleAddLeftSearch()}> 
+                {t('add')} 
+              </Button>}
+
+              <Autocomplete
                 sx={{width:"50%"}}
-                options={left.map((x) => x.value)} 
+                value={leftSearchValue}
+                onChange={(e, newValue) => {
+                  setLeftSearchValue(newValue);
+                }}
+                options={left.map((x) => ({id: x.id, label: x.value}))} 
                 renderInput={(params) => <TextField {...params} />}
                 placeholder={t('search')}
-              /> */}
+              />
             </Box>
           </Box>
         <Paper
@@ -117,7 +141,7 @@ const TransferList = ({
 
       <Grid container justifyContent="center" alignItems="center" sx={{width:"25%"}}>
         <Box sx={{display:'flex', flexDirection:'column'}}>
-            <Button
+          <Button
               disabled={disabledForm}
               sx={{ marginTop: 2 }}
               variant="contained"
