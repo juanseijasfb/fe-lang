@@ -27,6 +27,7 @@ const TransferList = ({
 }) => {
   
   const [leftSearchValue, setLeftSearchValue] = useState<ItemTlist | null>(null);
+  const [rightSearchValue, setRightSearchValue] = useState<ItemTlist | null>(null);
 
   const { t } = useTranslation();
 
@@ -50,6 +51,10 @@ const TransferList = ({
     const newTargetList = right.filter((i) => i.id !== item.id);
     setRight(newTargetList);
     setLeft([...left, item]);
+
+    if(item.id === rightSearchValue?.id) {
+      setRightSearchValue(null);
+    }
   };
 
   const handleAddAll = () => {
@@ -71,8 +76,17 @@ const TransferList = ({
       value: leftSearchValue.label,
     }
     handleAddItem(item)
+  }
 
-
+  const handleRemoveRightSearch = () => {
+    if(!rightSearchValue){
+      return;
+    }
+    const item: Item = {
+      id: rightSearchValue.id,
+      value: rightSearchValue.label,
+    }
+    handleRemoveItem(item)
   }
 
   return (
@@ -177,12 +191,21 @@ const TransferList = ({
               justifyContent:'end',
               flex: 1,
             }} >
-              {/* <Autocomplete
+
+              {rightSearchValue && <Button onClick={() => handleRemoveRightSearch()}> 
+                {t('remove')} 
+              </Button>}
+
+              <Autocomplete
                 sx={{width:"50%"}}
-                options={right.map((x) => x.value)} 
+                value={rightSearchValue}
+                onChange={(e, newValue) => {
+                  setRightSearchValue(newValue);
+                }}
+                options={right.map((x) => ({id: x.id, label: x.value}))} 
                 renderInput={(params) => <TextField {...params} />}
                 placeholder={t('search')}
-              /> */}
+              />
             </Box>
           </Box>
         <Paper
