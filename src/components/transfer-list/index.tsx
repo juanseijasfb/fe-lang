@@ -122,7 +122,7 @@ const TransferList = ({
               <Autocomplete
                 sx={{width:"50%"}}
                 value={leftSearchValue}
-                onChange={(e, newValue) => {
+                onChange={(_e, newValue) => {
                   setLeftSearchValue(newValue);
                 }}
                 options={left.map((x) => ({id: x.id, label: x.value}))} 
@@ -199,7 +199,7 @@ const TransferList = ({
               <Autocomplete
                 sx={{width:"50%"}}
                 value={rightSearchValue}
-                onChange={(e, newValue) => {
+                onChange={(_e, newValue) => {
                   setRightSearchValue(newValue);
                 }}
                 options={right.map((x) => ({id: x.id, label: x.value}))} 
