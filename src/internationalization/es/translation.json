@@ -76,5 +76,10 @@
     "toLink": "A vincular",
     "search": "Buscar",
     "add": "Agregar",
-    "remove": "Quitar"
+    "remove": "Quitar",
+    "restrict": "Restringir",
+    "restrictStates": "Restringir estados",
+    "restrictCities": "Restringir ciudades",
+    "restrictStatesForDrivers": "Restrict states for drivers",
+    "restrictCitiesForDrivers": "Restrict cities for drivers"
 }

@@ -18,6 +18,7 @@ import DeleteCarrierForm from "@/components/forms/carriers/delete";
 import RemoveCarrierRestrictionForm from "@/components/forms/carriers/restrictions/delete";
 import ErrorComponent from "@/components/errorComponent";
 import LinkToDispatcherForm from "@/components/forms/dispatchers/link-to-dispatcher-form";
+import RestrictStatesForDrivers from "@/components/forms/drivers/restrictions/states";
 
 const router = createBrowserRouter([
     {
@@ -111,6 +112,15 @@ const router = createBrowserRouter([
         path: "/link/driver-dispatcher",
         element: <Layout> 
             <LinkToDispatcherForm /> 
+        </Layout>,
+        errorElement: <Layout>
+            <ErrorComponent />
+        </Layout>, 
+    },
+    {
+        path: "/restrcitions/driver/state",
+        element: <Layout> 
+            <RestrictStatesForDrivers /> 
         </Layout>,
         errorElement: <Layout>
             <ErrorComponent />

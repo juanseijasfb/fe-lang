@@ -68,11 +68,17 @@ function Navbar({navbarBlocked = true}) {
                     <Typography textAlign="center">{t('create')} driver</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
+                    navigate("/restrcitions/driver/state");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('restrictStates')}</Typography>
+                  </MenuItem>
+                  {/* <MenuItem onClick={() => {
                     navigate("/delete/driver");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('delete')} driver</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
               </Menu>
 
               <Button 
@@ -103,12 +109,12 @@ function Navbar({navbarBlocked = true}) {
                   }}>
                     <Typography textAlign="center">{t('create')} carrier</Typography>
                   </MenuItem>
-                  <MenuItem onClick={() => {
+                  {/* <MenuItem onClick={() => {
                     navigate("/delete/carrier");
                     setAnchorElCarrier(null);
                   }}>
                     <Typography textAlign="center">{t('delete')} carrier</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={() => {
                     navigate("/create/carrier/restriction");
                     setAnchorElCarrier(null);
@@ -151,12 +157,12 @@ function Navbar({navbarBlocked = true}) {
                   }}>
                     <Typography textAlign="center">{t('create')} dispatcher</Typography>
                   </MenuItem>
-                  <MenuItem onClick={() => {
+                  {/* <MenuItem onClick={() => {
                     navigate("/delete/dispatcher");
                     setAnchorElDispatcher(null);
                   }}>
                     <Typography textAlign="center">{t('delete')} dispatcher</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={() => {
                     navigate("/link/driver-dispatcher");
                     setAnchorElDispatcher(null);
