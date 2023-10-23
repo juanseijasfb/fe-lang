@@ -75,12 +75,19 @@
     "available": "Available",
     "toLink": "To link",
     "search": "Search",
+    "selected": "Selected",
     "add": "Add",
     "remove": "Remove",
     "restrict": "Restrict",
     "restrictStates": "Restrict states",
     "restrictCities": "Restrict cities",
     "restrictStatesForDrivers": "Restrict states for drivers",
-    "restrictCitiesForDrivers": "Restrict cities for drivers"
-
+    "restrictCitiesForDrivers": "Restrict cities for drivers",
+    "errorTryingToGetDrivers":  "There was an error when trying to get drivers",
+    "confirmSelectionAndContinue": "Confirm selection and continue",
+    "confirmSelectionAndRestrict": "Confirm selection and restrict",
+    "selectDriversToAddRestrictions": "Select drivers to assign restrictions",
+    "selectDriversToOpperate": "Select the drivers to opperate",
+    "selectStatesToRestrict": "Select states to restrict",
+    "goBack": "Go Back"
 }

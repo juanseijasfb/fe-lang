@@ -1,3 +1,4 @@
+import { Item, ItemTlist } from '@/types/types';
 import {
   List, ListItem, ListItemText,
   Button, Grid, Paper,
@@ -6,14 +7,6 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface Item {
-  id: number;
-  value: string;
-}
-interface ItemTlist {
-  id: number;
-  label: string;
-}
 
 const TransferList = ({
   left = [] as Item[], 

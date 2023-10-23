@@ -68,7 +68,7 @@ function Navbar({navbarBlocked = true}) {
                     <Typography textAlign="center">{t('create')} driver</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
-                    navigate("/restrcitions/driver/state");
+                    navigate("/restrcitions/driver/state/step-one");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('restrictStates')}</Typography>

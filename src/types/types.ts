@@ -46,3 +46,12 @@ export type RouteTableProps = {
     sortKey: string
     visibilityKey: string
 }
+
+export interface Item {
+    id: number;
+    value: string;
+}
+export interface ItemTlist {
+    id: number;
+    label: string;
+}

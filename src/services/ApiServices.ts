@@ -288,3 +288,42 @@ export const getDispatcherList = async (dispatcher = "") => {
             throw new Error()
         });
 };
+
+export const getDriversList = async (driver = "") => {
+    return fetch(`${ROOT_URL_5000}/getDriversList?driver=${driver}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+};
+
+export const getCities = async ({ cityToSearch, state }) => {
+    return fetch(`${ROOT_URL_5000}/getCitiesList?city=${cityToSearch}&state=${state}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res.data())
+        .catch(() => {
+            throw new Error()
+        });
+};
+
+export const getCitiesByState = async ({ state }) => {
+    return fetch(`${ROOT_URL_5000}/getCitiesListByState?state=${state}`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res.map((x) => x.city).sort())
+        .catch(() => {
+            throw new Error()
+        });
+};
