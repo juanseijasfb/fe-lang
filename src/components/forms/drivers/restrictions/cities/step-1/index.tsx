@@ -11,7 +11,7 @@ const RestrictCitiesForDriversStepOne = () => {
         // leftSide, 
         rightSide,
         renderDriverSelection
-    } = useBatchSelection({ parentCb: updateStep});
+    } = useBatchSelection({ parentCb: updateStep, filterListOnGoBack: true});
 
     const [formStep, setFormStep] = useState("1");
 

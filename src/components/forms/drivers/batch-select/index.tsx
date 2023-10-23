@@ -13,7 +13,6 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { 
-    addDriverToDispatcher, 
     getDriversList,
     getDispatcherList 
 } from '@/services/ApiServices';
@@ -26,7 +25,7 @@ const BatchSelectDrivers = ({
     leftSide, setLeftSide,
     rightSide, setRightSide,
     availableDispatchers, setAvailableDispatchers,
-    parentCb
+    parentCb, filterListOnGoBack
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -82,45 +81,22 @@ const BatchSelectDrivers = ({
                 }
             });
 
-            setLeftSide(fullDriverList);
+            if(filterListOnGoBack) {
+                const rightSideIds = rightSide.map((x) => x.id);
+                const fullDriverListFiltered = [...fullDriverList].filter((x) => !rightSideIds.includes(x.id))
+                setLeftSide(fullDriverListFiltered);
+            } else {
+                setLeftSide(fullDriverList);
+            }
+            
             setLoadingTransferList(false);
         }
 
         fetchDrivers();
     }, [fieldsData.dispatcher]);
 
-    const linkDrivers = async () => {
-        const payload = {
-            dispatcher: fieldsData.dispatcher,
-            driversList: rightSide.map((x: {id: number, value: string}) => x.id).join(","),
-        };
-
-        await addDriverToDispatcher(payload)
-        .then(() => {
-            toast.success(`${t('driversLinkedSuccessfully')}`);
-        }).catch(() => {
-            toast.error(`${t('errorTryingToLink')}`);
-        })
-        .finally(() => {
-            setIsLinking(false);
-        })
-    }
-
     const nextStep = async () => {
         parentCb();
-        // setIsLinking(true);
-        // const payload = {
-        //     dispatcher: fieldsData.dispatcher,
-        //     driversList: leftSide.map((x: {id: number, value: string}) => x.id).join(","),
-        // };
-
-        // await removeDriverFromDispatcher(payload)
-        // .then(() => {
-        //     linkDrivers();
-        // }).catch(() => {
-        //     setIsLinking(false);
-        //     toast.error(`${t('errorTryingToUnlink')}`);
-        // })
     }
 
     let fields = [

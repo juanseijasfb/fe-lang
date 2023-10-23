@@ -3,17 +3,21 @@ import { useState } from "react";
 import RestrictStatesForDriversStepTwo from "../step-2";
 
 const RestrictStatesForDriversStepOne = () => {
+    const [formStep, setFormStep] = useState("1");
+    const [filterListOnGoBack, setFilterListOnGoBack] = useState(false);
+
     const updateStep = () => {
         setFormStep("2");
+        setFilterListOnGoBack(true);
     }
 
     const {
         // leftSide, 
         rightSide,
         renderDriverSelection
-    } = useBatchSelection({ parentCb: updateStep});
+    } = useBatchSelection({ parentCb: updateStep, filterListOnGoBack: filterListOnGoBack});
 
-    const [formStep, setFormStep] = useState("1");
+
 
     if(formStep === "1") {
         return renderDriverSelection();
