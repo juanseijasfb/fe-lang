@@ -19,7 +19,7 @@ import RemoveCarrierRestrictionForm from "@/components/forms/carriers/restrictio
 import ErrorComponent from "@/components/errorComponent";
 import LinkToDispatcherForm from "@/components/forms/dispatchers/link-to-dispatcher-form";
 import RestrictStatesForDriversStepOne from "@/components/forms/drivers/restrictions/states/step-1";
-import RestrictStatesForDriversStepTwo from "@/components/forms/drivers/restrictions/states/step-2";
+import RestrictStatesForDriversStepTwo from "@/components/forms/drivers/restrictions/states/add-multiple/step-2";
 
 const router = createBrowserRouter([
     {

@@ -1,6 +1,6 @@
 import useBatchSelection from "@/hooks/useBatchUserSelection";
 import { useState } from "react";
-import RestrictStatesForDriversStepTwo from "../step-2";
+import RestrictStatesForDriversStepTwo from "../add-multiple/step-2";
 
 const RestrictStatesForDriversStepOne = () => {
     const [formStep, setFormStep] = useState("1");

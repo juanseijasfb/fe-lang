@@ -8,10 +8,6 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { 
-    addDriverToDispatcher, 
-    getDriversList,
-    removeDriverFromDispatcher,
-    getDispatcherList, 
     addMultipleRestrictions
 } from '@/services/ApiServices';
 
@@ -43,8 +39,6 @@ const RestrictStatesForDriversStepTwo = ({
 
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [loadingTransferList, setLoadingTransferList] = useState(false);
 
     const nextStep = async () => {
 
@@ -90,9 +84,6 @@ const RestrictStatesForDriversStepTwo = ({
 
 
     const renderFields = (field) => {
-        if(isLoading) {
-            return <CircularProgress  />
-        }
 
         if(field.fieldType === "select") {
             return <>
@@ -121,7 +112,6 @@ const RestrictStatesForDriversStepTwo = ({
                     setLeft={setLeftSide}
                     right={rightSide}
                     setRight={setRightSide}
-                    loading={loadingTransferList}
                     leftTitle={t('available')}
                     rightTitle={t('toLink')}
                 />
@@ -142,27 +132,22 @@ const RestrictStatesForDriversStepTwo = ({
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
        
-       {!isLoading &&
-            <Box sx={{
-                display:'flex', 
-                justifyContent:'flex-start', 
-                width:"95%",
-                position:"absolute", 
-            }}>
-                <Button onClick={goBack} variant={'outlined'}>{t('goBack')}</Button>
-            </Box>
-        }
+        <Box sx={{
+            display:'flex', 
+            justifyContent:'flex-start', 
+            width:"95%",
+            position:"absolute", 
+        }}>
+            <Button onClick={goBack} variant={'outlined'} disabled={isLoading}>{t('goBack')}</Button>
+        </Box>
 
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
-        {!loadingTransferList &&
-            (
-                <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading}>
-                    {t('confirmSelectionAndRestrict')}
-                </Button>
-            )
-        }
+        
+        <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading}>
+            {t('confirmSelectionAndRestrict')}
+        </Button>
     </Box>
 
 }
