@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -11,14 +11,15 @@ import {
     addDriverToDispatcher, 
     getDriversList,
     removeDriverFromDispatcher,
-    getDispatcherList 
+    getDispatcherList, 
+    addMultipleRestrictions
 } from '@/services/ApiServices';
 
 import TransferList from "@/components/transfer-list";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { STATES_LIST } from "@/utils/constants";
-import { Item } from "@/types/types";
+import { Item, RestrictionPayload } from "@/types/types";
 
 const RestrictStatesForDriversStepTwo = ({
     selectedUsers,
@@ -38,7 +39,7 @@ const RestrictStatesForDriversStepTwo = ({
     })
 
     const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
-    const [rightSide, setRightSide] = useState([]); // drivers seleccionados
+    const [rightSide, setRightSide] = useState<Item[]>([]); // drivers seleccionados
 
 
     const [isLoading, setIsLoading] = useState(false);
@@ -47,21 +48,36 @@ const RestrictStatesForDriversStepTwo = ({
 
     const nextStep = async () => {
 
-        console.log("rightSide", rightSide);
-        console.log("selectedUsers", selectedUsers);
-        // setIsLoading(true);
-        // const payload = {
-        //     dispatcher: fieldsData.dispatcher,
-        //     driversList: leftSide.map((x: {id: number, value: string}) => x.id).join(","),
-        // };
+        let restrictions: RestrictionPayload[] = [];
 
-        // await removeDriverFromDispatcher(payload)
-        // .then(() => {
-        //     linkDrivers();
-        // }).catch(() => {
-        //     setIsLoading(false);
-        //     toast.error(`${t('errorTryingToUnlink')}`);
-        // })
+        selectedUsers.forEach((x) => {
+            const statesMapped = rightSide.map((y) => {
+                const data =  {
+                    subject: "D",
+                    type: "ST", 
+                    subjectValue: x?.value, 
+                    typeValue: y?.value,
+                    validUntil: "2099-12-31 00:00:00"
+                };
+               return data
+            })
+
+            restrictions.push(...statesMapped);
+        })
+
+
+
+        setIsLoading(true);
+
+        await addMultipleRestrictions(restrictions)
+        .then(() => {
+            toast.success(t('statesRestrictedSuccessfully'));
+        }).catch(() => {
+            toast.error(t('errorWhenTryingToRestrictState'));
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
     }
 
     let fields = [
@@ -125,14 +141,17 @@ const RestrictStatesForDriversStepTwo = ({
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
-        <Box sx={{
-            display:'flex', 
-            justifyContent:'flex-start', 
-            width:"95%",
-            position:"absolute", 
-        }}>
-            <Button onClick={goBack} variant={'outlined'}>{t('goBack')}</Button>
-        </Box>
+       
+       {!isLoading &&
+            <Box sx={{
+                display:'flex', 
+                justifyContent:'flex-start', 
+                width:"95%",
+                position:"absolute", 
+            }}>
+                <Button onClick={goBack} variant={'outlined'}>{t('goBack')}</Button>
+            </Box>
+        }
 
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}

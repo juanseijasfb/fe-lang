@@ -1,4 +1,5 @@
 const ROOT_URL_5000 = "https://fleetbooster.net:5000";
+const ROOT_URL_5001 = "https://fleetbooster.net:5001";
 
 export const getCarriersList = async (carrierName = "") => {
     return fetch(`${ROOT_URL_5000}/getCarriersList?carrier=${carrierName}`, {
@@ -122,6 +123,32 @@ export const addRestriction = async (
         });
 };
 
+// sample payload:
+// [
+    // {
+    //     subject = "D",
+    //     type, // CI, ST, B
+    //     subjectValue, // driver name
+    //     typeValue,
+    //     validUntil = "2099-12-31 00:00:00"
+    // },
+// ]
+export const addMultipleRestrictions = async ( restrictions ) => {
+    return fetch(`${ROOT_URL_5000}/addRestrictions`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(restrictions)
+        })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error();
+        });
+};
+
 export const addBroker = async ({ MCNumber, brokerName }) => {
     return fetch(`${ROOT_URL_5000}/addBroker`, {
         method: "POST",
@@ -176,6 +203,40 @@ export const removeRestriction = async (
                 Accept: "text/html; charset=utf-8",
                 "Content-Type": "text/html; charset=utf-8",
             },
+        })
+        .then((x) => x.text())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error("Hubo un error al intentar remover la restriccion.");
+        });
+};
+
+export const removeMultipleRestrictions = async (
+ [
+    // {
+    //     subject, // D, C
+    //     type, // CI, ST, B
+    //     subjectValue, // driver name
+    //     typeValue,
+    // }
+ ]
+) => {
+
+    return fetch(`${ROOT_URL_5001}/removeMultipleRestrictions`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                restrictions: [
+                    {}
+                ]
+            })
+            // headers: {
+            //     Accept: "text/html; charset=utf-8",
+            //     "Content-Type": "text/html; charset=utf-8",
+            // },
         })
         .then((x) => x.text())
         .then((res) => res)

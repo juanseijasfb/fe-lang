@@ -89,5 +89,7 @@
     "selectDriversToAddRestrictions": "Seleccione los drivers a asignar las restricciones",
     "selectDriversToOpperate": "Seleccione los drivers para operar",
     "selectStatesToRestrict": "Seleccione los estados a restringir",
-    "goBack": "Volver"
+    "goBack": "Volver",
+    "statesRestrictedSuccessfully": "Estados restringidos con éxito para los drivers seleccionados.",
+    "errorWhenTryingToRestrictState": "Hubo un error al intentar restringir los estados. "
 }

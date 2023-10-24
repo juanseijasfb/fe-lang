@@ -4,6 +4,7 @@ export type RestrictionPayload = {
     type: string,
     subjectValue: string,
     typeValue: string,
+    validUntil?: string,
 }
 
 export interface DriverRestrictionsConfiguration {
