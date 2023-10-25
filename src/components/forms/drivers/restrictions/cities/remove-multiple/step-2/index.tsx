@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -7,21 +7,19 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-// import { 
-//     addDriverToDispatcher, 
-//     getDriversList,
-//     removeDriverFromDispatcher,
-//     getDispatcherList 
-// } from '@/services/ApiServices';
-// import { toast } from "react-toastify";
+import { 
+    getRestrictions,
+    removeRestrictions
+} from '@/services/ApiServices';
 
 import TransferList from "@/components/transfer-list";
+import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { STATES_LIST } from "@/utils/constants";
 import { Item } from "@/types/types";
 
-const RestrictStatesForDriversStepTwo = ({
+const RemoveRestrictCitiesForDriversStepTwo = ({
     selectedUsers,
+    goBack
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -29,45 +27,115 @@ const RestrictStatesForDriversStepTwo = ({
         dispatcher: user?.email || "",
     });
 
-    const mappedStates = STATES_LIST.map((x, i) => {
-        return {
-            id: i,
-            value: x,
-        }
-    })
-
-    const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
-    const [rightSide, setRightSide] = useState([]); // drivers seleccionados
-
+    const [leftSide, setLeftSide] = useState<Item[]>([]); // sin seleccionar
+    const [rightSide, setRightSide] = useState<Item[]>([]); // drivers seleccionados
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [loadingTransferList, setLoadingTransferList] = useState(false);
+    useEffect(() => {
+        setIsLoading(true);
+        const getDriversRestrictions = async () => {
+                let promisesArr: Promise<any>[] = [];
 
-    console.log(setIsLoading)
-    console.log(setLoadingTransferList)
-    console.log(selectedUsers)
+                selectedUsers.forEach((x) => {
+                    const promise = new Promise<Item[]>((resolve, reject) => {
+                        return getRestrictions({
+                            carrier: "",
+                            driverName: x.value,
+                        }).then((result) => {
 
+                            // remove CITIES
+                            const filtered = result.filter((z) => z.Type === "CI");
+                            const itemsMapped: Item[] = filtered.map((restriction) => {
+                                const name = `${restriction.TypeValue} - ${x.value}`;
+                                return {
+                                    id: crypto.randomUUID(),
+                                    value: name,
+                                    metadata: {
+                                        driver: x.value,
+                                        city: restriction.TypeValue,
+                                        state: restriction.TypeValue.split(":")[1]
+                                    },
+                                };
+                            })
+
+                            if(itemsMapped.length <= 0) {
+                                toast.info(t("noResultsFound"));
+                            }
+
+                            resolve(itemsMapped);
+                        })
+                        .catch(() => {
+                            reject()
+                            return [];
+                        })
+                    });
+                    promisesArr.push(promise);
+                });
+
+            Promise.all(promisesArr).then(() => {
+                let newData: Item[] = [];
+                promisesArr.forEach((prom) => {
+                    prom.then((x) => {
+                        console.log("items", x);
+                        newData.push(...x);
+                    })
+                })
+
+                setLeftSide(newData);
+
+            }).finally(() => {
+                setIsLoading(false);
+            })
+        
+        }
+
+        getDriversRestrictions();
+    }, []);
 
     const nextStep = async () => {
-        // setIsLoading(true);
-        // const payload = {
-        //     dispatcher: fieldsData.dispatcher,
-        //     driversList: leftSide.map((x: {id: number, value: string}) => x.id).join(","),
-        // };
 
-        // await removeDriverFromDispatcher(payload)
-        // .then(() => {
-        //     linkDrivers();
-        // }).catch(() => {
-        //     setIsLoading(false);
-        //     toast.error(`${t('errorTryingToUnlink')}`);
-        // })
+        setRightSide([]);
+        toast.success("okk")
+        return;
+        if(rightSide.length <= 0){
+            toast.error(t("mustSelectRestrictionToRemove"));
+            return;
+        }
+
+        const payload = rightSide.map((x) => {
+            const data =  {
+                subject: "D",
+                type: "CI", 
+                subjectValue: x?.metadata?.driver, 
+                typeValue: x?.metadata?.city
+            };
+            return data
+        })
+
+        console.log(payload);
+
+        setIsLoading(true);
+
+        await removeRestrictions(payload)
+        .then((res) => {
+            if(res?.msg?.includes("err")) {
+                toast.error(t('errorWhenTryingToRemoveRestrictions'));
+                return;
+            }
+            setRightSide([]);
+            toast.success(t('restrictionsRemovedSuccessfully'));
+        }).catch(() => {
+            toast.error(t('errorWhenTryingToRemoveRestrictions'));
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
     }
 
     let fields = [
         {
-            displayName: t('selectDriversToAddRestrictions'),
+            displayName: t('selectRestrictionsToRemove'),
             linkedTo: 'driverToLink',
             fieldType: "transferList",
         },
@@ -81,7 +149,7 @@ const RestrictStatesForDriversStepTwo = ({
 
         if(field.fieldType === "select") {
             return <>
-                <Typography> {field.displayName} </Typography>
+                <Typography sx={{fontWeight:'bold'}}> {field.displayName} </Typography>
                 <Select 
                     sx={{width:"30%"}} 
                     type={field.type} 
@@ -99,23 +167,23 @@ const RestrictStatesForDriversStepTwo = ({
         if(field.fieldType === "transferList") {
 
             return <>
-                <Typography> {field.displayName} </Typography>
+                <Typography sx={{fontWeight:'bold'}}> {field.displayName} </Typography>
                 <TransferList 
                     disabledForm={isLoading}
                     left={leftSide}
                     setLeft={setLeftSide}
                     right={rightSide}
                     setRight={setRightSide}
-                    loading={loadingTransferList}
-                    leftTitle={t('available')}
-                    rightTitle={t('toLink')}
+                    loading={isLoading}
+                    leftTitle={t('existentRestrictions')}
+                    rightTitle={t('restrictionsToRemove')}
                 />
             </>
         }
 
         // generic field
         return <>
-            <Typography> {field.displayName} </Typography>
+            <Typography sx={{fontWeight:'bold'}}> {field.displayName} </Typography>
             <TextField sx={{width:"30%"}} type={field.type} 
             error={fieldsData[field.linkedTo] === ""}
             onChange={(e) => setFieldsData({
@@ -126,18 +194,25 @@ const RestrictStatesForDriversStepTwo = ({
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
+       
+        <Box sx={{
+            display:'flex', 
+            justifyContent:'flex-start', 
+            width:"95%",
+            position:"absolute", 
+        }}>
+            <Button onClick={goBack} variant={'outlined'} disabled={isLoading}>{t('goBack')}</Button>
+        </Box>
+
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
-        {!loadingTransferList &&
-            (
-                <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading}>
-                    {t('confirmSelectionAndRestrict')}
-                </Button>
-            )
-        }
+        
+        <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading || rightSide.length === 0}>
+            {t('confirmSelectionAndRestrict')}
+        </Button>
     </Box>
 
 }
 
-export default RestrictStatesForDriversStepTwo;
+export default RemoveRestrictCitiesForDriversStepTwo;

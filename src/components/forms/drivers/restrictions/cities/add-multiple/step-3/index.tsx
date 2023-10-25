@@ -21,7 +21,8 @@ import { STATES_LIST } from "@/utils/constants";
 import { Item } from "@/types/types";
 
 const RestrictStatesForDriversStepTwo = ({
-    selectedUsers,
+    goBack,
+    selectedDriversAndStates
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -43,7 +44,6 @@ const RestrictStatesForDriversStepTwo = ({
     const [isLoading, setIsLoading] = useState(false);
 
     const [loadingTransferList, setLoadingTransferList] = useState(false);
-    console.log(selectedUsers)
     console.log(setIsLoading)
     console.log(setLoadingTransferList)
 
@@ -125,6 +125,16 @@ const RestrictStatesForDriversStepTwo = ({
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
+                       
+        <Box sx={{
+            display:'flex', 
+            justifyContent:'flex-start', 
+            width:"95%",
+            position:"absolute", 
+        }}>
+            <Button onClick={goBack} variant={'outlined'} disabled={isLoading}>{t('goBack')}</Button>
+        </Box>
+        
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}

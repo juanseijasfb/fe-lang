@@ -24,7 +24,7 @@ const RestrictStatesForDriversStepOne = () => {
     if(formStep === "1") {
         return <>
             <h1 style={{fontSize:"30px", display:'flex', justifyContent:'center'}}>
-                {t('createDriverRestrictions')}
+                {t('createStateRestrictions')}
             </h1>
             {renderDriverSelection()}
         </>

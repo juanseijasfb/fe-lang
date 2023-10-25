@@ -24,6 +24,8 @@ const RestrictCitiesForDriversStepTwo = ({
     selectedUsers,
     goNext,
     goBack,
+    selectedDriversAndStates,
+    setSelectedDriversAndStates,
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -39,7 +41,7 @@ const RestrictCitiesForDriversStepTwo = ({
     })
 
     const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
-    const [rightSide, setRightSide] = useState([]); // drivers seleccionados
+    const [rightSide, setRightSide] = useState([]); // states seleccionados
 
 
     const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +54,8 @@ const RestrictCitiesForDriversStepTwo = ({
 
 
     const nextStep = async () => {
-      
+        setSelectedDriversAndStates(rightSide);
+        goNext();
     }
 
     let fields = [
@@ -116,13 +119,23 @@ const RestrictCitiesForDriversStepTwo = ({
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
+               
+        <Box sx={{
+            display:'flex', 
+            justifyContent:'flex-start', 
+            width:"95%",
+            position:"absolute", 
+        }}>
+            <Button onClick={goBack} variant={'outlined'} disabled={isLoading}>{t('goBack')}</Button>
+        </Box>
+        
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
         {!loadingTransferList &&
             (
                 <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading}>
-                    {t('confirmSelectionAndRestrict')}
+                    {t('confirmSelectionAndContinue')}
                 </Button>
             )
         }

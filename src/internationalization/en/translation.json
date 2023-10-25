@@ -91,13 +91,16 @@
     "goBack": "Go Back",
     "statesRestrictedSuccessfully": "States restricted successfully for the selected drivers.",
     "errorWhenTryingToRestrictState": "There was an error when trying to restrict the states.",
-    "removeStatesRestrictions": "Remove state restrictions",
-    "removeCitiesRestrictions": "Remove cities restrictions",
     "selectRestrictionsToRemove": "Select restrictions to remove",
     "existentRestrictions": "Existent restrictions",
     "restrictionsToRemove": "Restrictions to remove",
     "mustSelectDriverToContinue": "You must select at least one driver to operate",
     "mustSelectRestrictionToRemove": "You must select at least one restriction to remove",
     "errorWhenTryingToRemoveRestrictions": "There was an error when trying to remove restrictions",
-    "restrictionsRemovedSuccessfully": "The restrictions has been removed successfully"
+    "restrictionsRemovedSuccessfully": "The restrictions has been removed successfully",
+    "createStateRestrictions": "Create state restrictions",
+    "createCityRestrictions": "Create city restrictions",
+    "removeStatesRestrictions": "Remove state restrictions",
+    "removeCitiesRestrictions": "Remove cities restrictions",
+    "noResultsFound": "Couldn't find results."
 }

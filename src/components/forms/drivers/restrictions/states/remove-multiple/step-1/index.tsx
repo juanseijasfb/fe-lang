@@ -18,12 +18,10 @@ const RemoveStatesRestrictionsForDrivers = () => {
         renderDriverSelection
     } = useBatchSelection({ parentCb: updateStep, filterListOnGoBack: filterListOnGoBack});
 
-
-
     if(formStep === "1") {
         return <>
             <h1 style={{fontSize:"30px", display:'flex', justifyContent:'center'}}>
-                {t('removeDriverRestrictions')}
+                {t('removeStatesRestrictions')}
             </h1>
             {renderDriverSelection()}
         </>
