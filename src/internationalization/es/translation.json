@@ -102,5 +102,8 @@
     "removeCitiesRestrictions": "Quitar restricciones de ciudades",
     "createStateRestrictions": "Crear restricciones de estados",
     "createCityRestrictions": "Crear restricciones de ciudades",
-    "noResultsFound": "No se encontraron resultados."
+    "noResultsFound": "No se encontraron resultados.",
+    "selectStatesToGetCities": "Seleccione los estados para obtener ciudades",
+    "selectCitiesToRestrict": "Seleccione las ciudades a restringir",
+    "onlyOneState": "Solo puedes operar con las ciudades de un estado."
 }

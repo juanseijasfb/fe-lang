@@ -59,12 +59,15 @@ const RestrictStatesForDriversStepTwo = ({
             restrictions.push(...statesMapped);
         })
 
-
-
         setIsLoading(true);
 
         await addRestrictions(restrictions)
-        .then(() => {
+        .then((res) => {
+            if(res?.msg?.includes("err")){
+                toast.error(t('errorWhenTryingToRestrictState'));
+                return;
+            }
+            setRightSide([])
             toast.success(t('statesRestrictedSuccessfully'));
         }).catch(() => {
             toast.error(t('errorWhenTryingToRestrictState'));

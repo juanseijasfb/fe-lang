@@ -5,12 +5,16 @@ import RestrictCitiesForDriversStepTree from "../step-3";
 import { useTranslation } from "react-i18next";
 
 const RestrictCitiesForDriversStepOne = () => {
+    const goStepOne = () => {
+        setFormStep("1");
+    }
+
     const goStepTwo = () => {
         setFormStep("2");
     }
 
     const goStepThree = () => {
-        setFormStep("2");
+        setFormStep("3");
     }
 
     const {
@@ -21,7 +25,7 @@ const RestrictCitiesForDriversStepOne = () => {
 
     const { t } = useTranslation();
     const [formStep, setFormStep] = useState("1");
-    const [selectedDriversAndStates, setSelectedDriversAndStates] = useState([]);
+    const [selectedStates, setSelectedStates] = useState([]);
 
     if(formStep === "1") {
         return  <>
@@ -32,17 +36,16 @@ const RestrictCitiesForDriversStepOne = () => {
         </>
     } else if (formStep === "2") {
         return <RestrictCitiesForDriversStepTwo 
-        selectedUsers={rightSide} 
         goNext={goStepThree} 
-        goBack={goStepTwo}
-        selectedDriversAndStates={selectedDriversAndStates} 
-        setSelectedDriversAndStates={setSelectedDriversAndStates} />
+        goBack={goStepOne}
+        setSelectedStates={setSelectedStates} 
+        prevSelection={selectedStates} />
     }
-
     
     return <RestrictCitiesForDriversStepTree 
         goBack={goStepTwo}
-        selectedDriversAndStates={selectedDriversAndStates} 
+        selectedStates={selectedStates} 
+        selectedDrivers={rightSide}
     />
 }
 

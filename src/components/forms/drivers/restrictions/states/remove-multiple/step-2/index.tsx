@@ -72,7 +72,6 @@ const RemoveRestrictStatesForDriversStepTwo = ({
                 let newData: Item[] = [];
                 promisesArr.forEach((prom) => {
                     prom.then((x) => {
-                        console.log("items", x);
                         newData.push(...x);
                     })
                 })
@@ -104,8 +103,6 @@ const RemoveRestrictStatesForDriversStepTwo = ({
             };
             return data
         })
-
-        console.log(payload);
 
         setIsLoading(true);
 

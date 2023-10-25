@@ -17,6 +17,7 @@ const TransferList = ({
   loading = false,
   leftTitle = "Disponible",
   rightTitle = "A vincular",
+  disableAddAll = false,
 }) => {
   
   const [leftSearchValue, setLeftSearchValue] = useState<ItemTlist | null>(null);
@@ -148,6 +149,7 @@ const TransferList = ({
 
       <Grid container justifyContent="center" alignItems="center" sx={{width:"25%"}}>
         <Box sx={{display:'flex', flexDirection:'column'}}>
+         {!disableAddAll && (
           <Button
               disabled={disabledForm}
               sx={{ marginTop: 2 }}
@@ -157,6 +159,7 @@ const TransferList = ({
           >
             {`${t('addAll')} >>`}
           </Button>
+         )}
           <Button
             disabled={disabledForm}
             sx={{ marginTop: 2 }}

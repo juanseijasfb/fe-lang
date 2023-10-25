@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -18,11 +18,14 @@ import TransferList from "@/components/transfer-list";
 // import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { STATES_LIST } from "@/utils/constants";
-import { Item } from "@/types/types";
+import { Item, RestrictionPayload } from "@/types/types";
+import { addRestrictions, getCitiesByState } from "@/services/ApiServices";
+import { toast } from "react-toastify";
 
 const RestrictStatesForDriversStepTwo = ({
     goBack,
-    selectedDriversAndStates
+    selectedStates,
+    selectedDrivers,
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -30,38 +33,108 @@ const RestrictStatesForDriversStepTwo = ({
         dispatcher: user?.email || "",
     });
 
-    const mappedStates = STATES_LIST.map((x, i) => {
-        return {
-            id: i,
-            value: x,
-        }
-    })
-
-    const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
-    const [rightSide, setRightSide] = useState([]); // drivers seleccionados
-
+    const [leftSide, setLeftSide] = useState<Item[]>(); // sin seleccionar
+    const [rightSide, setRightSide] = useState<Item[]>([]); // drivers seleccionados
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [loadingTransferList, setLoadingTransferList] = useState(false);
-    console.log(setIsLoading)
-    console.log(setLoadingTransferList)
+
+    useEffect(() => {
+        setIsLoading(true);
+        const getDriversRestrictions = async () => {
+                const statesList = selectedStates.map((x) => x.value);
+
+                let promisesArr: Promise<any>[] = [];
+
+                statesList.forEach((state) => {
+                    const promise = new Promise<Item[]>((resolve, reject) => {
+                        return getCitiesByState({
+                            state: state,
+                        }).then((cityList) => {
+
+                            const itemsMapped: Item[] = cityList.map((city) => {
+                                return {
+                                    id: crypto.randomUUID(),
+                                    value: `${city}:${state}`,
+                                };
+                            })
+
+                            console.log("itemsMapped", itemsMapped)
+
+                            if(itemsMapped.length <= 0) {
+                                toast.info(t("noResultsFound"));
+                            }
+
+                            resolve(itemsMapped);
+                        })
+                        .catch(() => {
+                            reject()
+                            return [];
+                        })
+                    });
+                    promisesArr.push(promise);
+                });
+
+            Promise.all(promisesArr).then(() => {
+                let newData: Item[] = [];
+                promisesArr.forEach((prom) => {
+                    prom.then((x) => {
+                        console.log("prom",x);
+
+                        newData.push(...x);
+                    })
+                })
+                console.log(newData);
+
+
+                setLeftSide(newData);
+
+            }).finally(() => {
+                setIsLoading(false);
+            })
+        
+        }
+
+        getDriversRestrictions();
+    }, []);
 
 
     const nextStep = async () => {
-        // setIsLoading(true);
-        // const payload = {
-        //     dispatcher: fieldsData.dispatcher,
-        //     driversList: leftSide.map((x: {id: number, value: string}) => x.id).join(","),
-        // };
 
-        // await removeDriverFromDispatcher(payload)
-        // .then(() => {
-        //     linkDrivers();
-        // }).catch(() => {
-        //     setIsLoading(false);
-        //     toast.error(`${t('errorTryingToUnlink')}`);
-        // })
+        let restrictions: RestrictionPayload[] = [];
+
+        selectedDrivers.forEach((x) => {
+            const statesMapped = rightSide.map((y) => {
+                const data =  {
+                    subject: "D",
+                    type: "CI", 
+                    subjectValue: x?.value, 
+                    typeValue: y?.value,
+                    validUntil: "2099-12-31 00:00:00"
+                };
+               return data
+            })
+
+            restrictions.push(...statesMapped);
+        })
+
+        setIsLoading(true);
+
+        await addRestrictions(restrictions)
+        .then((res) => {
+            if(res?.msg?.includes("err")){
+                toast.error(t('errorWhenTryingToRestrictCities'));
+                return;
+            }
+            setRightSide([])
+            toast.success(t('citiesRestrictedSuccessfully'));
+        }).catch(() => {
+            toast.error(t('errorWhenTryingToRestrictCities'));
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
     }
 
     let fields = [
@@ -100,6 +173,7 @@ const RestrictStatesForDriversStepTwo = ({
             return <>
                 <Typography> {field.displayName} </Typography>
                 <TransferList 
+                    disableAddAll
                     disabledForm={isLoading}
                     left={leftSide}
                     setLeft={setLeftSide}
@@ -134,7 +208,11 @@ const RestrictStatesForDriversStepTwo = ({
         }}>
             <Button onClick={goBack} variant={'outlined'} disabled={isLoading}>{t('goBack')}</Button>
         </Box>
-        
+                
+        <h1 style={{fontSize:"30px", display:'flex', justifyContent:'center'}}>
+            {t('selectCitiesToRestrict')}
+        </h1>
+
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
