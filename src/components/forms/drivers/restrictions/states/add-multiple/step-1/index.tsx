@@ -1,10 +1,12 @@
 import useBatchSelection from "@/hooks/useBatchUserSelection";
 import { useState } from "react";
-import RestrictStatesForDriversStepTwo from "../add-multiple/step-2";
+import RestrictStatesForDriversStepTwo from "../step-2";
+import { useTranslation } from "react-i18next";
 
 const RestrictStatesForDriversStepOne = () => {
     const [formStep, setFormStep] = useState("1");
     const [filterListOnGoBack, setFilterListOnGoBack] = useState(false);
+    const { t } = useTranslation();
 
     const updateStep = () => {
         setFormStep("2");
@@ -20,7 +22,12 @@ const RestrictStatesForDriversStepOne = () => {
 
 
     if(formStep === "1") {
-        return renderDriverSelection();
+        return <>
+            <h1 style={{fontSize:"30px", display:'flex', justifyContent:'center'}}>
+                {t('createDriverRestrictions')}
+            </h1>
+            {renderDriverSelection()}
+        </>
     } 
 
     return <RestrictStatesForDriversStepTwo selectedUsers={rightSide} goBack={() => setFormStep("1")} />;

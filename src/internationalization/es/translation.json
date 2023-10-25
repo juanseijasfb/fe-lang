@@ -30,9 +30,8 @@
     "create": "Crear",
     "edit": "Editar",
     "delete": "Borrar",
-    "createCarrierRestriction": "Crear restricción de carrier",
-    "createDriverRestriction": "Crear restricción de driver",
-    "createDispatcherRestriction": "Crear restricción de dispatcher",
+    "createCarrierRestriction": "Crear restricciónes de carrier",
+    "createDriverRestrictions": "Crear restricciónes de driver",
     "noBrokerFoundForMc": "No se encontraron brokers para el MC",
     "selectTypeOfRestrictionForm": "Seleccione el tipo de formulario de restricción",
     "carrierToAssignRestriction": "Carrier a asignar la restricción",
@@ -91,5 +90,13 @@
     "selectStatesToRestrict": "Seleccione los estados a restringir",
     "goBack": "Volver",
     "statesRestrictedSuccessfully": "Estados restringidos con éxito para los drivers seleccionados.",
-    "errorWhenTryingToRestrictState": "Hubo un error al intentar restringir los estados. "
+    "errorWhenTryingToRestrictState": "Hubo un error al intentar restringir los estados.",
+    "removeStatesRestrictions": "Quitar restricciones de estado",
+    "selectRestrictionsToRemove": "Seleccione las restricciones a remover",
+    "existentRestrictions": "Restricciones existentes",
+    "restrictionsToRemove": "Restricciones a remover",
+    "mustSelectDriverToContinue": "Debe seleccionar por lo menos un driver para continuar.",
+    "mustSelectRestrictionToRemove": "Debe seleccionar por lo menos una restriccion a remover.",
+    "errorWhenTryingToRemoveRestrictions": "Hubo un error al intentar remover las restricciones",
+    "restrictionsRemovedSuccessfully": "Las restricciones han sido removidas con exito."
 }

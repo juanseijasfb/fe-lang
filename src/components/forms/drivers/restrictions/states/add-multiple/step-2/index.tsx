@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 import { 
-    Box, Button, CircularProgress, MenuItem,
+    Box, Button, MenuItem,
     Select, TextField, Typography 
 } from "@mui/material";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { 
-    addMultipleRestrictions
+    addRestrictions
 } from '@/services/ApiServices';
 
 import TransferList from "@/components/transfer-list";
@@ -63,7 +63,7 @@ const RestrictStatesForDriversStepTwo = ({
 
         setIsLoading(true);
 
-        await addMultipleRestrictions(restrictions)
+        await addRestrictions(restrictions)
         .then(() => {
             toast.success(t('statesRestrictedSuccessfully'));
         }).catch(() => {

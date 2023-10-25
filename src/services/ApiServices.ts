@@ -133,7 +133,7 @@ export const addRestriction = async (
     //     validUntil = "2099-12-31 00:00:00"
     // },
 // ]
-export const addMultipleRestrictions = async ( restrictions ) => {
+export const addRestrictions = async ( restrictions ) => {
     return fetch(`${ROOT_URL_5000}/addRestrictions`,
         {
             method: "POST",
@@ -211,32 +211,17 @@ export const removeRestriction = async (
         });
 };
 
-export const removeMultipleRestrictions = async (
- [
-    // {
-    //     subject, // D, C
-    //     type, // CI, ST, B
-    //     subjectValue, // driver name
-    //     typeValue,
-    // }
- ]
+export const removeRestrictions = async (
+    restrictionsToRemove
 ) => {
 
-    return fetch(`${ROOT_URL_5001}/removeMultipleRestrictions`,
+    return fetch(`${ROOT_URL_5000}/removeRestrictions`,
         {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                restrictions: [
-                    {}
-                ]
-            })
-            // headers: {
-            //     Accept: "text/html; charset=utf-8",
-            //     "Content-Type": "text/html; charset=utf-8",
-            // },
+            body: JSON.stringify(restrictionsToRemove)
         })
         .then((x) => x.text())
         .then((res) => res)
@@ -245,7 +230,7 @@ export const removeMultipleRestrictions = async (
         });
 };
 
-export const getRestrictions = async ({ carrier, driverName }) => {
+export const getRestrictions = async ({ carrier = "", driverName = "" }) => {
     return fetch(`${ROOT_URL_5000}/getRestrictions?carrier=${carrier}&driver=${driverName}`, {
         headers: {
             "Content-Type": "application/json",

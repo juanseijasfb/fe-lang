@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -8,17 +8,13 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { 
-    addDriverToDispatcher, 
-    getDriversList,
-    removeDriverFromDispatcher,
-    getDispatcherList, 
-    addMultipleRestrictions
+    getRestrictions,
+    removeRestrictions
 } from '@/services/ApiServices';
 
 import TransferList from "@/components/transfer-list";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { STATES_LIST } from "@/utils/constants";
 import { Item, RestrictionPayload } from "@/types/types";
 
 const RemoveRestrictStatesForDriversStepTwo = ({
@@ -31,47 +27,95 @@ const RemoveRestrictStatesForDriversStepTwo = ({
         dispatcher: user?.email || "",
     });
 
-    const mappedStates = STATES_LIST.map((x, i) => {
-        return {
-            id: i,
-            value: x,
-        }
-    })
-
-    const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
+    const [leftSide, setLeftSide] = useState<Item[]>([]); // sin seleccionar
     const [rightSide, setRightSide] = useState<Item[]>([]); // drivers seleccionados
-
 
     const [isLoading, setIsLoading] = useState(false);
 
+
+
+    useEffect(() => {
+        setIsLoading(true);
+        const getDriversRestrictions = async () => {
+                let promisesArr: Promise<any>[] = [];
+
+                selectedUsers.forEach((x) => {
+                    const promise = new Promise<Item[]>((resolve, reject) => {
+                        return getRestrictions({
+                            carrier: "",
+                            driverName: x.value,
+                        }).then((result) => {
+
+                            const filtered = result.filter((z) => z.Type === "ST");
+                            const itemsMapped: Item[] = filtered.map((states, i) => {
+                                const name = `${states.TypeValue} - ${x.value}`;
+                                return {
+                                    id: crypto.randomUUID(),
+                                    value: name,
+                                    metadata: {
+                                        driver: x.value,
+                                        state: states.TypeValue,
+                                        fullStateName: states.TypeValue,
+                                    },
+                                };
+                            })
+
+                            resolve(itemsMapped);
+                        })
+                        .catch(() => {
+                            reject()
+                            return [];
+                        })
+                    });
+                    promisesArr.push(promise);
+                });
+
+            Promise.all(promisesArr).then(() => {
+                let newData: Item[] = [];
+                promisesArr.forEach((prom) => {
+                    prom.then((x) => {
+                        console.log("items", x);
+                        newData.push(...x);
+                    })
+                })
+
+                setLeftSide(newData);
+
+            }).finally(() => {
+                setIsLoading(false);
+            })
+        
+        }
+
+        getDriversRestrictions();
+    }, []);
+
     const nextStep = async () => {
 
-        let restrictions: RestrictionPayload[] = [];
+        if(rightSide.length <= 0){
+            toast.error(t("mustSelectRestrictionToRemove"));
+            return;
+        }
 
-        selectedUsers.forEach((x) => {
-            const statesMapped = rightSide.map((y) => {
-                const data =  {
-                    subject: "D",
-                    type: "ST", 
-                    subjectValue: x?.value, 
-                    typeValue: y?.value,
-                    validUntil: "2099-12-31 00:00:00"
-                };
-               return data
-            })
-
-            restrictions.push(...statesMapped);
+        const payload = rightSide.map((x) => {
+            const data =  {
+                subject: "D",
+                type: "ST", 
+                subjectValue: x?.metadata?.driver, 
+                typeValue: x?.metadata?.state
+            };
+            return data
         })
 
-
+        console.log(payload);
 
         setIsLoading(true);
 
-        await addMultipleRestrictions(restrictions)
+        await removeRestrictions(payload)
         .then(() => {
-            toast.success(t('statesRestrictedSuccessfully'));
+            toast.success(t('restrictionsRemovedSuccessfully'));
         }).catch(() => {
-            toast.error(t('errorWhenTryingToRestrictState'));
+            toast.error(t('errorWhenTryingToRemoveRestrictions'));
         })
         .finally(() => {
             setIsLoading(false);
@@ -80,7 +124,7 @@ const RemoveRestrictStatesForDriversStepTwo = ({
 
     let fields = [
         {
-            displayName: t('selectStatesToRestrict'),
+            displayName: t('selectRestrictionsToRemove'),
             linkedTo: 'driverToLink',
             fieldType: "transferList",
         },
@@ -120,8 +164,8 @@ const RemoveRestrictStatesForDriversStepTwo = ({
                     right={rightSide}
                     setRight={setRightSide}
                     loading={isLoading}
-                    leftTitle={t('available')}
-                    rightTitle={t('toLink')}
+                    leftTitle={t('existentRestrictions')}
+                    rightTitle={t('restrictionsToRemove')}
                 />
             </>
         }

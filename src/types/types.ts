@@ -51,6 +51,7 @@ export type RouteTableProps = {
 export interface Item {
     id: number;
     value: string;
+    metadata?: any;
 }
 export interface ItemTlist {
     id: number;

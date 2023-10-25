@@ -96,6 +96,11 @@ const BatchSelectDrivers = ({
     }, [fieldsData.dispatcher]);
 
     const nextStep = async () => {
+
+        if(rightSide.length <= 0){
+            toast.error(t('mustSelectDriverToContinue'));
+            return;
+        }
         parentCb();
     }
 
