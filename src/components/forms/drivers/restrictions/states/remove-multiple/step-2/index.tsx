@@ -32,8 +32,6 @@ const RemoveRestrictStatesForDriversStepTwo = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-
-
     useEffect(() => {
         setIsLoading(true);
         const getDriversRestrictions = async () => {
@@ -112,7 +110,12 @@ const RemoveRestrictStatesForDriversStepTwo = ({
         setIsLoading(true);
 
         await removeRestrictions(payload)
-        .then(() => {
+        .then((res) => {
+            if(res?.msg?.includes("err")) {
+                toast.error(t('errorWhenTryingToRemoveRestrictions'));
+                return;
+            }
+            setRightSide([]);
             toast.success(t('restrictionsRemovedSuccessfully'));
         }).catch(() => {
             toast.error(t('errorWhenTryingToRemoveRestrictions'));

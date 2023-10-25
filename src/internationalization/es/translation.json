@@ -92,6 +92,7 @@
     "statesRestrictedSuccessfully": "Estados restringidos con éxito para los drivers seleccionados.",
     "errorWhenTryingToRestrictState": "Hubo un error al intentar restringir los estados.",
     "removeStatesRestrictions": "Quitar restricciones de estado",
+    "removeCitiesRestrictions": "Quitar restricciones de ciudades",
     "selectRestrictionsToRemove": "Seleccione las restricciones a remover",
     "existentRestrictions": "Restricciones existentes",
     "restrictionsToRemove": "Restricciones a remover",

@@ -20,6 +20,8 @@ import ErrorComponent from "@/components/errorComponent";
 import LinkToDispatcherForm from "@/components/forms/dispatchers/link-to-dispatcher-form";
 import RestrictStatesForDriversStepOne from "@/components/forms/drivers/restrictions/states/add-multiple/step-1";
 import RemoveStatesRestrictionsForDrivers from "@/components/forms/drivers/restrictions/states/remove-multiple/step-1";
+import RestrictCitiesForDriversStepOne from "@/components/forms/drivers/restrictions/cities/add-multiple/step-1";
+import RemoveCitiesRestrictionsForDrivers from "@/components/forms/drivers/restrictions/cities/remove-multiple/step-1";
 
 const router = createBrowserRouter([
     {
@@ -131,6 +133,24 @@ const router = createBrowserRouter([
         path: "/restrcitions/remove/driver/state",
         element: <Layout> 
             <RemoveStatesRestrictionsForDrivers /> 
+        </Layout>,
+        errorElement: <Layout>
+            <ErrorComponent />
+        </Layout>, 
+    },
+    {
+        path: "/restrcitions/add/driver/city",
+        element: <Layout> 
+            <RestrictCitiesForDriversStepOne /> 
+        </Layout>,
+        errorElement: <Layout>
+            <ErrorComponent />
+        </Layout>, 
+    },
+    {
+        path: "/restrcitions/remove/driver/city",
+        element: <Layout> 
+            <RemoveCitiesRestrictionsForDrivers /> 
         </Layout>,
         errorElement: <Layout>
             <ErrorComponent />

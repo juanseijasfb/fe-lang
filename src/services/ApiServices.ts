@@ -222,7 +222,7 @@ export const removeRestrictions = async (
             },
             body: JSON.stringify(restrictionsToRemove)
         })
-        .then((x) => x.text())
+        .then((x) => x.json())
         .then((res) => res)
         .catch(() => {
             throw new Error("Hubo un error al intentar remover la restriccion.");

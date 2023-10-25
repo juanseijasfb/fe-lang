@@ -1,9 +1,14 @@
 import useBatchSelection from "@/hooks/useBatchUserSelection";
 import { useState } from "react";
-import RestrictStatesForDriversStepTwo from "../step-2";
+import RestrictCitiesForDriversStepTwo from "../step-2";
+import RestrictCitiesForDriversStepTree from "../step-3";
 
 const RestrictCitiesForDriversStepOne = () => {
-    const updateStep = () => {
+    const goStepTwo = () => {
+        setFormStep("2");
+    }
+
+    const goStepThree = () => {
         setFormStep("2");
     }
 
@@ -11,17 +16,17 @@ const RestrictCitiesForDriversStepOne = () => {
         // leftSide, 
         rightSide,
         renderDriverSelection
-    } = useBatchSelection({ parentCb: updateStep, filterListOnGoBack: true});
+    } = useBatchSelection({ parentCb: goStepTwo, filterListOnGoBack: true});
 
     const [formStep, setFormStep] = useState("1");
 
     if(formStep === "1") {
         return renderDriverSelection();
     } else if (formStep === "2") {
-        return <RestrictStatesForDriversStepTwo selectedUsers={rightSide}/>
+        return <RestrictCitiesForDriversStepTwo selectedUsers={rightSide} goNext={goStepThree} goBack={goStepTwo} />
     }
     else {
-        return <RestrictStatesForDriversStepTwo selectedUsers={rightSide}/>
+        return <RestrictCitiesForDriversStepTree selectedUsers={rightSide} />
     }
 
 }

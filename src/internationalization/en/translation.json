@@ -92,6 +92,7 @@
     "statesRestrictedSuccessfully": "States restricted successfully for the selected drivers.",
     "errorWhenTryingToRestrictState": "There was an error when trying to restrict the states.",
     "removeStatesRestrictions": "Remove state restrictions",
+    "removeCitiesRestrictions": "Remove cities restrictions",
     "selectRestrictionsToRemove": "Select restrictions to remove",
     "existentRestrictions": "Existent restrictions",
     "restrictionsToRemove": "Restrictions to remove",

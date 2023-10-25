@@ -74,10 +74,22 @@ function Navbar({navbarBlocked = true}) {
                     <Typography textAlign="center">{t('restrictStates')}</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
+                    navigate("/restrcitions/add/driver/city");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('restrictCities')}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
                     navigate("/restrcitions/remove/driver/state");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('removeStatesRestrictions')} </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/restrcitions/remove/driver/city");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('removeCitiesRestrictions')} </Typography>
                   </MenuItem>
                   {/* <MenuItem onClick={() => {
                     navigate("/delete/driver");
