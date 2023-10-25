@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -7,15 +7,15 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { 
-    addDriverToDispatcher, 
-    getDriversList,
-    removeDriverFromDispatcher,
-    getDispatcherList 
-} from '@/services/ApiServices';
+// import { 
+//     addDriverToDispatcher, 
+//     getDriversList,
+//     removeDriverFromDispatcher,
+//     getDispatcherList 
+// } from '@/services/ApiServices';
 
 import TransferList from "@/components/transfer-list";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { STATES_LIST } from "@/utils/constants";
 import { Item } from "@/types/types";
@@ -43,23 +43,10 @@ const RestrictStatesForDriversStepTwo = ({
     const [isLoading, setIsLoading] = useState(false);
 
     const [loadingTransferList, setLoadingTransferList] = useState(false);
+    console.log(selectedUsers)
+    console.log(setIsLoading)
+    console.log(setLoadingTransferList)
 
-    const linkDrivers = async () => {
-        const payload = {
-            dispatcher: fieldsData.dispatcher,
-            driversList: rightSide.map((x: {id: number, value: string}) => x.id).join(","),
-        };
-
-        await addDriverToDispatcher(payload)
-        .then(() => {
-            toast.success(`${t('driversLinkedSuccessfully')}`);
-        }).catch(() => {
-            toast.error(`${t('errorTryingToLink')}`);
-        })
-        .finally(() => {
-            setIsLoading(false);
-        })
-    }
 
     const nextStep = async () => {
         // setIsLoading(true);

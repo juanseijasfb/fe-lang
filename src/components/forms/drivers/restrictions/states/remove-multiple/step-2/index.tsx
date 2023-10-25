@@ -15,7 +15,7 @@ import {
 import TransferList from "@/components/transfer-list";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { Item, RestrictionPayload } from "@/types/types";
+import { Item } from "@/types/types";
 
 const RemoveRestrictStatesForDriversStepTwo = ({
     selectedUsers,
@@ -47,7 +47,7 @@ const RemoveRestrictStatesForDriversStepTwo = ({
                         }).then((result) => {
 
                             const filtered = result.filter((z) => z.Type === "ST");
-                            const itemsMapped: Item[] = filtered.map((states, i) => {
+                            const itemsMapped: Item[] = filtered.map((states) => {
                                 const name = `${states.TypeValue} - ${x.value}`;
                                 return {
                                     id: crypto.randomUUID(),

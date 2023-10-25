@@ -25,7 +25,8 @@ const BatchSelectDrivers = ({
     leftSide, setLeftSide,
     rightSide, setRightSide,
     availableDispatchers, setAvailableDispatchers,
-    parentCb, filterListOnGoBack
+    parentCb, filterListOnGoBack,
+    disableComponent = false
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -33,7 +34,6 @@ const BatchSelectDrivers = ({
         dispatcher: user?.email || "",
     });
 
-    const [isLinking, setIsLinking] = useState(false);
     const [loadingTransferList, setLoadingTransferList] = useState(true);
     const [loadingDispatchers, setLoadingDispatchers] = useState(true);
 
@@ -146,7 +146,7 @@ const BatchSelectDrivers = ({
             return <>
                 <Typography sx={{ fontWeight:'bold' }}> {field.displayName} </Typography>
                 <TransferList 
-                    disabledForm={isLinking}
+                    disabledForm={disableComponent}
                     left={leftSide}
                     setLeft={setLeftSide}
                     right={rightSide}
@@ -176,7 +176,7 @@ const BatchSelectDrivers = ({
         </Box> )}
         {!loadingTransferList &&
             (
-                <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLinking}>
+                <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={disableComponent}>
                     {t('confirmSelectionAndContinue')}
                 </Button>
             )

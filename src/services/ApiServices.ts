@@ -1,5 +1,4 @@
 const ROOT_URL_5000 = "https://fleetbooster.net:5000";
-const ROOT_URL_5001 = "https://fleetbooster.net:5001";
 
 export const getCarriersList = async (carrierName = "") => {
     return fetch(`${ROOT_URL_5000}/getCarriersList?carrier=${carrierName}`, {
