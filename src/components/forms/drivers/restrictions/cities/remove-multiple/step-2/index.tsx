@@ -59,10 +59,6 @@ const RemoveRestrictCitiesForDriversStepTwo = ({
                                 };
                             })
 
-                            if(itemsMapped.length <= 0) {
-                                toast.info(t("noResultsFound"));
-                            }
-
                             resolve(itemsMapped);
                         })
                         .catch(() => {
@@ -94,9 +90,6 @@ const RemoveRestrictCitiesForDriversStepTwo = ({
 
     const nextStep = async () => {
 
-        setRightSide([]);
-        toast.success("okk")
-        return;
         if(rightSide.length <= 0){
             toast.error(t("mustSelectRestrictionToRemove"));
             return;

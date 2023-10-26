@@ -25,14 +25,30 @@ const RestrictCitiesForDriversStepTwo = ({
         dispatcher: user?.email || "",
     });
 
-    const mappedStates = STATES_LIST.map((x, i) => {
-        return {
-            id: i,
-            value: x,
-        }
-    })
+    const mappedStates = () => {
 
-    const [leftSide, setLeftSide] = useState<Item[]>(mappedStates); // sin seleccionar
+        const prevStates = STATES_LIST.map((x, i) => {
+            return {
+                id: i,
+                value: x,
+            }
+        })
+
+        if(prevSelection?.length > 0) {
+
+            let data: { id: number, value : string}[] = [];
+            prevSelection.forEach((x: {id: number, value: string})=> {
+                const internal = prevStates.filter((z) =>  z.value !== x.value);
+                data = [...data, ...internal];
+            })
+
+            return data;
+        }
+
+        return prevStates;
+    }
+
+    const [leftSide, setLeftSide] = useState<Item[]>(mappedStates()); // sin seleccionar
     const [rightSide, setRightSide] = useState(prevSelection); // states seleccionados
 
     const nextStep = async () => {

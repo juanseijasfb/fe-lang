@@ -14,6 +14,7 @@ const CreateDriverForm = () => {
     const [fieldsData, setFieldsData] = useState({
         firstName: "",
         lastName: "",
+        email: "",
         mcNumber: "",
         maxWeight: 99999,
         carrierName: "",
@@ -98,6 +99,11 @@ const CreateDriverForm = () => {
         {
             displayName: t('lastName'),
             linkedTo: 'lastName',
+            fieldType: "textField",
+        },
+        {
+            displayName: "Email",
+            linkedTo: 'email',
             fieldType: "textField",
         },
         {

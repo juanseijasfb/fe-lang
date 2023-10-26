@@ -23,6 +23,7 @@ export const createDriver = async (payload) => {
             "firstName": payload.firstName,
             "lastName": payload.lastName,
             "mcNumber": payload.mcNumber,
+            "email": payload.email,
             "carrierName": payload.carrierName,
             "trailerType": payload.trailerType,
             "maxWeight": payload.maxWeight,
