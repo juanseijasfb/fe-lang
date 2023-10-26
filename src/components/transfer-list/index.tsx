@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import SearchIcon from '@mui/icons-material/Search';
 
 const TransferList = ({
   left = [] as Item[], 
@@ -106,12 +106,13 @@ const TransferList = ({
             <Box sx={{
               display:'flex',
               justifyContent:'end',
+              alignItems:'center',
               flex: 1,
             }} >
 
-              {leftSearchValue && <Button onClick={() => handleAddLeftSearch()}> 
+              {leftSearchValue ? <Button onClick={() => handleAddLeftSearch()}> 
                 {t('add')} 
-              </Button>}
+              </Button> : <SearchIcon /> }
 
               <Autocomplete
                 sx={{width:"50%"}}
@@ -185,12 +186,13 @@ const TransferList = ({
             <Box sx={{
               display:'flex',
               justifyContent:'end',
+              alignItems:'center',
               flex: 1,
             }} >
 
-              {rightSearchValue && <Button onClick={() => handleRemoveRightSearch()}> 
+              {rightSearchValue ? <Button onClick={() => handleRemoveRightSearch()}> 
                 {t('remove')} 
-              </Button>}
+              </Button> : <SearchIcon /> }
 
               <Autocomplete
                 sx={{width:"50%"}}
