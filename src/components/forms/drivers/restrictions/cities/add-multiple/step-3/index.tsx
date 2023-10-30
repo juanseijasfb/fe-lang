@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { 
     Box, Button, CircularProgress, MenuItem,
@@ -17,7 +17,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import TransferList from "@/components/transfer-list";
 // import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { STATES_LIST } from "@/utils/constants";
 import { Item, RestrictionPayload } from "@/types/types";
 import { addRestrictions, getCitiesByState } from "@/services/ApiServices";
 import { toast } from "react-toastify";
@@ -37,8 +36,6 @@ const RestrictStatesForDriversStepTwo = ({
     const [rightSide, setRightSide] = useState<Item[]>([]); // drivers seleccionados
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [loadingTransferList, setLoadingTransferList] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -179,7 +176,7 @@ const RestrictStatesForDriversStepTwo = ({
                     setLeft={setLeftSide}
                     right={rightSide}
                     setRight={setRightSide}
-                    loading={loadingTransferList}
+                    loading={isLoading}
                     leftTitle={t('available')}
                     rightTitle={t('toLink')}
                 />
@@ -216,7 +213,7 @@ const RestrictStatesForDriversStepTwo = ({
         {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
-        {!loadingTransferList &&
+        {!isLoading &&
             (
                 <Button variant='outlined' sx={{width:"30%"}} onClick={() => nextStep()} disabled={isLoading}>
                     {t('confirmSelectionAndRestrict')}
