@@ -373,3 +373,34 @@ export const getCitiesByState = async ({ state }) => {
             throw new Error()
         });
 };
+
+export const getPendingApprovals = () => {
+    return fetch(`${ROOT_URL_5000}/getPendingApprovalUsers`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+}
+
+
+export const acceptDriver = async (payload) => {
+
+    return fetch(`${ROOT_URL_5000}/approveUser`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify([payload])
+        })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error();
+        });
+};

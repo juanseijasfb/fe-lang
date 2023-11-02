@@ -5,11 +5,17 @@ import {
     Select, TextField, Typography 
 } from "@mui/material";
 
-import { createDriver, getCarriersList } from '@/services/ApiServices';
+import { acceptDriver, createDriver, getCarriersList } from '@/services/ApiServices';
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
-const CreateDriverForm = () => {
+type CreateDriver = {
+    preloadData?: any,
+    triggerDriverPreCreated?: boolean,
+    removeApprovalFromList?: () => void,
+}
+
+const CreateDriverForm = ({preloadData = {}, triggerDriverPreCreated = false, removeApprovalFromList}: CreateDriver) => {
     const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
         firstName: "",
@@ -27,8 +33,49 @@ const CreateDriverForm = () => {
     const [carrierNames, setCarrierNames] = useState({});
     const [loading, setLoading] = useState(false);
 
-    const tryCreateDriver = async () => {
+    useEffect(() => {
+        if(triggerDriverPreCreated){
+            setFieldsData({
+                firstName: preloadData?.firstName || "",
+                lastName: preloadData?.lastName || "",
+                email: preloadData?.email || "",
+                mcNumber: "",
+                maxWeight: 99999,
+                carrierName: "",
+                trailerType: "",
+            })
+        }
+    }, [triggerDriverPreCreated, preloadData]);
 
+    const triggerAcceptDriver = async (fullData) => {
+
+        const data = {
+            ...preloadData,
+            ...fullData,
+            "user_metadata": {
+                ...preloadData.user_metadata,
+                ...fullData,
+                pendingApproval: "false",
+            }
+        }
+        
+        await acceptDriver(data)
+        .then(() => {
+
+            if(removeApprovalFromList) {
+                removeApprovalFromList();
+            }
+            toast.success(` ${t('driverAcceptedInThePlatform')}`)
+        })
+        .catch(() => {
+            toast.error(`${t('errorWhenTryingToAccept')} driver`)
+        })
+        .finally(() => {
+            setLoading(false);
+        })
+    }
+
+    const tryCreateDriver = async () => {
         setLoading(true);
         const payload = {
             ...fieldsData
@@ -47,9 +94,13 @@ const CreateDriverForm = () => {
         await createDriver(payload)
         .then(() => {
             toast.success(`Driver ${t('createdSuccessfully')}`)
+
+            const keys = Object.keys(preloadData);
+            if(triggerDriverPreCreated && keys.length > 0) {
+                triggerAcceptDriver(payload)
+                return
+            }
             setLoading(false);
-            // el add driver no linkea mas a dispatcher.
-            // linkDriverToDispatcher(res.driverId);
         })
         .catch(() => {
             toast.error(`${t('errorWhenTryingToCreate')} driver`)
@@ -190,6 +241,7 @@ const CreateDriverForm = () => {
             <TextField sx={{width:"30%"}} type={field.valueType} 
             error={fieldsData[field.linkedTo] === "" && triedToCreate}
             defaultValue={fieldsData[field.linkedTo]}
+            value={fieldsData[field.linkedTo]}
             onChange={(e) => setFieldsData({
                 ...fieldsData,
                 [field.linkedTo]: e.target.value

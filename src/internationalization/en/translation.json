@@ -107,5 +107,11 @@
     "statesRestrictedSuccessfully": "States restricted successfully for the selected drivers.",
     "errorWhenTryingToRestrictState": "There was an error when trying to restrict the states.",
     "citiesRestrictedSuccessfully": "Cities restricted successfully for the selected drivers.",
-    "errorWhenTryingToRestrictCities": "There was an error when trying to restrict the selected cities."
+    "errorWhenTryingToRestrictCities": "There was an error when trying to restrict the selected cities.",
+    "acceptNewDriverRequests": "Accept new driver requests",
+    "acceptAndCreate": "Accept and create driver",
+    "pendingApprovals": "Pending approvals",
+    "noPendingApprovals": "No pending approvals",
+    "errorWhenTryingToAccept": "There was an error when trying to accept the ",
+    "driverAcceptedInThePlatform": "The driver was accepted in the platform."
 }

@@ -62,6 +62,12 @@ function Navbar({navbarBlocked = true}) {
                 onClose={() => setAnchorElDriver(null)}
               >
                   <MenuItem onClick={() => {
+                    navigate("/accept/driver");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('acceptNewDriverRequests')} </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
                     navigate("/create/driver");
                     setAnchorElDriver(null);
                   }}>
