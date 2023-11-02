@@ -5,6 +5,7 @@ import CreateDriverForm from "../create";
 const AcceptNewDriver = () => {
     const [pendingList, setPendingList] = useState([]);
     const [selectedDriverMetadata, setSelectedDriverMetadata] = useState<any>({});
+    const [hasSelectedDriverToApprove, setHasSelectedDriverToApprove] = useState<boolean>(false);
 
     const removeApprovalFromList = () => {
         const oldList = [...pendingList];
@@ -12,7 +13,7 @@ const AcceptNewDriver = () => {
         const newList = oldList.filter((x: any) => x.user_id !== selectedDriverMetadata.user_id);
 
         setPendingList(newList);
-        // setSelectedDriverMetadata({});
+        setHasSelectedDriverToApprove(false);
     }
 
     return <div style={{display:'flex'}}>
@@ -21,15 +22,19 @@ const AcceptNewDriver = () => {
                 selectedDriverMetadata={selectedDriverMetadata} 
                 setSelectedDriverMetadata={(val) => setSelectedDriverMetadata(val)} 
                 pendingList={pendingList}
-                setPendingList={(val) => setPendingList(val)} />
+                setPendingList={(val) => setPendingList(val)}
+                setHasSelectedDriverToApprove={(val) => setHasSelectedDriverToApprove(val)} />
         </div>
-        <div style={{width:"80%"}}>
-            <CreateDriverForm 
-                preloadData={selectedDriverMetadata} 
-                triggerDriverPreCreated={true} 
-                removeApprovalFromList={removeApprovalFromList} 
-            />
-        </div>
+        {hasSelectedDriverToApprove && (
+            <div style={{width:"80%"}}>
+                <CreateDriverForm 
+                    preloadData={selectedDriverMetadata} 
+                    triggerDriverPreCreated={true} 
+                    removeApprovalFromList={removeApprovalFromList} 
+                />
+            </div>
+        )}
+
     </div>
 }
 

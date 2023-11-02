@@ -7,7 +7,8 @@ import { CircularProgress } from "@mui/material";
 const PendingDriverApprovals = ({
     selectedDriverMetadata,
     setSelectedDriverMetadata,
-    pendingList, setPendingList
+    pendingList, setPendingList,
+    setHasSelectedDriverToApprove
 }) => {
 
     const { t } = useTranslation();
@@ -35,6 +36,7 @@ const PendingDriverApprovals = ({
     
     const handleSelect = (x) => {
         setSelectedDriverMetadata(x)
+        setHasSelectedDriverToApprove(true);
     };
 
     const renderList = () => {
