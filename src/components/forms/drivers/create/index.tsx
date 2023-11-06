@@ -92,7 +92,12 @@ const CreateDriverForm = ({preloadData = {}, triggerDriverPreCreated = false, re
         }
 
         await createDriver(payload)
-        .then(() => {
+        .then((res) => {
+            if(res?.msg === 'drv-err001') {
+                toast.error(` ${t('driverAlreadyExist')}`);
+                setLoading(false);
+                return;
+            }
             toast.success(`Driver ${t('createdSuccessfully')}`)
 
             const keys = Object.keys(preloadData);
