@@ -76,7 +76,7 @@ export const addDispatcher = async (payload) => {
         body: new URLSearchParams({
             "dispatcherEmail": payload.dispatcherEmail,
             "role": payload.role,
-            "enabled": payload.enabled === "true" ? "1" : "0",
+            "enabled": payload.enabled === true ? "1" : "0",
             "port": payload.port,
         })
     })
