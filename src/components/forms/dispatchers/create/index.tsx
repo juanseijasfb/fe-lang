@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 const AddDispatcherForm = () => {
     const { t } = useTranslation();
     const [fieldsData, setFieldsData] = useState({
+        firstName: "",
+        lastName: "",
         dispatcherEmail: "",
         role: "D",
         enabled: true,
@@ -59,6 +61,16 @@ const AddDispatcherForm = () => {
         {
             displayName: "Dispatcher Email",
             linkedTo: 'dispatcherEmail',
+            fieldType: "textField",
+        },
+        {
+            displayName: t('firstName'),
+            linkedTo: 'firstName',
+            fieldType: "textField",
+        },
+        {
+            displayName: t('lastName'),
+            linkedTo: 'lastName',
             fieldType: "textField",
         },
         {

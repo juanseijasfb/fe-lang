@@ -74,6 +74,8 @@ export const addDispatcher = async (payload) => {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
         body: new URLSearchParams({
+            "firstName": payload.firstName,
+            "lastName": payload.lastName,
             "dispatcherEmail": payload.dispatcherEmail,
             "role": payload.role,
             "enabled": payload.enabled === true ? "1" : "0",
