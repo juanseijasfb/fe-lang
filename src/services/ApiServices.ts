@@ -406,3 +406,26 @@ export const acceptDriver = async (payload) => {
             throw new Error();
         });
 };
+
+export const editDriver = async (payload) => {
+    return fetch(`${ROOT_URL_5000}/changeDriver`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "firstName": payload.firstName,
+            "lastName": payload.lastName,
+            "mcNumber": payload.mcNumber,
+            "email": payload.email,
+            "trailerType": payload.trailerType,
+            "carrier": payload.carrierName,
+            "maxWeight": payload.maxWeight,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch((err) => {
+            throw new Error("Hubo un error al intentar actualizar el driver.");
+        })
+};

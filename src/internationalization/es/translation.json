@@ -112,5 +112,6 @@
     "noPendingApprovals": "No hay aprobaciones pendientes",
     "errorWhenTryingToAccept": "Hubo un error al intentar aceptar el ",
     "driverAcceptedInThePlatform": "El driver fué aceptado en la plataforma.",
-    "driverAlreadyExist": "El driver ya existe en la plataforma."
+    "driverAlreadyExist": "El driver ya existe en la plataforma.",
+    "driverList": "Lista de drivers"
 }
