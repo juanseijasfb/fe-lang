@@ -26,7 +26,9 @@ const BatchSelectDrivers = ({
     rightSide, setRightSide,
     availableDispatchers, setAvailableDispatchers,
     parentCb, filterListOnGoBack,
-    disableComponent = false
+    disableComponent = false,
+    withDispatcher = true,
+    customFields = []
 }) => {
     const { t } = useTranslation();
     const { user } = useAuth0();
@@ -34,10 +36,14 @@ const BatchSelectDrivers = ({
         dispatcher: user?.email || "",
     });
 
-    const [loadingTransferList, setLoadingTransferList] = useState(true);
-    const [loadingDispatchers, setLoadingDispatchers] = useState(true);
+    const [loadingTransferList, setLoadingTransferList] = useState(false);
+    const [loadingDispatchers, setLoadingDispatchers] = useState(false);
 
     useEffect(() => {
+        if(!withDispatcher) return;
+
+        setLoadingDispatchers(true);
+
         const getAvailableDispatchers = async () => {
 
             const dispatchers = await getDispatcherList().catch(() => {
@@ -66,6 +72,8 @@ const BatchSelectDrivers = ({
     }, []);
 
     useEffect(() => {
+        if(!withDispatcher) return;
+
         setLoadingTransferList(true);
         const fetchDrivers = async () => {
             let driversList = await getDriversList().catch(() => {
@@ -104,19 +112,40 @@ const BatchSelectDrivers = ({
         parentCb();
     }
 
-    let fields = [
-        {
-            displayName: "Dispatcher",
-            linkedTo: 'dispatcher',
-            fieldType: "select",
-            options: availableDispatchers
-        },
-        {
-            displayName: t('selectDriversToOpperate'),
-            linkedTo: 'driverToLink',
-            fieldType: "transferList",
-        },
-    ];
+    let fields = () => {
+
+        if(!withDispatcher) {
+            return [
+                {
+                    displayName: t('selectDriversToOpperate'),
+                    linkedTo: 'driverToLink',
+                    fieldType: "transferList",
+                },
+            ]
+        }
+
+        return [
+            {
+                displayName: "Dispatcher",
+                linkedTo: 'dispatcher',
+                fieldType: "select",
+                options: availableDispatchers
+            },
+            {
+                displayName: t('selectDriversToOpperate'),
+                linkedTo: 'driverToLink',
+                fieldType: "transferList",
+            },
+        ];
+    }
+
+    const fieldsToMap = () => {
+        if(customFields.length > 0){
+            return customFields;
+        }
+
+        return fields();
+    }
 
 
     const renderFields = (field) => {
@@ -171,7 +200,7 @@ const BatchSelectDrivers = ({
     }
 
     return <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'50px', minHeight:"80vh"}}>
-        {fields.map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
+        {fieldsToMap().map((x, i) => <Box key={i} sx={{display:'flex', flexDirection:'column', alignItems:'center', gap:'20px', width:"100%"}}>
             {renderFields(x)}
         </Box> )}
         {!loadingTransferList &&

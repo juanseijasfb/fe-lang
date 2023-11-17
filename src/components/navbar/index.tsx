@@ -68,17 +68,29 @@ function Navbar({navbarBlocked = true}) {
                     <Typography textAlign="center">{t('acceptNewDriverRequests')} </Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {
+                    navigate("/disable/driver");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('disableDrivers')}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate("/enable/driver");
+                    setAnchorElDriver(null);
+                  }}>
+                    <Typography textAlign="center">{t('enableDrivers')}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
                     navigate("/create/driver");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('create')} driver</Typography>
                   </MenuItem>
-                  <MenuItem onClick={() => {
+                  {/* <MenuItem onClick={() => {
                     navigate("/edit/driver");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('edit')} driver</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={() => {
                     navigate("/restrcitions/add/driver/state");
                     setAnchorElDriver(null);

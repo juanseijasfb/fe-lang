@@ -429,3 +429,63 @@ export const editDriver = async (payload) => {
             throw new Error("Hubo un error al intentar actualizar el driver.");
         })
 };
+
+export const getDisabledDrivers = () => {
+    return fetch(`${ROOT_URL_5000}/getDisabledDrivers`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+}
+
+export const getEnabledDrivers = () => {
+    return fetch(`${ROOT_URL_5000}/getEnabledDrivers`, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error()
+        });
+}
+
+export const postEnableDrivers = async (driverIds) => {
+    return fetch(`${ROOT_URL_5000}/enableDrivers`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "driversId": driverIds,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error();
+        })
+};
+
+export const postDisableDrivers = async (driverIds) => {
+    return fetch(`${ROOT_URL_5000}/disableDrivers`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: new URLSearchParams({
+            "driversId": driverIds,
+        })
+    })
+        .then((x) => x.json())
+        .then((res) => res)
+        .catch(() => {
+            throw new Error();
+        })
+};

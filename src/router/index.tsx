@@ -24,6 +24,8 @@ import RestrictCitiesForDriversStepOne from "@/components/forms/drivers/restrict
 import RemoveCitiesRestrictionsForDrivers from "@/components/forms/drivers/restrictions/cities/remove-multiple/step-1";
 import AcceptNewDriver from "@/components/forms/drivers/acceptNewDriver";
 import EditDriverWrapper from "@/components/forms/drivers/edit";
+import DisableDrivers from "@/components/forms/drivers/disable";
+import EnableDrivers from "@/components/forms/drivers/enable";
 
 const router = createBrowserRouter([
     {
@@ -171,6 +173,24 @@ const router = createBrowserRouter([
         path: "/edit/driver",
         element: <Layout> 
             <EditDriverWrapper /> 
+        </Layout>,
+        errorElement: <Layout>
+            <ErrorComponent />
+        </Layout>, 
+    },
+    {
+        path: "/disable/driver",
+        element: <Layout> 
+            <DisableDrivers /> 
+        </Layout>,
+        errorElement: <Layout>
+            <ErrorComponent />
+        </Layout>, 
+    },
+    {
+        path: "/enable/driver",
+        element: <Layout> 
+            <EnableDrivers /> 
         </Layout>,
         errorElement: <Layout>
             <ErrorComponent />

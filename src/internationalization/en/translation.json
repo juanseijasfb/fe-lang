@@ -115,5 +115,13 @@
     "errorWhenTryingToAccept": "There was an error when trying to accept the ",
     "driverAcceptedInThePlatform": "The driver was accepted in the platform.",
     "driverAlreadyExist": "The driver already exist in the platform.",
-    "driverList": "Drivers List"
+    "driverList": "Drivers List",
+    "disableDrivers": "Disable drivers",
+    "enableDrivers": "Enable drivers",
+    "noDisabledDrivers": "There are 0 disabled drivers.",
+    "noEnabledDrivers": "There are 0 enabled drivers",
+    "driversEnabledSuccessfully": "Drivers enabled successfully.",
+    "driversDisabledSuccessfully": "Drivers disabled successfully.",
+    "failedToEnableDrivers": "There was an error when trying to enable drivers.",
+    "failedToDisableDrivers": "There was an error when trying to disable drivers."
 }

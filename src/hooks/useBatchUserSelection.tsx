@@ -1,7 +1,7 @@
 import BatchSelectDrivers from "@/components/forms/drivers/batch-select";
 import { useState } from "react";
 
-const useBatchSelection = ({parentCb, filterListOnGoBack, disableComponent = false}) => {
+const useBatchSelection = ({parentCb, filterListOnGoBack, disableComponent = false, withDispatcher = true}) => {
     const [leftSide, setLeftSide] = useState([]); // sin seleccionar
     const [rightSide, setRightSide] = useState([]); // drivers seleccionados
 
@@ -18,11 +18,14 @@ const useBatchSelection = ({parentCb, filterListOnGoBack, disableComponent = fal
             parentCb={parentCb}
             filterListOnGoBack={filterListOnGoBack}
             disableComponent={disableComponent}
+            withDispatcher={withDispatcher}
         />
     }
     return {
         leftSide,
         rightSide,
+        setLeftSide,
+        setRightSide,
         renderDriverSelection
     }
 }
