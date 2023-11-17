@@ -5,7 +5,7 @@ import {
     Select, TextField, Typography 
 } from "@mui/material";
 
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 
 import { editDriver, getCarriersList } from '@/services/ApiServices';

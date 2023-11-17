@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { getPendingApprovals } from '@/services/ApiServices';
-import { toast } from "react-toastify";
-import { CircularProgress } from "@mui/material";
+// import { useEffect, useState } from "react";
+// import { useTranslation } from "react-i18next";
+// import { getPendingApprovals } from '@/services/ApiServices';
+// import { toast } from "react-toastify";
+// import { CircularProgress } from "@mui/material";
 
 const ListBox = ({
     listElements,
@@ -13,8 +13,8 @@ const ListBox = ({
     title = ""
 }) => {
 
-    const { t } = useTranslation();
-    const [isLoadingList, setIsLoadingList] = useState(false);
+    // const { t } = useTranslation();
+    // const [isLoadingList, setIsLoadingList] = useState(false);
 
     const handleSelect = (x) => {
         setSelectedElement(x)
@@ -40,11 +40,11 @@ const ListBox = ({
     }
 
     const render = () => {
-        if(isLoadingList) {
-            return <div style={{width:"100%", height:"100%", display:"flex", alignItems:'center', justifyContent:"center"}}>
-                <CircularProgress /> 
-            </div>
-        }
+        // if(isLoadingList) {
+        //     return <div style={{width:"100%", height:"100%", display:"flex", alignItems:'center', justifyContent:"center"}}>
+        //         <CircularProgress /> 
+        //     </div>
+        // }
 
         if(listElements?.length === 0) {
             return  <div style={{width:"100%", height:"100%", display:"flex", alignItems:'center', justifyContent:"center"}}>

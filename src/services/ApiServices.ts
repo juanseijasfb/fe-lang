@@ -425,7 +425,7 @@ export const editDriver = async (payload) => {
     })
         .then((x) => x.json())
         .then((res) => res)
-        .catch((err) => {
+        .catch(() => {
             throw new Error("Hubo un error al intentar actualizar el driver.");
         })
 };

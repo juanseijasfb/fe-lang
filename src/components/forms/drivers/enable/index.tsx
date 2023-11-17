@@ -59,7 +59,7 @@ const EnableDrivers = () => {
             
             toast.error(t('failedToEnableDrivers'))
         })
-        .catch((x) => {
+        .catch(() => {
             toast.error(t('failedToEnableDrivers'))
         })
         .finally(() => {
