@@ -12,6 +12,7 @@ const EnableDrivers = () => {
     const {
         rightSide,
         setLeftSide,
+        setRightSide,
         renderDriverSelection
     } = useBatchSelection({
         parentCb: () => handleEnable(),
@@ -53,7 +54,8 @@ const EnableDrivers = () => {
         .then((x) => {
 
             if(x?.msg?.indexOf("ok") !== -1) {
-                toast.success(t('driversEnabledSuccessfully'))
+                toast.success(t('driversEnabledSuccessfully'));
+                setRightSide([]);
                 return;
             }
             

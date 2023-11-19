@@ -59,7 +59,6 @@ const DisableDrivers = () => {
                 setRightSide([]);
                 return;
             }
-
             
             toast.error(t('failedToDisableDrivers'))
         })

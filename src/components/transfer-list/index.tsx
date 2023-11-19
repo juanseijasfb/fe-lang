@@ -54,11 +54,13 @@ const TransferList = ({
   const handleAddAll = () => {
     setRight([...right, ...left]);
     setLeft([]);
+    setLeftSearchValue(null);
   };
 
   const handleRemoveAll = () => {
     setLeft([...right, ...left]);
     setRight([]);
+    setRightSearchValue(null);
   };
 
   const handleAddLeftSearch = () => {
