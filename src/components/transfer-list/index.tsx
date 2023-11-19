@@ -112,11 +112,14 @@ const TransferList = ({
               flex: 1,
             }} >
 
-              {leftSearchValue ? <Button onClick={() => handleAddLeftSearch()}> 
+              {leftSearchValue ? <Button 
+                disabled={disabledForm} 
+                onClick={() => handleAddLeftSearch()}> 
                 {t('add')} 
               </Button> : <SearchIcon /> }
 
               <Autocomplete
+                disabled={disabledForm}
                 sx={{width:"50%"}}
                 value={leftSearchValue}
                 onChange={(_e, newValue) => {
@@ -192,11 +195,14 @@ const TransferList = ({
               flex: 1,
             }} >
 
-              {rightSearchValue ? <Button onClick={() => handleRemoveRightSearch()}> 
+              {rightSearchValue ? <Button 
+              disabled={disabledForm} 
+              onClick={() => handleRemoveRightSearch()}> 
                 {t('remove')} 
               </Button> : <SearchIcon /> }
 
               <Autocomplete
+                disabled={disabledForm} 
                 sx={{width:"50%"}}
                 value={rightSearchValue}
                 onChange={(_e, newValue) => {
