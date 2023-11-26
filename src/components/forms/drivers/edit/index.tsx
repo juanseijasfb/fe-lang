@@ -11,14 +11,13 @@ const EditDriverWrapper = () => {
 
     const { t } = useTranslation();
     
+    const getDrivers =  async () => {
+        await getDriversList().then((x) => {
+            setDriverList(x);
+        })
+   }
+
     useEffect(() => {
-
-       const getDrivers =  async () => {
-            await getDriversList().then((x) => {
-                setDriverList(x);
-            })
-       }
-
        getDrivers();
     }, [])
 
@@ -37,6 +36,7 @@ const EditDriverWrapper = () => {
             <div style={{width:"80%"}}>
                 <EditDriverForm 
                     preloadData={selectedDriverMetadata} 
+                    getLeftList={getDrivers}
                 />
             </div>
         )}

@@ -85,12 +85,12 @@ function Navbar({navbarBlocked = true}) {
                   }}>
                     <Typography textAlign="center">{t('create')} driver</Typography>
                   </MenuItem>
-                  {/* <MenuItem onClick={() => {
+                  <MenuItem onClick={() => {
                     navigate("/edit/driver");
                     setAnchorElDriver(null);
                   }}>
                     <Typography textAlign="center">{t('edit')} driver</Typography>
-                  </MenuItem> */}
+                  </MenuItem>
                   <MenuItem onClick={() => {
                     navigate("/restrcitions/add/driver/state");
                     setAnchorElDriver(null);

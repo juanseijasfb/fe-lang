@@ -21,19 +21,26 @@ const ListBox = ({
         setHasSelectedElement(true);
     };
 
+    const contentRender = (user) => {
+        return <div style={{display:'flex', flexDirection:'column', padding:"20px"}}>
+        <span>{user?.fullName}</span>
+        <span>{user?.email || "(No email)"} </span>
+    </div>
+    }
+
     const renderList = () => {
 
         return  <ul style={{listStyle:"none", padding: 0, cursor:"pointer"}}>
 
                 {listElements.map((x: any) => {
                     if(x[keyToCompare] === selectedElement[keyToCompare]) {
-                        return <li key={x.user_id} style={{width:"100%", paddingLeft:"20px", background:"#1976d229"}} onClick={() => handleSelect(x)}>
-                        {x?.email}
+                        return <li key={crypto.randomUUID()} style={{width:"100%", paddingLeft:"20px", background:"#1976d229"}} onClick={() => handleSelect(x)}>
+                        {contentRender(x)}
                     </li>       
                     }
 
-                    return <li key={x.user_id} style={{width:"100%", paddingLeft:"20px"}} onClick={() => handleSelect(x)}>
-                        {x?.email}
+                    return <li key={crypto.randomUUID()} style={{width:"100%", paddingLeft:"20px"}} onClick={() => handleSelect(x)}>
+                        {contentRender(x)}
                     </li>                 
                 })}
             </ul>
@@ -57,7 +64,7 @@ const ListBox = ({
     return <>
     
         <h2> {title} </h2>
-        <div style={{backgroundColor:'', height:"80%", border:"1px solid black", overflowX:"hidden", overflowY:"auto"}}>
+        <div style={{backgroundColor:'', height:"80%", maxHeight:"50vh", border:"1px solid black", overflowX:"hidden", overflowY:"auto"}}>
         
             {render()}
 

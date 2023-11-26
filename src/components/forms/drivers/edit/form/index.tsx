@@ -12,7 +12,7 @@ import { editDriver, getCarriersList } from '@/services/ApiServices';
 
 import { toast } from "react-toastify";
 
-const EditDriverForm = (preloadData) => {
+const EditDriverForm = ({preloadData, getLeftList}) => {
     const [triedToCreate, setTriedtoCreate] = useState(false);
     const [isLoadingCarriers, setIsLoadingCarriers] = useState(false);
     const [carriers, setCarriers] = useState([]);
@@ -28,6 +28,30 @@ const EditDriverForm = (preloadData) => {
         trailerType: preloadData?.Equipment || "",
         maxWeight: preloadData?.maxWeight || "",
     });
+
+    useEffect(() => {
+
+        if(!preloadData?.fullName) {
+            return;
+        }
+        
+        const name = preloadData?.fullName?.split(",");
+        const firstName = name[1]
+        const lastName = name[0]
+
+        const newData = {
+            firstName: firstName || "",
+            lastName: lastName || "",
+            mcNumber: preloadData?.MCNumber || "",
+            email: preloadData?.email || "",
+            carrierName: preloadData?.Carrier || "",
+            trailerType: preloadData?.Equipment || "",
+            maxWeight: preloadData?.maxWeight || "",
+        };
+
+        setFieldsData(newData);
+
+    },[preloadData]);
 
 
     const updateDriver = async () => {
@@ -55,7 +79,10 @@ const EditDriverForm = (preloadData) => {
         })
         .catch(() => {
             toast.error("Hubo un error al intentar actualizar el driver")
+        })
+        .finally(() => {
             setLoading(false);
+            getLeftList();
         })
     }
 
@@ -166,8 +193,9 @@ const EditDriverForm = (preloadData) => {
                 <Select 
                     sx={{width:"30%"}} 
                     type={field.fieldType} 
-                    defaultValue={field.value || fieldsData[field.linkedTo]}
+                    // defaultValue={field.value || fieldsData[field.linkedTo]}
                     error={field.error}
+                    value={field.value || fieldsData[field.linkedTo]}
                     onChange={(e) => setFieldsData({
                         ...fieldsData,
                         [field.linkedTo]: e.target.value
