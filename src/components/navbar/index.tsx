@@ -269,7 +269,7 @@ function Navbar({navbarBlocked = true}) {
                       logoutParams: {
                         returnTo: window.location.href
                       }
-                    }),
+                    })
                   }}>
                   <Typography textAlign="center">Log out</Typography>
                 </MenuItem>
