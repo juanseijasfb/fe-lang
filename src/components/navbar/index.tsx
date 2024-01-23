@@ -265,11 +265,11 @@ function Navbar({navbarBlocked = true}) {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={() => {
-                    logout(
-                      {
-                        openUrl: false,
+                    logout({
+                      logoutParams: {
+                        returnTo: window.location.href
                       }
-                    );
+                    }),
                   }}>
                   <Typography textAlign="center">Log out</Typography>
                 </MenuItem>
